@@ -1,24 +1,40 @@
 package some.cursov_server.entity;
 
-import lombok.RequiredArgsConstructor;
+import lombok.*;
+import org.hibernate.Hibernate;
+import org.jetbrains.annotations.Nullable;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import java.io.Serializable;
+import java.util.Objects;
 
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
-public final class PcComponent {
+public final class PcComponent implements Serializable {
 
+    @Nullable
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     public Integer id;
 
-    public String name;
-    public Type type;
-    public String description;
+    @NonNull
+    public String  name;
+
+    @NonNull
+    public Type    type;
+
+    @NonNull
+    public String  description;
+
+    @NonNull
     public Integer cost;
-    public String image;
+
+    @NonNull
+    public String  image;
 
     @RequiredArgsConstructor
     public enum Type {
@@ -34,5 +50,29 @@ public final class PcComponent {
         CASE  (9);
 
         public final Integer TYPE;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+
+        if (!(o instanceof PcComponent)) return false;
+
+        if (Hibernate.getClass(this)
+                != Hibernate.getClass(o))
+            return false;
+
+        return id != null && Objects.equals(id, ((PcComponent) o).id);
+    }
+
+    @Override
+    public int hashCode() {
+        return getClass().hashCode();
+    }
+
+    @SuppressWarnings("MethodDoesntCallSuperMethod")
+    @Override
+    public PcComponent clone() {
+        return new PcComponent(id, name, type, description, cost, image);
     }
 }
