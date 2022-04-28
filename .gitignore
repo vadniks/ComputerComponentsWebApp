@@ -49,3 +49,5 @@ frontend/
 tsconfig.json
 types.d.ts
 target/
+/package-lock.json
+/node_modules/
