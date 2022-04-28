@@ -20,7 +20,7 @@ public class User implements Serializable {
     @Nullable
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    public Integer id;
+    public Integer id = null;
 
     @NonNull
     public String  name;
@@ -30,10 +30,6 @@ public class User implements Serializable {
 
     @NonNull
     public String password; // hash
-
-    @OneToMany
-    @NonNull
-    public List<PcComponent> bought = new ArrayList<>(0);
 
     @RequiredArgsConstructor
     public enum Role {
@@ -50,13 +46,12 @@ public class User implements Serializable {
 
         User user = (User) o;
         return Objects.equals(id, user.id) && name.equals(user.name) &&
-            role == user.role && password.equals(user.password) &&
-            bought.equals(user.bought);
+            role == user.role && password.equals(user.password);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, role, password, bought);
+        return Objects.hash(id, name, role, password);
     }
 
     @SuppressWarnings("MethodDoesntCallSuperMethod")
@@ -64,7 +59,6 @@ public class User implements Serializable {
     protected Object clone() {
         val a = new User(name, role, password);
         a.id = id;
-        a.bought = bought;
         return a;
     }
 }

@@ -32,10 +32,6 @@ public final class PcComponent implements Serializable {
     @NonNull
     public String  image;
 
-    @ManyToOne
-    @Nullable
-    public User buyer = null;
-
     @RequiredArgsConstructor
     public enum Type {
         CPU   (0),
@@ -60,13 +56,12 @@ public final class PcComponent implements Serializable {
         PcComponent that = (PcComponent) o;
         return Objects.equals(id, that.id) && name.equals(that.name) &&
             type == that.type && description.equals(that.description) &&
-            cost.equals(that.cost) && image.equals(that.image) &&
-            Objects.equals(buyer, that.buyer);
+            cost.equals(that.cost) && image.equals(that.image);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, type, description, cost, image, buyer);
+        return Objects.hash(id, name, type, description, cost, image);
     }
 
     @SuppressWarnings("MethodDoesntCallSuperMethod")
@@ -74,7 +69,6 @@ public final class PcComponent implements Serializable {
     public PcComponent clone() {
         val a = new PcComponent(name, type, description, cost, image);
         a.id = id;
-        a.buyer = buyer;
         return a;
     }
 }
