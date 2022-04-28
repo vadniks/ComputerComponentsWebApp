@@ -43,6 +43,8 @@ dependencies {
     implementation 'hikari-cp:hikari-cp:2.14.0'
     implementation 'org.hibernate.orm:hibernate-core:6.0.0.Final'
     implementation 'org.springframework.data:spring-data-jpa:2.6.4'
+    implementation 'org.springframework:spring-webmvc:5.3.19'
+    compileOnly 'javax.servlet:javax.servlet-api:4.0.1'
 }
 
 dependencyManagement {

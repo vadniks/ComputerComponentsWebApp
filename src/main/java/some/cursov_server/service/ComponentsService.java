@@ -9,5 +9,7 @@ import some.cursov_server.repo.ComponentsRepo;
 public class ComponentsService implements IPresenter {
     private final ComponentsRepo repo;
 
+    public void onConstruct() {
 
+    }
 }

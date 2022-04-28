@@ -22,10 +22,7 @@ public final class MainView extends VerticalLayout implements IView {
         footer = new HorizontalLayout();
 
         add(header, componentsList, footer);
-    }
 
-    private void initList() {
-        componentsList.add();
     }
 
     @SuppressWarnings("FieldCanBeLocal") // For the future
