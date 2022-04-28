@@ -45,6 +45,7 @@ dependencies {
     implementation 'org.springframework.data:spring-data-jpa:2.6.4'
     implementation 'org.springframework:spring-webmvc:5.3.19'
     compileOnly 'javax.servlet:javax.servlet-api:4.0.1'
+    implementation 'com.vaadin:vaadin-spring:23.0.5'
 }
 
 dependencyManagement {
