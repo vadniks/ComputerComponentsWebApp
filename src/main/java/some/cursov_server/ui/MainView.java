@@ -21,7 +21,8 @@ public final class MainView extends VerticalLayout implements IView {
         componentsList = new VerticalLayout();
         footer = new HorizontalLayout();
 
-        add(header, componentsList, footer);
+        add(header, componentsList, footer, new ListItem(new PcComponent(
+            "Name", PcComponent.Type.CASE, "Description", 100, "Image")));
 
     }
 
