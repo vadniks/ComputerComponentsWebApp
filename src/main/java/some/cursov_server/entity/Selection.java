@@ -18,7 +18,7 @@ public class Selection {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     public Integer id = null;
 
-    @ManyToOne
+    @OneToOne
     @NonNull
     public User buyer;
 
