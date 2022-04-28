@@ -1,9 +1,11 @@
 package some.cursov_server.ui;
 
+import com.vaadin.flow.component.html.Label;
+import com.vaadin.flow.component.html.H1;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
-import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.router.Route;
+import lombok.val;
 import some.cursov_server.entity.PcComponent;
 import some.cursov_server.service.ComponentsService;
 
@@ -18,30 +20,33 @@ public final class MainView extends VerticalLayout implements IView {
 
     public MainView() {
         header = new HorizontalLayout();
+        header.add(new H1("PC Configurator"));
+
         componentsList = new VerticalLayout();
         footer = new HorizontalLayout();
 
-        add(header, componentsList, footer, new ListItem(new PcComponent(
-            "Name", PcComponent.Type.CASE, "Description", 100, "Image")));
+        add(header, componentsList, footer);
 
+        componentsList.add(new ListItem(new PcComponent(
+            "Name", PcComponent.Type.CASE, "Description", 100, "Image")));
     }
 
     @SuppressWarnings("FieldCanBeLocal") // For the future
     public final static class ListItem extends HorizontalLayout {
         final PcComponent component;
         final VerticalLayout texts = new VerticalLayout();
-        final TextField name = new TextField();
-        final TextField type = new TextField();
-        final TextField description = new TextField();
-        final TextField cost = new TextField();
+        final Label name = new Label();
+        final Label type = new Label();
+        final Label description = new Label();
+        final Label cost = new Label();
 
         public ListItem(PcComponent _component) {
             component = _component;
 
-            name.setLabel(component.name);
-            type.setLabel(component.type.name());
-            description.setLabel(component.description);
-            cost.setLabel(component.cost.toString());
+            name.setText(component.name);
+            type.setText(component.type.name());
+            description.setText(component.description);
+            cost.setText(component.cost.toString());
 
             texts.add(name, type, cost);
             add(texts, description);
