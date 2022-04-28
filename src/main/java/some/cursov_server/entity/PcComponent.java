@@ -21,19 +21,19 @@ public final class PcComponent implements Serializable {
     public Integer id = null;
 
     @NonNull
-    public String  name;
+    public String name;
 
     @NonNull
-    public Type    type;
+    public Type type;
 
     @NonNull
-    public String  description;
+    public String description;
 
     @NonNull
     public Integer cost;
 
     @NonNull
-    public String  image;
+    public String image;
 
     @RequiredArgsConstructor
     public enum Type {

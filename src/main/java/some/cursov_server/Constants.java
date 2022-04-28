@@ -4,6 +4,9 @@ import lombok.SneakyThrows;
 
 public final class Constants {
 
+    /** Common */
+    public static final String EMPTY = "";
+
     /** Database */
     public static final String DB_NAME = "db";
     public static final String JDBC_URL = "jdbc:postgresql://localhost:5432/" + DB_NAME;
@@ -19,6 +22,9 @@ public final class Constants {
     public static final String TABLE_COMPONENTS = "components";
     public static final String TABLE_USERS = "users";
     public static final String TABLE_SELECTIONS = "selections";
+
+    /** Enpoints */
+    public static final String ENDPOINT_INDEX = EMPTY;
 
     @SneakyThrows
     private Constants() { throw new IllegalAccessException(); }
