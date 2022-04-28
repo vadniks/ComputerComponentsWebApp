@@ -5,6 +5,8 @@ import org.springframework.stereotype.Repository;
 import some.cursov_server.entity.PcComponent;
 
 @Repository
-public interface ComponentsRepo extends JpaRepository<PcComponent, Integer> {
+public interface ComponentsRepo extends
+    JpaRepository<PcComponent, Integer>,
+    IModel {
 
 }

@@ -6,7 +6,7 @@ import some.cursov_server.repo.ComponentsRepo;
 
 @RequiredArgsConstructor
 @Service
-public class ComponentsService {
+public class ComponentsService implements IPresenter {
     private final ComponentsRepo repo;
 
 
