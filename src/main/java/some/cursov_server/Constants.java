@@ -13,6 +13,10 @@ public final class Constants {
     public static final String DB_DIALECT = "org.hibernate.dialect.PostgreSQL92Dialect";
     public static final String DB_DIALECT_PROP = "hibernate.dialect";
 
+    /** Tables */
+    public static final String TABLE_COMPONENTS = "components";
+    public static final String TABLE_USERS = "users";
+
     @SneakyThrows
     private Constants() { throw new IllegalAccessException(); }
 }

@@ -5,7 +5,7 @@ import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.Route;
 
 @Route("")
-public class MainView extends VerticalLayout {
+public final class MainView extends VerticalLayout {
     private HorizontalLayout header;
     private VerticalLayout componentsList;
     private HorizontalLayout footer;
