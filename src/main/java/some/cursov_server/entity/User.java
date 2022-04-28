@@ -54,7 +54,7 @@ public class User implements Serializable {
 
     @SuppressWarnings("MethodDoesntCallSuperMethod")
     @Override
-    protected Object clone() {
+    public Object clone() {
         val a = new User(name, role, password);
         a.id = id;
         return a;
