@@ -37,8 +37,8 @@ public class User implements Serializable {
 
     @RequiredArgsConstructor
     public enum Role {
-        USER(0),
-        ADMIN(1);
+        USER  (0),
+        ADMIN (1);
 
         public final Integer ROLE;
     }
