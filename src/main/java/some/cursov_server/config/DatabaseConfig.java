@@ -17,25 +17,25 @@ import java.util.Properties;
 
 import static some.cursov_server.Constants.*;
 
-@EnableJpaRepositories
+@EnableJpaRepositories(basePackages = {PACKAGE})
 @Configuration
 public class DatabaseConfig {
 
     @Bean
     public DataSource dataSource() {
         val a = new HikariConfig();
-        a.setJdbcUrl(Constants.JDBC_URL);
-        a.setDriverClassName(Constants.DRIVER_NAME);
-        a.setUsername(Constants.DB_USERNAME);
-        a.setPassword(Constants.DB_PASSWORD);
+        a.setJdbcUrl(JDBC_URL);
+        a.setDriverClassName(DRIVER_NAME);
+        a.setUsername(DB_USERNAME);
+        a.setPassword(DB_PASSWORD);
         return new HikariDataSource(a);
     }
 
     @Bean
-    public LocalSessionFactoryBean fc(DataSource b) {
+    public LocalSessionFactoryBean entityManagerFactory(DataSource b) {
         val a = new LocalSessionFactoryBean();
         a.setDataSource(b);
-        a.setPackagesToScan(this.getClass().getPackageName());
+        a.setPackagesToScan(PACKAGES);
 
         val c = new Properties();
         c.setProperty(DB_DIALECT_PROP, DB_DIALECT);
@@ -45,8 +45,12 @@ public class DatabaseConfig {
     }
 
     @Bean
-    public PlatformTransactionManager pt(LocalSessionFactoryBean a) {
+    public PlatformTransactionManager transactionManager(LocalSessionFactoryBean a) {
         return new HibernateTransactionManager(
             Objects.requireNonNull(a.getObject()));
     }
 }
+
+/*
+create database db;
+*/

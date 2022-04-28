@@ -45,6 +45,7 @@ gradlew.bat
 package.json
 webpack.config.js
 webpack.generated.js
-/frontend/
-/tsconfig.json
-/types.d.ts
+frontend/
+tsconfig.json
+types.d.ts
+target/

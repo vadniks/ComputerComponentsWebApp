@@ -6,6 +6,8 @@ public final class Constants {
 
     /** Common */
     public static final String EMPTY = "";
+    public static final String PACKAGE = "some.cursov_server";
+    public static final String PACKAGES = PACKAGE + ".*";
 
     /** Database */
     public static final String DB_NAME = "db";
