@@ -12,6 +12,8 @@ public final class Constants {
     public static final String DB_PASSWORD = DB_USERNAME;
     public static final String DB_DIALECT = "org.hibernate.dialect.PostgreSQL92Dialect";
     public static final String DB_DIALECT_PROP = "hibernate.dialect";
+    public static final String DB_HBM = "update";
+    public static final String DB_HBM_PROP =  "hibernate.hbm2ddl.auto";
 
     /** Tables */
     public static final String TABLE_COMPONENTS = "components";

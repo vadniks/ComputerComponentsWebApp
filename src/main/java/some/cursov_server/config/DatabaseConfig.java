@@ -15,6 +15,8 @@ import javax.sql.DataSource;
 import java.util.Objects;
 import java.util.Properties;
 
+import static some.cursov_server.Constants.*;
+
 @EnableJpaRepositories
 @Configuration
 public class DatabaseConfig {
@@ -36,10 +38,8 @@ public class DatabaseConfig {
         a.setPackagesToScan(this.getClass().getPackageName());
 
         val c = new Properties();
-        c.setProperty("hibernate.dialect",
-            "org.hibernate.dialect.PostgreSQL92Dialect");
-        c.setProperty("hibernate.show_sql", "true");
-        c.setProperty("hibernate.hbm2ddl.auto", "update");
+        c.setProperty(DB_DIALECT_PROP, DB_DIALECT);
+        c.setProperty(DB_HBM_PROP, DB_HBM);
         a.setHibernateProperties(c);
         return a;
     }
