@@ -1,25 +1,21 @@
 package some.cursov_server.entity;
 
 import lombok.*;
-import org.hibernate.Hibernate;
 import org.jetbrains.annotations.Nullable;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Objects;
 
 @NoArgsConstructor
-@AllArgsConstructor
+@RequiredArgsConstructor
 @Entity
 public final class PcComponent implements Serializable {
 
     @Nullable
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    public Integer id;
+    public Integer id = null;
 
     @NonNull
     public String  name;
@@ -35,6 +31,10 @@ public final class PcComponent implements Serializable {
 
     @NonNull
     public String  image;
+
+    @ManyToOne
+    @Nullable
+    public User buyer = null;
 
     @RequiredArgsConstructor
     public enum Type {
@@ -55,24 +55,26 @@ public final class PcComponent implements Serializable {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
 
-        if (!(o instanceof PcComponent)) return false;
-
-        if (Hibernate.getClass(this)
-                != Hibernate.getClass(o))
-            return false;
-
-        return id != null && Objects.equals(id, ((PcComponent) o).id);
+        PcComponent that = (PcComponent) o;
+        return Objects.equals(id, that.id) && name.equals(that.name) &&
+            type == that.type && description.equals(that.description) &&
+            cost.equals(that.cost) && image.equals(that.image) &&
+            Objects.equals(buyer, that.buyer);
     }
 
     @Override
     public int hashCode() {
-        return getClass().hashCode();
+        return Objects.hash(id, name, type, description, cost, image, buyer);
     }
 
     @SuppressWarnings("MethodDoesntCallSuperMethod")
     @Override
     public PcComponent clone() {
-        return new PcComponent(id, name, type, description, cost, image);
+        val a = new PcComponent(name, type, description, cost, image);
+        a.id = id;
+        a.buyer = buyer;
+        return a;
     }
 }
