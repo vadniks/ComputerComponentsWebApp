@@ -10,8 +10,11 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Objects;
 
+import static some.cursov_server.Constants.TABLE_USERS;
+
 @NoArgsConstructor
 @RequiredArgsConstructor
+@Table(name = TABLE_USERS)
 @Entity
 public class User implements Serializable {
 

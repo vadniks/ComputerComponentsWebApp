@@ -18,6 +18,7 @@ public final class Constants {
     /** Tables */
     public static final String TABLE_COMPONENTS = "components";
     public static final String TABLE_USERS = "users";
+    public static final String TABLE_SELECTIONS = "selections";
 
     @SneakyThrows
     private Constants() { throw new IllegalAccessException(); }

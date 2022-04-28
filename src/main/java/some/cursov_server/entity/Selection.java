@@ -8,8 +8,11 @@ import org.jetbrains.annotations.Nullable;
 import javax.persistence.*;
 import java.util.List;
 
+import static some.cursov_server.Constants.TABLE_SELECTIONS;
+
 @NoArgsConstructor
 @RequiredArgsConstructor
+@Table(name = TABLE_SELECTIONS)
 @Entity
 public class Selection {
 
