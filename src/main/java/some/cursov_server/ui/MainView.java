@@ -4,7 +4,9 @@ import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.Route;
 
-@Route("")
+import static some.cursov_server.Constants.ENDPOINT_INDEX;
+
+@Route(ENDPOINT_INDEX)
 public final class MainView extends VerticalLayout {
     private HorizontalLayout header;
     private VerticalLayout componentsList;
@@ -15,6 +17,10 @@ public final class MainView extends VerticalLayout {
         componentsList = new VerticalLayout();
         footer = new HorizontalLayout();
 
-        componentsList.add();
+        add(header, componentsList, footer);
+    }
+
+    private void initList() {
+
     }
 }
