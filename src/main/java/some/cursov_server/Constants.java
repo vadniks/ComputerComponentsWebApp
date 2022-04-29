@@ -40,8 +40,16 @@ public final class Constants {
     /** Enpoints */
     public static final String ENDPOINT_INDEX = EMPTY;
 
-    /** Pages */
-    public static final String PAGE_INDEX = "PC Configurator";
+    /** UI Strings */
+    public static final String APP_NAME = "PC Configurator";
+    public static final String APP_SINCE = "Since 2022";
+    public static final String APP_SLOGAN = """
+        Build your own PC with PC Configurator online and free!
+        Choose any components you like and we will do the rest!""".stripIndent();
+
+    /** UI Style */
+    public static final String STYLE_FONT = "font-family";
+    public static final String HEAD_FONT = "'Lato', sans-serif";
 
     @SneakyThrows
     private Constants() { throw new IllegalAccessException(); }
