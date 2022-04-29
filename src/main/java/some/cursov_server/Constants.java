@@ -25,8 +25,23 @@ public final class Constants {
     public static final String TABLE_USERS = "users";
     public static final String TABLE_SELECTIONS = "selections";
 
+    /** Entities */
+    public static final String ID = "id";
+    public static final String NAME = "name";
+    public static final String TYPE = "type";
+    public static final String DESCRIPTION = "description";
+    public static final String COST = "cost";
+    public static final String IMAGE = "image";
+    public static final String BUYER = "buyer";
+    public static final String BOUGHT = "bought";
+    public static final String ROLE = "role";
+    public static final String PASSWORD = "password";
+
     /** Enpoints */
     public static final String ENDPOINT_INDEX = EMPTY;
+
+    /** Pages */
+    public static final String PAGE_INDEX = "PC Configurator";
 
     @SneakyThrows
     private Constants() { throw new IllegalAccessException(); }
