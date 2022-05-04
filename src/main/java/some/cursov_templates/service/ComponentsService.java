@@ -17,27 +17,26 @@ import some.cursov_templates.entity.PcComponent.Type;
 @RequiredArgsConstructor
 @Service
 public class ComponentsService {
-    private final ComponentsRepo repo;
+    private final ComponentsRepo componentsRepo;
     @Value("classpath:static")
     private Resource resDir;
 
-    @SuppressWarnings("unchecked")
-    public List<Map<String, String>> getOverviewItems(HttpServletRequest request) {
+    public Items getOverviewItems(HttpServletRequest request) {
         val session = request.getSession();
-        val chosenItems = (List<Map<String, String>>) session.getAttribute(SESSION_CHOSEN_ITEMS);
+        val chosenItems = (Items) session.getAttribute(SESSION_CHOSEN_ITEMS);
 
         if (chosenItems == null) {
-            val items = new ArrayList<Map<String, String>>(AMOUNT);
+            val items = new Items(AMOUNT);
             val types = Type.values();
 
             for (int i = 0; i < AMOUNT; i++) {
                 val type = types[i];
 
-                val map = new HashMap<String, String>();
-                map.put("image", getImagePathByType(type));
-                map.put("name", type.name());
-                map.put("cost", UNSELECTED_COST);
-                map.put("details", UNSELECTED_DETAILS);
+                val map = new StringPairMap();
+                map.put(IMAGE, getImagePathByType(type));
+                map.put(NAME, type.name());
+                map.put(COST, UNSELECTED_COST);
+                map.put(DESCRIPTION, UNSELECTED_DESCRIPTION);
 
                 items.add(map);
             }
@@ -50,4 +49,30 @@ public class ComponentsService {
     private static String getImagePathByType(Type type) {
         return RESOURCES_DIR_FROM_HTML + "/pc_" + type.name().toLowerCase() + ".jpg";
     }
+
+    public Items getComponentsByType(String type) {
+        val components = componentsRepo
+            .getAllByType(Type.valueOf(type).TYPE);
+        val items = new Items(components.size());
+
+        for (val component : components) {
+            val map = new StringPairMap();
+            map.put(IMAGE, component.image);
+            map.put(NAME, component.name);
+            map.put(COST, component.cost.toString());
+//            map.put(DESCRIPTION, component.description);
+
+            items.add(map);
+        }
+
+        return items;
+    }
+
+    // aka alias for the extended type
+    public static class StringPairMap extends HashMap<String, String>
+    { public StringPairMap() { super(); } }
+
+    // aka alias for the extended type
+    public static class Items extends ArrayList<Map<String, String>>
+    { public Items(int initialCapacity) { super(initialCapacity); } }
 }

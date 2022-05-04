@@ -66,14 +66,14 @@ public final class Constants {
     public static final String COMPONENT_IMAGE_POSTFIX = ".jpg";
 
     /** Attributes */
-    public static final String ATTRIBUTE_OVERVIEW_ITEMS = "items";
+    public static final String ATTRIBUTE_ITEMS = "items";
 
     /** Sessions */
     public static final String SESSION_CHOSEN_ITEMS = "chosen_items";
 
     /** Components */
     public static final String UNSELECTED_COST = "0$";
-    public static final String UNSELECTED_DETAILS = "Not Selected";
+    public static final String UNSELECTED_DESCRIPTION = "Not Selected";
 
     @SneakyThrows
     private Constants() { throw new IllegalAccessException(); }
