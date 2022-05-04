@@ -9,5 +9,4 @@ public class CursovTemplatesApplication {
     public static void main(String[] args) {
         SpringApplication.run(CursovTemplatesApplication.class, args);
     }
-
 }
