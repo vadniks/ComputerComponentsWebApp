@@ -1,6 +1,8 @@
 package some.cursov_templates;
 
 import lombok.SneakyThrows;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 
 public final class Constants {
 
@@ -8,6 +10,7 @@ public final class Constants {
     public static final String EMPTY = "";
     public static final String PACKAGE = "some.cursov_templates";
     public static final String PACKAGES = PACKAGE + ".*";
+    public static final ResponseEntity<?> STATUS_OK = new ResponseEntity<>(HttpStatus.OK);
 
     /** Database */
     public static final String DB_NAME = "db";
@@ -44,6 +47,8 @@ public final class Constants {
     public static final String ENDPOINT_REGISTER = "/rgs";
     public static final String ENDPOINT_ADMIN = "/adm";
     public static final String ENDPOINT_COMPONENT = "/cmp";
+    public static final String ENDPOINT_SELECT = "/slc";
+    public static final String ENDPOINT_CLEAR = "/clr";
 
     /** Pages */
     public static final String PAGE_INDEX = "index";

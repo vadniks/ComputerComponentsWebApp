@@ -25,9 +25,12 @@ public class ComponentsService {
     private Resource resDir;
 
     public void setSelection(HttpServletRequest request, @Nullable String _id) {
-        if (_id == null) return;
         val session = request.getSession();
-
+        if (_id == null) {
+            session.removeAttribute(SESSION_CHOSEN_ITEMS);
+            return;
+        }
+        System.out.println("rgvfrbrfgv " + _id);
         Items selections;
         if ((selections = (Items) session.getAttribute(SESSION_CHOSEN_ITEMS)) == null)
             selections = new Items(1);

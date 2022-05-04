@@ -84,7 +84,16 @@
             cmpVwExt = document.getElementById('cmpVwExt'),
             cmpVwFtBt = document.getElementById('cmpVwFtBt')
 
-        cmpVwFtBt.addEventListener('click', () => window.location.replace(`/?id=${chosenId}`))
+        cmpVwFtBt.addEventListener('click', () => {
+            let rq = new XMLHttpRequest()
+            rq.onreadystatechange = () => {
+                if (rq.readyState === 4 && rq.status === 200)
+                    window.location.replace('/')
+            }
+            console.log(chosenId)
+            rq.open('POST', `/slc?id=${chosenId}`, true)
+            rq.send(null)
+        })
 
         function openOrCloseDialog(a) {
             cmVw.style.display = a ? 'flex' : 'none'

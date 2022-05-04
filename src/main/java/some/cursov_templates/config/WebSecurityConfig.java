@@ -31,7 +31,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                     ENDPOINT_REGISTER,
                     RESOURCE_STATIC,
                     RESOURCE_BACK_END,
-                    ENDPOINT_COMPONENT).permitAll()
+                    ENDPOINT_COMPONENT,
+                    ENDPOINT_SELECT,
+                    ENDPOINT_CLEAR).permitAll()
                 .anyRequest().authenticated()
                 .and()
             .formLogin()

@@ -47,7 +47,14 @@
             </div>
             <div id="cntFtr">
                 <span id="componentCst">$0</span>
-                <button id="clrOvrw">Clear Selection</button>
+                <button id="clrOvrw" onclick="onClear()">Clear Selection</button>
+                <script>
+                    function onClear() {
+                        let rq = new XMLHttpRequest()
+                        rq.open('POST', '/clr')
+                        rq.send(null)
+                    }
+                </script>
             </div>
         </div>
         <div id="footer">
