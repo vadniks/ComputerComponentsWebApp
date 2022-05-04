@@ -20,7 +20,7 @@ const itmImgs = [
     '../res/pc_hdd.jpg',
     '../res/pc_ssd.jpg',
     '../res/pc_psu.jpg',
-    '../res/pc_cooler.jpg',
+    '../res/pc_fan.jpg',
     '../res/pc_case.jpg',
     '../res/pc_os.jpg'
 ]

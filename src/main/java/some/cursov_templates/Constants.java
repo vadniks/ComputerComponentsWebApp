@@ -56,17 +56,24 @@ public final class Constants {
     public static final String RESOURCE_STATIC_LOCATION = "classpath:/static/";
     public static final String RESOURCE_BACK_END = "/res_back/**";
     public static final String RESOURCE_BACK_END_LOCATION = "classpath:/res_back/";
+    public static final String RESOURCES_DIR_FROM_HTML = "../../static/res";
 
     /** Templates */
     public static final String TEMPLATE_PREFIX = "classpath:/templates/";
     public static final String TEMPLATE_POSTFIX = ".html";
     public static final String TEMPLATE_MESSAGES_NAME = "messages";
+    public static final String COMPONENT_IMAGE_PREFIX = "pc_";
+    public static final String COMPONENT_IMAGE_POSTFIX = ".jpg";
 
     /** Attributes */
     public static final String ATTRIBUTE_OVERVIEW_ITEMS = "items";
 
     /** Sessions */
     public static final String SESSION_CHOSEN_ITEMS = "chosen_items";
+
+    /** Components */
+    public static final String UNSELECTED_COST = "0$";
+    public static final String UNSELECTED_DETAILS = "Not Selected";
 
     @SneakyThrows
     private Constants() { throw new IllegalAccessException(); }
