@@ -49,6 +49,7 @@ public final class PcComponent implements Serializable {
         CASE  (9);
 
         public final Integer TYPE;
+        public static final int AMOUNT = 10;
     }
 
     @Override

@@ -33,16 +33,15 @@
             <div id="ovrwHdr">
                 <span>PC Components List</span>
             </div>
-            <!--/*@thymesVar id="items" type="some.cursov_templates.entity.OverviewItem"*/-->
             <div id="overview" th:each="item : ${items}">
                 <div id="ovrwItm"><!--  -->
-                    <img id="ovrwItmFlg" th:src="${item.image}">
+                    <img id="ovrwItmFlg" th:src="${item['image']}">
                     <div id="ovrwItmTxt">
                         <div id="ovrwItmHdTx">
-                            <span id="ovrwItmNm" th:text="${item.name}">Item title</span>
-                            <span id="ovrwitmCst" th:text="${item.cost}">$0</span>
+                            <span id="ovrwItmNm" th:text="${item['name']}">Item title</span>
+                            <span id="ovrwitmCst" th:text="${item['cost']}">$0</span>
                         </div>
-                        <span id="ovrwItmDtls" th:text="${item.details}">Not selected</span>
+                        <span id="ovrwItmDtls" th:text="${item['details']}">Not selected</span>
                         <span id="ovrwItmDsc">Not Selected</span>
                     </div>
                 </div>

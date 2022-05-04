@@ -62,6 +62,12 @@ public final class Constants {
     public static final String TEMPLATE_POSTFIX = ".html";
     public static final String TEMPLATE_MESSAGES_NAME = "messages";
 
+    /** Attributes */
+    public static final String ATTRIBUTE_OVERVIEW_ITEMS = "items";
+
+    /** Sessions */
+    public static final String SESSION_CHOSEN_ITEMS = "chosen_items";
+
     @SneakyThrows
     private Constants() { throw new IllegalAccessException(); }
 }
