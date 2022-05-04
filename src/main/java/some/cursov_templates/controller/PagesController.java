@@ -4,7 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import some.cursov_templates.service.IndexPageService;
+import some.cursov_templates.service.ComponentsService;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -13,11 +13,11 @@ import static some.cursov_templates.Constants.*;
 @RequiredArgsConstructor
 @Controller
 public class PagesController {
-    private final IndexPageService indexService;
+    private final ComponentsService componentsService;
 
     @GetMapping(ENDPOINT_INDEX)
     public String index(Model model, HttpServletRequest request) {
-        model.addAttribute(ATTRIBUTE_OVERVIEW_ITEMS, indexService.getOverviewItems(request));
+        model.addAttribute(ATTRIBUTE_OVERVIEW_ITEMS, componentsService.getOverviewItems(request));
         return PAGE_INDEX;
     }
 

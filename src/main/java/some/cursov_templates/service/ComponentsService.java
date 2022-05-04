@@ -16,7 +16,7 @@ import some.cursov_templates.entity.PcComponent.Type;
 
 @RequiredArgsConstructor
 @Service
-public class IndexPageService {
+public class ComponentsService {
     private final ComponentsRepo repo;
     @Value("classpath:static")
     private Resource resDir;
