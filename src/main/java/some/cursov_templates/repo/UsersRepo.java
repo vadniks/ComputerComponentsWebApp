@@ -9,7 +9,7 @@ import some.cursov_templates.entity.User;
 import static some.cursov_templates.Constants.*;
 
 @Repository
-public interface UsersRepo extends JpaRepository<User, Integer> {
+public interface UsersRepo extends JpaRepository<User, Integer>, IModel {
 
     @Query(value =
             "select * from " + TABLE_USERS + " where " + NAME + " = ?1 limit 1",
