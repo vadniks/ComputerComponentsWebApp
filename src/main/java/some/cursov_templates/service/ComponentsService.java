@@ -3,6 +3,7 @@ package some.cursov_templates.service;
 import lombok.RequiredArgsConstructor;
 import lombok.val;
 import org.jetbrains.annotations.Nullable;
+import org.jetbrains.annotations.TestOnly;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Service;
@@ -107,6 +108,7 @@ public class ComponentsService {
             image + COMPONENT_IMAGE_POSTFIX;
     }
 
+    @TestOnly
     void test() {
         System.out.println("gvbftghbtrhgbt");
         componentsRepo.save(new PcComponent(
