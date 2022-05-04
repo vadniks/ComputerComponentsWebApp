@@ -49,7 +49,3 @@ public class DatabaseConfig {
             Objects.requireNonNull(a.getObject()));
     }
 }
-
-/*
-create database db;
-*/

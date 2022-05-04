@@ -42,7 +42,25 @@ public final class Constants {
     public static final String ENDPOINT_BROWSE = "/brw";
     public static final String ENDPOINT_LOGIN = "/lgn";
     public static final String ENDPOINT_REGISTER = "/rgs";
-    public static final String ENDPOINT_ADMINISTRATE = "/adm";
+    public static final String ENDPOINT_ADMIN = "/adm";
+
+    /** Pages */
+    public static final String PAGE_INDEX = "index";
+    public static final String PAGE_BROWSE = "browse";
+    public static final String PAGE_LOGIN = "login";
+    public static final String PAGE_REGISTER = "register";
+    public static final String PAGE_ADMIN = "admin";
+
+    /** Resources */
+    public static final String RESOURCE_STATIC = "/static/**";
+    public static final String RESOURCE_STATIC_LOCATION = "classpath:/static/";
+    public static final String RESOURCE_BACK_END = "/res_back/**";
+    public static final String RESOURCE_BACK_END_LOCATION = "classpath:/res_back/";
+
+    /** Templates */
+    public static final String TEMPLATE_PREFIX = "classpath:/templates/";
+    public static final String TEMPLATE_POSTFIX = ".html";
+    public static final String TEMPLATE_MESSAGES_NAME = "messages";
 
     @SneakyThrows
     private Constants() { throw new IllegalAccessException(); }
