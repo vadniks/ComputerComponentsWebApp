@@ -41,32 +41,41 @@ public class ComponentsService {
             .add(TYPE, component.type.REAL_NAME)
             .add(COST, component.cost.toString())
             .add(DESCRIPTION, component.description));
+
+        session.setAttribute(SESSION_CHOSEN_ITEMS, selections);
     }
 
     public Items getOverviewItems(HttpServletRequest request) {
         val session = request.getSession();
         val chosenItems = (Items) session.getAttribute(SESSION_CHOSEN_ITEMS);
 
-        if (chosenItems == null) {
-            val items = new Items(AMOUNT);
-            val types = Type.values();
+        val items = new Items(AMOUNT);
 
-            for (int i = 0; i < AMOUNT; i++) {
-                val type = types[i];
+        for (val type : Type.values()) {
+            StringPairMap map;
 
-                val map = new StringPairMap();
+            if ((map = findByType(chosenItems, type)) == null) {
+                map = new StringPairMap();
                 map.put(ATTRIBUTE_ON_CLICK, "/brw?type=" + type.name());
                 map.put(IMAGE, getStubImagePathByType(type));
                 map.put(NAME, UNSELECTED_DESCRIPTION);
                 map.put(TYPE, type.REAL_NAME);
                 map.put(COST, UNSELECTED_COST);
                 map.put(DESCRIPTION, UNSELECTED_DESCRIPTION);
-
-                items.add(map);
             }
-            return items;
+            items.add(map);
         }
-        return chosenItems;
+        return items;
+    }
+
+    @Nullable
+    private static StringPairMap findByType(@Nullable Items items, Type type) {
+        if (items == null) return null;
+
+        for (val i : items)
+            if (i.get(TYPE).equals(type.REAL_NAME))
+                return i;
+        return null;
     }
 
     //TODO: add image for water cooling system
@@ -129,6 +138,6 @@ public class ComponentsService {
     }
 
     // aka alias for the extended type
-    public static class Items extends ArrayList<Map<String, String>>
+    public static class Items extends ArrayList<StringPairMap>
     { public Items(int initialCapacity) { super(initialCapacity); } }
 }
