@@ -78,6 +78,9 @@ public final class Constants {
     public static final String UNSELECTED_COST = "0$";
     public static final String UNSELECTED_DESCRIPTION = "Not Selected";
 
+    /** Hyper references */
+    public static final String FROM_BROWSE_TO_INDEX_WITH_TYPE = "/brw?type=";
+
     @SneakyThrows
     private Constants() { throw new IllegalAccessException(); }
 }

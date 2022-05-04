@@ -24,7 +24,7 @@ public class ComponentsService {
     @Value("classpath:static")
     private Resource resDir;
 
-    public void addSelection(HttpServletRequest request, @Nullable String _id) {
+    public void setSelection(HttpServletRequest request, @Nullable String _id) {
         if (_id == null) return;
         val session = request.getSession();
 
@@ -35,13 +35,15 @@ public class ComponentsService {
 
         val id = Integer.parseInt(_id);
         val component = componentsRepo.getById(id);
-        selections.add(new StringPairMap()
-            .add(ATTRIBUTE_ON_CLICK, "/brw?type=" + component.type.name())
-            .add(IMAGE, getPathForImage(component.image))
-            .add(NAME, component.name)
-            .add(TYPE, component.type.REAL_NAME)
-            .add(COST, component.cost.toString())
-            .add(DESCRIPTION, component.description));
+        val t = findByType(selections, component.type);
+
+        selections.add((t == null ? new StringPairMap() : t)
+            .set(ATTRIBUTE_ON_CLICK, FROM_BROWSE_TO_INDEX_WITH_TYPE + component.type.name())
+            .set(IMAGE, getPathForImage(component.image))
+            .set(NAME, component.name)
+            .set(TYPE, component.type.REAL_NAME)
+            .set(COST, component.cost.toString() + '$')
+            .set(DESCRIPTION, component.description));
 
         session.setAttribute(SESSION_CHOSEN_ITEMS, selections);
     }
@@ -55,15 +57,14 @@ public class ComponentsService {
         for (val type : Type.values()) {
             StringPairMap map;
 
-            if ((map = findByType(chosenItems, type)) == null) {
-                map = new StringPairMap();
-                map.put(ATTRIBUTE_ON_CLICK, "/brw?type=" + type.name());
-                map.put(IMAGE, getStubImagePathByType(type));
-                map.put(NAME, UNSELECTED_DESCRIPTION);
-                map.put(TYPE, type.REAL_NAME);
-                map.put(COST, UNSELECTED_COST);
-                map.put(DESCRIPTION, UNSELECTED_DESCRIPTION);
-            }
+            if ((map = findByType(chosenItems, type)) == null)
+                map = new StringPairMap()
+                    .set(ATTRIBUTE_ON_CLICK, FROM_BROWSE_TO_INDEX_WITH_TYPE + type.name())
+                    .set(IMAGE, getStubImagePathByType(type))
+                    .set(NAME, UNSELECTED_DESCRIPTION)
+                    .set(TYPE, type.REAL_NAME)
+                    .set(COST, UNSELECTED_COST)
+                    .set(DESCRIPTION, UNSELECTED_DESCRIPTION);
             items.add(map);
         }
         return items;
@@ -90,15 +91,12 @@ public class ComponentsService {
             .getAllByType(Type.valueOf(type).TYPE);
         val items = new Items(components.size());
 
-        for (val component : components) {
-            val map = new StringPairMap();
-            map.put(ID, Objects.requireNonNull(component.id).toString());
-            map.put(IMAGE, getPathForImage(component.image));
-            map.put(NAME, component.name);
-            map.put(COST, component.cost.toString());
-
-            items.add(map);
-        }
+        for (val component : components)
+            items.add(new StringPairMap()
+                .set(ID, Objects.requireNonNull(component.id).toString())
+                .set(IMAGE, getPathForImage(component.image))
+                .set(NAME, component.name)
+                .set(COST, component.cost.toString() + '$'));
 
         return items;
     }
@@ -125,18 +123,18 @@ public class ComponentsService {
         val component = _component.get();
 
         return new StringPairMap()
-            .add(ID, Objects.requireNonNull(component.id).toString())
-            .add(NAME, component.name)
-            .add(TYPE, component.type.name())
-            .add(DESCRIPTION, component.description)
-            .add(COST, component.cost.toString())
-            .add(IMAGE, component.image);
+            .set(ID, Objects.requireNonNull(component.id).toString())
+            .set(NAME, component.name)
+            .set(TYPE, component.type.name())
+            .set(DESCRIPTION, component.description)
+            .set(COST, component.cost.toString() + '$')
+            .set(IMAGE, component.image);
     }
 
     // aka alias for the extended type
     public static class StringPairMap extends HashMap<String, String> {
         public StringPairMap() { super(); }
-        public StringPairMap add(String a, String b) { put(a, b); return this; }
+        public StringPairMap set(String a, String b) { put(a, b); return this; }
     }
 
     // aka alias for the extended type

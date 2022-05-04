@@ -25,7 +25,7 @@ public class EnpointsController {
         HttpServletRequest request,
         @RequestParam(required = false) @Nullable String id
     ) {
-        componentsService.addSelection(request, id);
+        componentsService.setSelection(request, id);
         model.addAttribute(ATTRIBUTE_ITEMS, componentsService.getOverviewItems(request));
         return PAGE_INDEX;
     }
