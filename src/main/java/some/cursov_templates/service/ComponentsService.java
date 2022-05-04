@@ -33,6 +33,7 @@ public class ComponentsService {
                 val type = types[i];
 
                 val map = new StringPairMap();
+                map.put(ATTRIBUTE_ON_CLICK, "/brw?type=" + type.name());
                 map.put(IMAGE, getImagePathByType(type));
                 map.put(NAME, type.name());
                 map.put(COST, UNSELECTED_COST);

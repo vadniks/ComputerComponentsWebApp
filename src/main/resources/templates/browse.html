@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<!--suppress XmlDuplicatedId -->
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
@@ -34,11 +35,16 @@
                 <span>PC Components In Stock Selection</span>
             </div>
             <div id="cmpSlc">
-                <div id="cmpSlcLst" th:each="item: ${items}">
+                <div id="cmpSlcLst" th:if="${not #lists.isEmpty(items)}" th:each="item: ${items}">
                     <div id="cmpSlcItm">
                         <img id="cmpSlcItmImg" th:src="${item['image']}">
                         <span id="cmpSlcItmNm" th:text="${item['name']}">Case</span>
                         <span id="cmpSlcItmCst" th:text="${item['cost']}">Cost</span>
+                    </div>
+                </div>
+                <div id="cmpSlcLst" th:if="${#lists.isEmpty(items)}">
+                    <div id="cmpSlcItm" style="justify-content: center">
+                        <span id="cmpSlcItmNm">Empty</span>
                     </div>
                 </div>
                 <div id="cmpSlcFtr">
