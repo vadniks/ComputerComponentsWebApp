@@ -22,7 +22,7 @@
             </div>
             <div id="menu">
                 <div id="menuLf">
-                    <button id="menuBtVr">Home</button>
+                    <button id="menuBtVr" onclick="window.location.replace('/')">Home</button>
                     <button id="menuBtAbt">About</button>
                 </div>
                 <div id="menuRg">
@@ -36,7 +36,7 @@
             </div>
             <div id="cmpSlc">
                 <div id="cmpSlcLst" th:if="${not #lists.isEmpty(items)}" th:each="item: ${items}">
-                    <div id="cmpSlcItm">
+                    <div id="cmpSlcItm" th:onclick="onItemClick([[${item['id']}]])">
                         <img id="cmpSlcItmImg" th:src="${item['image']}">
                         <span id="cmpSlcItmNm" th:text="${item['name']}">Case</span>
                         <span id="cmpSlcItmCst" th:text="${item['cost']}">Cost</span>
@@ -48,8 +48,7 @@
                     </div>
                 </div>
                 <div id="cmpSlcFtr">
-                    <button id="cmpSlcSbmt">Submit</button>
-                    <button id="cmpSlcNxt">Next Selection</button>
+                    <button style="visibility: hidden">STUB</button>
                 </div>
             </div>
         </div>
@@ -72,10 +71,41 @@
             <span id="cmpVwDsc">Description</span>
         </div>
         <div id="cmpVwFtr">
-            <button id="cmpVwFtBt"></button>
+            <button id="cmpVwFtBt">Select</button>
         </div>
     </div>
 
     <div id="overlay"></div>
+
+    <script>
+        const cmVw = document.getElementById('cmpVw'),
+            ovrl = document.getElementById('overlay'),
+            cmpVwExt = document.getElementById('cmpVwExt')
+
+        function openOrCloseDialog(a) {
+            cmVw.style.display = a ? 'flex' : 'none'
+            ovrl.style.display = a ? 'initial' : 'none'
+        }
+
+        // noinspection JSUnusedGlobalSymbols
+        function onItemClick(_id) {
+            const id = parseInt(_id)
+            let rq = new XMLHttpRequest()
+
+            cmpVwExt.addEventListener('click', () => openOrCloseDialog(false))
+
+            rq.onreadystatechange = () => {
+                if (rq.readyState === 4 && rq.status === 200) {
+                    openOrCloseDialog(true)
+
+                    let jsn = JSON.parse(rq.response)
+                    cmVw.querySelector('#cmpVwNm').textContent = jsn.name
+                    cmVw.querySelector('#cmpVwDsc').textContent = jsn.description
+                }
+            }
+            rq.open('GET', `/cmp?id=${id}`, true)
+            rq.send(null)
+        }
+    </script>
 </body>
 </html>
