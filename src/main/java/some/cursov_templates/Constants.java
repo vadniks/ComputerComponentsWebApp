@@ -6,7 +6,7 @@ public final class Constants {
 
     /** Common */
     public static final String EMPTY = "";
-    public static final String PACKAGE = "some.cursov_server";
+    public static final String PACKAGE = "some.cursov_templates";
     public static final String PACKAGES = PACKAGE + ".*";
 
     /** Database */
@@ -37,19 +37,12 @@ public final class Constants {
     public static final String ROLE = "role";
     public static final String PASSWORD = "password";
 
-    /** Enpoints */
-    public static final String ENDPOINT_INDEX = EMPTY;
-
-    /** UI Strings */
-    public static final String APP_NAME = "PC Configurator";
-    public static final String APP_SINCE = "Since 2022";
-    public static final String APP_SLOGAN = """
-        Build your own PC with PC Configurator online and free!
-        Choose any components you like and we will do the rest!""".stripIndent();
-
-    /** UI Style */
-    public static final String STYLE_FONT = "font-family";
-    public static final String HEAD_FONT = "'Lato', sans-serif";
+    /** Endpoints */
+    public static final String ENDPOINT_INDEX = "/";
+    public static final String ENDPOINT_BROWSE = "/brw";
+    public static final String ENDPOINT_LOGIN = "/lgn";
+    public static final String ENDPOINT_REGISTER = "/rgs";
+    public static final String ENDPOINT_ADMINISTRATE = "/adm";
 
     @SneakyThrows
     private Constants() { throw new IllegalAccessException(); }
