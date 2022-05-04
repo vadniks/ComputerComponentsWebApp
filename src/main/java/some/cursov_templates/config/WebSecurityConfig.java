@@ -41,6 +41,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth
             .userDetailsService(userDetailsService)
-            .passwordEncoder(new BCryptPasswordEncoder(10));
+            .passwordEncoder(new BCryptPasswordEncoder());
     }
 }
