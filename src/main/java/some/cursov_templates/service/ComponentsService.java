@@ -2,6 +2,7 @@ package some.cursov_templates.service;
 
 import lombok.RequiredArgsConstructor;
 import lombok.val;
+import org.jetbrains.annotations.Nullable;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Service;
@@ -22,6 +23,26 @@ public class ComponentsService {
     @Value("classpath:static")
     private Resource resDir;
 
+    public void addSelection(HttpServletRequest request, @Nullable String _id) {
+        if (_id == null) return;
+        val session = request.getSession();
+
+        Items selections;
+        if ((selections = (Items) session.getAttribute(SESSION_CHOSEN_ITEMS)) == null)
+            selections = new Items(1);
+
+
+        val id = Integer.parseInt(_id);
+        val component = componentsRepo.getById(id);
+        selections.add(new StringPairMap()
+            .add(ATTRIBUTE_ON_CLICK, "/brw?type=" + component.type.name())
+            .add(IMAGE, getPathForImage(component.image))
+            .add(NAME, component.name)
+            .add(TYPE, component.type.REAL_NAME)
+            .add(COST, component.cost.toString())
+            .add(DESCRIPTION, component.description));
+    }
+
     public Items getOverviewItems(HttpServletRequest request) {
         val session = request.getSession();
         val chosenItems = (Items) session.getAttribute(SESSION_CHOSEN_ITEMS);
@@ -36,7 +57,8 @@ public class ComponentsService {
                 val map = new StringPairMap();
                 map.put(ATTRIBUTE_ON_CLICK, "/brw?type=" + type.name());
                 map.put(IMAGE, getStubImagePathByType(type));
-                map.put(NAME, type.name());
+                map.put(NAME, UNSELECTED_DESCRIPTION);
+                map.put(TYPE, type.REAL_NAME);
                 map.put(COST, UNSELECTED_COST);
                 map.put(DESCRIPTION, UNSELECTED_DESCRIPTION);
 

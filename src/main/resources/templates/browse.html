@@ -32,7 +32,7 @@
         </div>
         <div id="content">
             <div id="cntHdr">
-                <span>PC Components In Stock Selection</span>
+                <span>PC Components Selection</span>
             </div>
             <div id="cmpSlc">
                 <div id="cmpSlcLst" th:if="${not #lists.isEmpty(items)}" th:each="item: ${items}">
@@ -78,9 +78,13 @@
     <div id="overlay"></div>
 
     <script>
+        let chosenId = -1
         const cmVw = document.getElementById('cmpVw'),
             ovrl = document.getElementById('overlay'),
-            cmpVwExt = document.getElementById('cmpVwExt')
+            cmpVwExt = document.getElementById('cmpVwExt'),
+            cmpVwFtBt = document.getElementById('cmpVwFtBt')
+
+        cmpVwFtBt.addEventListener('click', () => window.location.replace(`/?id=${chosenId}`))
 
         function openOrCloseDialog(a) {
             cmVw.style.display = a ? 'flex' : 'none'
@@ -92,6 +96,7 @@
             const id = parseInt(_id)
             let rq = new XMLHttpRequest()
 
+            chosenId = id
             cmpVwExt.addEventListener('click', () => openOrCloseDialog(false))
 
             rq.onreadystatechange = () => {

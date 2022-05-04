@@ -1,6 +1,7 @@
 package some.cursov_templates.controller;
 
 import lombok.RequiredArgsConstructor;
+import org.jetbrains.annotations.Nullable;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,7 +20,12 @@ public class EnpointsController {
     private final ComponentsService componentsService;
 
     @GetMapping(ENDPOINT_INDEX)
-    public String index(Model model, HttpServletRequest request) {
+    public String index(
+        Model model,
+        HttpServletRequest request,
+        @RequestParam(required = false) @Nullable String id
+    ) {
+        componentsService.addSelection(request, id);
         model.addAttribute(ATTRIBUTE_ITEMS, componentsService.getOverviewItems(request));
         return PAGE_INDEX;
     }

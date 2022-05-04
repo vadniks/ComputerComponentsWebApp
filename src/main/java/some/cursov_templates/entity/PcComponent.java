@@ -37,18 +37,19 @@ public final class PcComponent implements Serializable {
 
     @RequiredArgsConstructor
     public enum Type {
-        CPU   (0),
-        MB    (1),
-        GPU   (2),
-        RAM   (3),
-        HDD   (4),
-        SSD   (5),
-        PSU   (6),
-        FAN   (7),
-        WATER (8),
-        CASE  (9);
+        CPU   (0, "Processor"),
+        MB    (1, "Motherboard"),
+        GPU   (2, "Graphics adapter"),
+        RAM   (3, "Operating memory"),
+        HDD   (4, "Hard drive"),
+        SSD   (5, "Solid state drive"),
+        PSU   (6, "Power supply unit"),
+        FAN   (7, "Cooler"),
+        WATER (8, "Water cooling system"),
+        CASE  (9, "Case");
 
         public final Integer TYPE;
+        public final String REAL_NAME;
         public static final int AMOUNT = 10;
     }
 
