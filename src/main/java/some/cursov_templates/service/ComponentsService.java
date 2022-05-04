@@ -110,11 +110,11 @@ public class ComponentsService {
     void test() {
         System.out.println("gvbftghbtrhgbt");
         componentsRepo.save(new PcComponent(
-            "Intel Core I7 900",
-            Type.CPU,
-            "Intel Core I7 900",
+            "Asus GeForce GTX 1650",
+            Type.GPU,
+            "Asus GeForce GTX 1650",
             750,
-            "intel_i7"));
+            "asus_1650_gpu"));
     }
 
     public StringPairMap getComponent(Integer id) {
