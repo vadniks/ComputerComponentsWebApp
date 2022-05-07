@@ -40,7 +40,7 @@ public class PagesController {
 
     @GetMapping(ENDPOINT_REGISTER)
     public String register(HttpServletRequest request) {
-        return !isAuthenticated(request) ? PAGE_REGISTER : REDIRECT_TO_INDEX;
+        return !isAuthenticated(request) ? PAGE_REGISTER : REDIRECT_TO_ERROR;
     }
 
     @GetMapping(ENDPOINT_ADMIN)

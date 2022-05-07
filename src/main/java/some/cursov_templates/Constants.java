@@ -109,7 +109,9 @@ public final class Constants {
     /** Hyper references */
     public static final String FROM_BROWSE_TO_INDEX_WITH_TYPE = ENDPOINT_BROWSE + "?type=";
     public static final String FROM_LOGIN_TO_LOGIN_WITH_ERROR = ENDPOINT_LOGIN + "?error=true";
-    public static final String REDIRECT_TO_INDEX = "redirect:" + ENDPOINT_INDEX;
+    public static final String REDIRECT = "redirect:";
+    public static final String REDIRECT_TO_INDEX = REDIRECT + ENDPOINT_INDEX;
+    public static final String REDIRECT_TO_ERROR = REDIRECT + ENDPOINT_ERROR;
 
     /** Metadata */
     @Target(FIELD) @Retention(SOURCE) public @interface ImplicitAutowire {}
