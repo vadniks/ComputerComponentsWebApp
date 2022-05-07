@@ -29,6 +29,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                     ENDPOINT_INDEX,
                     ENDPOINT_BROWSE,
                     ENDPOINT_REGISTER,
+                    ENDPOINT_ABOUT,
                     RESOURCE_STATIC,
                     RESOURCE_BACK_END,
                     ENDPOINT_COMPONENT,

@@ -34,7 +34,6 @@ public class ComponentsService {
             session.removeAttribute(SESSION_CHOSEN_ITEMS);
             return;
         }
-        System.out.println("rgvfrbrfgv " + _id);
         Items selections;
         if ((selections = (Items) session.getAttribute(SESSION_CHOSEN_ITEMS)) == null)
             selections = new Items(1);
@@ -49,7 +48,7 @@ public class ComponentsService {
             .set(COMPONENT_IMAGE, getPathForImage(component.image))
             .set(ENTITY_NAME, component.name)
             .set(COMPONENT_TYPE, component.type.REAL_NAME)
-            .set(COMPONENT_COST, component.cost.toString() + '$')
+            .set(COMPONENT_COST, component.cost.toString() + DOLLAR)
             .set(COMPONENT_DESCRIPTION, component.description));
 
         session.setAttribute(SESSION_CHOSEN_ITEMS, selections);
@@ -89,7 +88,7 @@ public class ComponentsService {
 
     //TODO: add image for water cooling system
     private static String getStubImagePathByType(Type type) {
-        return RESOURCES_DIR_FROM_HTML + '/' + COMPONENT_IMAGE_PREFIX +
+        return RESOURCES_DIR_FROM_HTML + ROOT + COMPONENT_IMAGE_PREFIX +
             type.name().toLowerCase() + COMPONENT_IMAGE_POSTFIX;
     }
 
@@ -103,19 +102,19 @@ public class ComponentsService {
                 .set(ENTITY_ID, Objects.requireNonNull(component.id).toString())
                 .set(COMPONENT_IMAGE, getPathForImage(component.image))
                 .set(ENTITY_NAME, component.name)
-                .set(COMPONENT_COST, component.cost.toString() + '$'));
+                .set(COMPONENT_COST, component.cost.toString() + DOLLAR));
 
         return items;
     }
 
     private static String getPathForImage(String image) {
-        return RESOURCES_BACK_END_DIR_FROM_HTML + '/' +
+        return RESOURCES_BACK_END_DIR_FROM_HTML + ROOT +
             image + COMPONENT_IMAGE_POSTFIX;
     }
 
     @TestOnly
+    @Deprecated
     void test() {
-        System.out.println("gvbftghbtrhgbt");
         componentsRepo.save(new PcComponent(
             "Asus GeForce GTX 1650",
             Type.GPU,
@@ -134,7 +133,18 @@ public class ComponentsService {
             .set(ENTITY_NAME, component.name)
             .set(COMPONENT_TYPE, component.type.name())
             .set(COMPONENT_DESCRIPTION, component.description)
-            .set(COMPONENT_COST, component.cost.toString() + '$')
+            .set(COMPONENT_COST, component.cost.toString() + DOLLAR)
             .set(COMPONENT_IMAGE, component.image);
+    }
+
+    public String getTotalCost(HttpServletRequest request) {
+        val chosenItems = (Items) request.getSession().getAttribute(SESSION_CHOSEN_ITEMS);
+
+        var cost = 0;
+        if (chosenItems != null)
+            for (val i : chosenItems)
+                cost += toInt(rmDollar(i.get(COMPONENT_COST)));
+
+        return TOTAL_COST + toStr(cost) + DOLLAR;
     }
 }

@@ -20,6 +20,7 @@ public class PagesController {
 
     @GetMapping(ENDPOINT_INDEX)
     public String index(Model model, HttpServletRequest request) {
+        model.addAttribute(ATTRIBUTE_TOTAL, componentsService.getTotalCost(request));
         model.addAttribute(ATTRIBUTE_ITEMS, componentsService.getOverviewItems(request));
         return PAGE_INDEX;
     }
@@ -50,5 +51,10 @@ public class PagesController {
     @GetMapping(ENDPOINT_ADMIN)
     public String admin() {
         return PAGE_ADMIN;
+    }
+
+    @GetMapping(ENDPOINT_ABOUT)
+    public String about() {
+        return PAGE_ABOUT;
     }
 }

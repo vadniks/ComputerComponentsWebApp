@@ -67,6 +67,7 @@
     padding-bottom: 15px;
 }
 #ovrwitmCst {
+    font-style: italic;
     text-align: end;
     font-weight: bold;
 }

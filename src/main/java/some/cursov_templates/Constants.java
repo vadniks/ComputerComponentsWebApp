@@ -1,6 +1,8 @@
 package some.cursov_templates;
 
 import lombok.SneakyThrows;
+import lombok.val;
+import org.jetbrains.annotations.TestOnly;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
@@ -20,6 +22,9 @@ public final class Constants {
     public static final String PACKAGE = "some.cursov_templates";
     public static final String PACKAGES = PACKAGE + ".*";
     public static final EmptyResponse STATUS_OK = new EmptyResponse(HttpStatus.OK);
+    public static final char DOLLAR = '$';
+    public static final char ROOT = '/';
+    public static final String TOTAL_COST = "Total cost: ";
 
     /** Database */
     public static final String DB_NAME = "db";
@@ -50,11 +55,12 @@ public final class Constants {
     public static final String USER_PASSWORD = "password";
 
     /** Endpoints */
-    public static final String ENDPOINT_INDEX = "/";
+    public static final String ENDPOINT_INDEX = EMPTY + ROOT;
     public static final String ENDPOINT_BROWSE = "/brw";
     public static final String ENDPOINT_LOGIN = "/lgn";
     public static final String ENDPOINT_REGISTER = "/rgs";
     public static final String ENDPOINT_ADMIN = "/adm";
+    public static final String ENDPOINT_ABOUT = "/abt";
     public static final String ENDPOINT_COMPONENT = "/cmp";
     public static final String ENDPOINT_SELECT = "/slc";
     public static final String ENDPOINT_CLEAR = "/clr";
@@ -65,6 +71,7 @@ public final class Constants {
     public static final String PAGE_LOGIN = "login";
     public static final String PAGE_REGISTER = "register";
     public static final String PAGE_ADMIN = "admin";
+    public static final String PAGE_ABOUT = "about";
 
     /** Resources */
     public static final String RESOURCE_STATIC = "/static/**";
@@ -85,6 +92,7 @@ public final class Constants {
     public static final String ATTRIBUTE_ITEMS = "items";
     public static final String ATTRIBUTE_ON_CLICK = "on_click";
     public static final String ATTRIBUTE_TYPE = "type";
+    public static final String ATTRIBUTE_TOTAL = "total";
 
     /** Sessions */
     public static final String SESSION_CHOSEN_ITEMS = "chosen_items";
@@ -113,6 +121,22 @@ public final class Constants {
     { public EmptyResponse(HttpStatus status) { super(status); } }
 
     /** Aliases end */
+
+    /** Functions begin */
+
+    public static String toStr(int a) { return Integer.toString(a); }
+    public static String toStr(char a) { return Character.toString(a); }
+    public static int toInt(String a) { return Integer.parseInt(a); }
+
+    public static String rmDollar(String a)
+    { val b = a.indexOf(DOLLAR);
+      if (b <= 0) throw new IllegalStateException();
+      return a.substring(0, b); }
+
+    @TestOnly @Deprecated public static void debug(String a, Object b)
+    { System.err.println(a + '\t' + b); }
+
+    /** Functions end */
 
     @SneakyThrows
     private Constants() { throw new IllegalAccessException(); }

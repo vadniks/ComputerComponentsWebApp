@@ -13,7 +13,7 @@
             <div id="logo">
                 <img id="logoPic" src="../../static/res/pc_icon3.svg">
                 <span id="logoNm">PC CONFIGURATOR</span>
-                <span id="logoSubNm">Since 2021</span>
+                <span id="logoSubNm">Since 2022</span>
                 <span id="slgn">
                     Build your own PC with PC Configurator online and free!
                     Choose any components you like and we will do the rest!
@@ -21,10 +21,10 @@
             </div>
             <div id="menu">
                 <div id="menuLf">
-                    <button id="menuBtAbt">About</button>
+                    <button id="menuBtAbt" onclick="window.location.replace('/abt')">About</button>
                 </div>
                 <div id="menuRg">
-                    <button id="menuBtLog">Log In</button>
+                    <button id="menuBtLog" onclick="window.location.replace('/lgn')">Log In</button>
                 </div>
             </div>
         </div>
@@ -46,11 +46,15 @@
                 </div>
             </div>
             <div id="cntFtr">
-                <span id="componentCst">$0</span>
+                <span id="componentCst" th:text="${total}"></span>
                 <button id="clrOvrw" onclick="onClear()">Clear Selection</button>
                 <script>
                     function onClear() {
                         let rq = new XMLHttpRequest()
+                        rq.onreadystatechange = () => {
+                            if (rq.readyState === 4 && rq.status === 200)
+                                window.location.replace('/')
+                        }
                         rq.open('POST', '/clr')
                         rq.send(null)
                     }
@@ -58,7 +62,7 @@
             </div>
         </div>
         <div id="footer">
-            <span>Copyright &#169; 2021 | All Rights Reserved.</span>
+            <span>Copyright &#169; 2022 | All Rights Reserved.</span>
         </div>
     </div>
 </body>
