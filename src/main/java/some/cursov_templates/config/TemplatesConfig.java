@@ -16,6 +16,7 @@ import static some.cursov_templates.Constants.*;
 @RequiredArgsConstructor
 @Configuration
 public class TemplatesConfig {
+    @ImplicitAutowire
     private final ApplicationContext context;
 
     @Bean

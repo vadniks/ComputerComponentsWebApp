@@ -12,7 +12,7 @@ import static some.cursov_templates.Constants.*;
 public interface UsersRepo extends JpaRepository<User, Integer> {
 
     @Query(value =
-            "select * from " + TABLE_USERS + " where " + NAME + " = ?1 limit 1",
+            "select * from " + TABLE_USERS + " where " + ENTITY_NAME + " = ?1 limit 1",
         nativeQuery = true)
     @Nullable
     User getByName(String name);

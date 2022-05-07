@@ -1,7 +1,6 @@
 package some.cursov_templates.config;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -9,9 +8,6 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
-
-import javax.sql.DataSource;
 
 import static some.cursov_templates.Constants.*;
 
@@ -19,11 +15,15 @@ import static some.cursov_templates.Constants.*;
 @EnableWebSecurity
 @Configuration
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
+    @ImplicitAutowire
     private final UserDetailsService userDetailsService;
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
+            .csrf()
+                .ignoringAntMatchers(ENDPOINT_SELECT, ENDPOINT_CLEAR)
+                .and()
             .authorizeRequests()
                 .antMatchers(
                     ENDPOINT_INDEX,

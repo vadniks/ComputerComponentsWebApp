@@ -5,6 +5,8 @@ import lombok.val;
 import org.jetbrains.annotations.Nullable;
 import org.jetbrains.annotations.TestOnly;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.beans.factory.config.ConfigurableBeanFactory;
+import org.springframework.context.annotation.Scope;
 import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Service;
 import some.cursov_templates.entity.PcComponent;
@@ -17,9 +19,11 @@ import static some.cursov_templates.Constants.*;
 import static some.cursov_templates.entity.PcComponent.Type.AMOUNT;
 import some.cursov_templates.entity.PcComponent.Type;
 
+@Scope(ConfigurableBeanFactory.SCOPE_SINGLETON)
 @RequiredArgsConstructor
 @Service
 public class ComponentsService {
+    @ImplicitAutowire
     private final ComponentsRepo componentsRepo;
     @Value("classpath:static")
     private Resource resDir;
@@ -42,11 +46,11 @@ public class ComponentsService {
 
         selections.add((t == null ? new StringPairMap() : t)
             .set(ATTRIBUTE_ON_CLICK, FROM_BROWSE_TO_INDEX_WITH_TYPE + component.type.name())
-            .set(IMAGE, getPathForImage(component.image))
-            .set(NAME, component.name)
-            .set(TYPE, component.type.REAL_NAME)
-            .set(COST, component.cost.toString() + '$')
-            .set(DESCRIPTION, component.description));
+            .set(COMPONENT_IMAGE, getPathForImage(component.image))
+            .set(ENTITY_NAME, component.name)
+            .set(COMPONENT_TYPE, component.type.REAL_NAME)
+            .set(COMPONENT_COST, component.cost.toString() + '$')
+            .set(COMPONENT_DESCRIPTION, component.description));
 
         session.setAttribute(SESSION_CHOSEN_ITEMS, selections);
     }
@@ -63,11 +67,11 @@ public class ComponentsService {
             if ((map = findByType(chosenItems, type)) == null)
                 map = new StringPairMap()
                     .set(ATTRIBUTE_ON_CLICK, FROM_BROWSE_TO_INDEX_WITH_TYPE + type.name())
-                    .set(IMAGE, getStubImagePathByType(type))
-                    .set(NAME, UNSELECTED_DESCRIPTION)
-                    .set(TYPE, type.REAL_NAME)
-                    .set(COST, UNSELECTED_COST)
-                    .set(DESCRIPTION, UNSELECTED_DESCRIPTION);
+                    .set(COMPONENT_IMAGE, getStubImagePathByType(type))
+                    .set(ENTITY_NAME, UNSELECTED_DESCRIPTION)
+                    .set(COMPONENT_TYPE, type.REAL_NAME)
+                    .set(COMPONENT_COST, UNSELECTED_COST)
+                    .set(COMPONENT_DESCRIPTION, UNSELECTED_DESCRIPTION);
             items.add(map);
         }
         return items;
@@ -78,7 +82,7 @@ public class ComponentsService {
         if (items == null) return null;
 
         for (val i : items)
-            if (i.get(TYPE).equals(type.REAL_NAME))
+            if (i.get(COMPONENT_TYPE).equals(type.REAL_NAME))
                 return i;
         return null;
     }
@@ -96,10 +100,10 @@ public class ComponentsService {
 
         for (val component : components)
             items.add(new StringPairMap()
-                .set(ID, Objects.requireNonNull(component.id).toString())
-                .set(IMAGE, getPathForImage(component.image))
-                .set(NAME, component.name)
-                .set(COST, component.cost.toString() + '$'));
+                .set(ENTITY_ID, Objects.requireNonNull(component.id).toString())
+                .set(COMPONENT_IMAGE, getPathForImage(component.image))
+                .set(ENTITY_NAME, component.name)
+                .set(COMPONENT_COST, component.cost.toString() + '$'));
 
         return items;
     }
@@ -126,21 +130,11 @@ public class ComponentsService {
         val component = _component.get();
 
         return new StringPairMap()
-            .set(ID, Objects.requireNonNull(component.id).toString())
-            .set(NAME, component.name)
-            .set(TYPE, component.type.name())
-            .set(DESCRIPTION, component.description)
-            .set(COST, component.cost.toString() + '$')
-            .set(IMAGE, component.image);
+            .set(ENTITY_ID, Objects.requireNonNull(component.id).toString())
+            .set(ENTITY_NAME, component.name)
+            .set(COMPONENT_TYPE, component.type.name())
+            .set(COMPONENT_DESCRIPTION, component.description)
+            .set(COMPONENT_COST, component.cost.toString() + '$')
+            .set(COMPONENT_IMAGE, component.image);
     }
-
-    // aka alias for the extended type
-    public static class StringPairMap extends HashMap<String, String> {
-        public StringPairMap() { super(); }
-        public StringPairMap set(String a, String b) { put(a, b); return this; }
-    }
-
-    // aka alias for the extended type
-    public static class Items extends ArrayList<StringPairMap>
-    { public Items(int initialCapacity) { super(initialCapacity); } }
 }

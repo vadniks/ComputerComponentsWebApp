@@ -14,13 +14,13 @@ import static some.cursov_templates.Constants.*;
 public interface ComponentsRepo extends JpaRepository<PcComponent, Integer> {
 
     @Query(value =
-            "select * from " + TABLE_COMPONENTS + " where " + TYPE + " = ?1",
+            "select * from " + TABLE_COMPONENTS + " where " + COMPONENT_TYPE + " = ?1",
         nativeQuery = true)
     List<PcComponent> getAllByType(Integer type);
 
     @Nullable
     @Query(value =
-            "select " + TYPE + " from " + TABLE_COMPONENTS + " where " + ID + " = ?1",
+            "select " + COMPONENT_TYPE + " from " + TABLE_COMPONENTS + " where " + ENTITY_ID + " = ?1",
         nativeQuery = true)
     Integer getTypeById(Integer id);
 }

@@ -1,15 +1,10 @@
 package some.cursov_templates.controller;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import some.cursov_templates.service.ComponentsService;
 
 import javax.servlet.http.HttpServletRequest;
@@ -18,7 +13,8 @@ import static some.cursov_templates.Constants.*;
 
 @RequiredArgsConstructor
 @Controller
-public class EnpointsController {
+public class PagesController {
+    @ImplicitAutowire
     private final ComponentsService componentsService;
 
     @GetMapping(ENDPOINT_INDEX)
@@ -35,24 +31,8 @@ public class EnpointsController {
 
     @ResponseBody
     @GetMapping(value = ENDPOINT_COMPONENT, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ComponentsService.StringPairMap component(@RequestParam String id) {
+    public StringPairMap component(@RequestParam String id) {
         return componentsService.getComponent(Integer.parseInt(id));
-    }
-
-    @PostMapping(ENDPOINT_SELECT)
-    public ResponseEntity<?> select(
-        HttpServletRequest request,
-        @RequestParam String id
-    ) {
-        System.out.println("rfgrvgrfvgrgv " + id);
-        componentsService.setSelection(request, id);
-        return STATUS_OK;
-    }
-
-    @PostMapping(ENDPOINT_CLEAR)
-    public ResponseEntity<?> clear(HttpServletRequest request) {
-        componentsService.setSelection(request, null);
-        return STATUS_OK;
     }
 
     @GetMapping(ENDPOINT_LOGIN)

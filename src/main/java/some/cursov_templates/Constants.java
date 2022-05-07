@@ -4,13 +4,22 @@ import lombok.SneakyThrows;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
+import java.lang.annotation.Retention;
+import java.lang.annotation.Target;
+import java.util.ArrayList;
+import java.util.HashMap;
+
+import static java.lang.annotation.ElementType.FIELD;
+import static java.lang.annotation.ElementType.TYPE;
+import static java.lang.annotation.RetentionPolicy.SOURCE;
+
 public final class Constants {
 
     /** Common */
     public static final String EMPTY = "";
     public static final String PACKAGE = "some.cursov_templates";
     public static final String PACKAGES = PACKAGE + ".*";
-    public static final ResponseEntity<?> STATUS_OK = new ResponseEntity<>(HttpStatus.OK);
+    public static final EmptyResponse STATUS_OK = new EmptyResponse(HttpStatus.OK);
 
     /** Database */
     public static final String DB_NAME = "db";
@@ -29,16 +38,16 @@ public final class Constants {
     public static final String TABLE_SELECTIONS = "selections";
 
     /** Entities */
-    public static final String ID = "id";
-    public static final String NAME = "name";
-    public static final String TYPE = "type";
-    public static final String DESCRIPTION = "description";
-    public static final String COST = "cost";
-    public static final String IMAGE = "image";
-    public static final String BUYER = "buyer";
-    public static final String BOUGHT = "bought";
-    public static final String ROLE = "role";
-    public static final String PASSWORD = "password";
+    public static final String ENTITY_ID = "id";
+    public static final String ENTITY_NAME = "name";
+    public static final String COMPONENT_TYPE = "type";
+    public static final String COMPONENT_DESCRIPTION = "description";
+    public static final String COMPONENT_COST = "cost";
+    public static final String COMPONENT_IMAGE = "image";
+    public static final String SELECTION_BUYER = "buyer";
+    public static final String SELECTION_BOUGHT = "bought";
+    public static final String USER_ROLE = "role";
+    public static final String USER_PASSWORD = "password";
 
     /** Endpoints */
     public static final String ENDPOINT_INDEX = "/";
@@ -85,6 +94,24 @@ public final class Constants {
 
     /** Hyper references */
     public static final String FROM_BROWSE_TO_INDEX_WITH_TYPE = "/brw?type=";
+
+    /** Metadata */
+    @Target(FIELD) @Retention(SOURCE) public @interface ImplicitAutowire {}
+    @Target(TYPE) @Retention(SOURCE) public @interface TypeAlias {}
+
+    /** Aliases (emulating type aliases) begin */
+
+    @TypeAlias public static class StringPairMap extends HashMap<String, String>
+    { public StringPairMap() { super(); }
+      public StringPairMap set(String a, String b) { put(a, b); return this; } }
+
+    @TypeAlias public static class Items extends ArrayList<StringPairMap>
+    { public Items(int initialCapacity) { super(initialCapacity); } }
+
+    @TypeAlias public static class EmptyResponse extends ResponseEntity<Void>
+    { public EmptyResponse(HttpStatus status) { super(status); } }
+
+    /** Aliases end */
 
     @SneakyThrows
     private Constants() { throw new IllegalAccessException(); }

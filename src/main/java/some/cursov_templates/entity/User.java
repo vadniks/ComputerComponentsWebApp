@@ -15,7 +15,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.Objects;
 
-import static some.cursov_templates.Constants.ROLE;
+import static some.cursov_templates.Constants.USER_ROLE;
 import static some.cursov_templates.Constants.TABLE_USERS;
 
 @NoArgsConstructor
@@ -41,7 +41,7 @@ public class User implements Serializable, UserDetails {
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return Collections.singletonList(
-            new SimpleGrantedAuthority("%s%d".formatted(ROLE, role.ROLE)));
+            new SimpleGrantedAuthority("%s%d".formatted(USER_ROLE, role.ROLE)));
     }
 
     @NonNull
