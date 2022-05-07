@@ -34,13 +34,13 @@ public class PagesController {
     }
 
     @GetMapping(ENDPOINT_LOGIN)
-    public String login() {
-        return PAGE_LOGIN;
+    public String login(HttpServletRequest request) {
+        return isAuthenticated(request) ? PAGE_LOGIN : REDIRECT_TO_INDEX;
     }
 
     @GetMapping(ENDPOINT_REGISTER)
-    public String register() {
-        return PAGE_REGISTER;
+    public String register(HttpServletRequest request) {
+        return !isAuthenticated(request) ? PAGE_REGISTER : REDIRECT_TO_INDEX;
     }
 
     @GetMapping(ENDPOINT_ADMIN)
@@ -51,5 +51,10 @@ public class PagesController {
     @GetMapping(ENDPOINT_ABOUT)
     public String about() {
         return PAGE_ABOUT;
+    }
+
+    @GetMapping(ENDPOINT_ERROR)
+    public String error() {
+        return PAGE_ERROR;
     }
 }

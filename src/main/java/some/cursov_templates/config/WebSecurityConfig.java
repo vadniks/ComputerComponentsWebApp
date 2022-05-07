@@ -30,7 +30,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
             .csrf()
-                .ignoringAntMatchers(POST_SELECT, POST_CLEAR, ENDPOINT_LOGIN, POST_LOGOUT)
+                .ignoringAntMatchers(
+                    POST_SELECT,
+                    POST_CLEAR,
+                    ENDPOINT_LOGIN,
+                    POST_LOGOUT)
                 .and()
             .authorizeRequests()
                 .antMatchers(
@@ -42,7 +46,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                     RESOURCE_BACK_END,
                     GET_COMPONENT,
                     POST_SELECT,
-                    POST_CLEAR).permitAll()
+                    POST_CLEAR,
+                    ENDPOINT_ERROR).permitAll()
                 .antMatchers(POST_LOGOUT).hasRole(USER.mkRole())
                 .antMatchers(ENDPOINT_ADMIN, POST_LOGOUT).hasRole(ADMIN.mkRole())
                 .anyRequest().authenticated()

@@ -6,6 +6,7 @@ import org.jetbrains.annotations.TestOnly;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
+import javax.servlet.http.HttpServletRequest;
 import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
 import java.util.ArrayList;
@@ -66,6 +67,7 @@ public final class Constants {
     public static final String POST_SELECT = "/slc";
     public static final String POST_CLEAR = "/clr";
     public static final String POST_LOGOUT = "/lgo";
+    public static final String ENDPOINT_ERROR = "/error";
 
     /** Pages */
     public static final String PAGE_INDEX = "index";
@@ -74,6 +76,7 @@ public final class Constants {
     public static final String PAGE_REGISTER = "register";
     public static final String PAGE_ADMIN = "admin";
     public static final String PAGE_ABOUT = "about";
+    public static final String PAGE_ERROR = "error";
 
     /** Resources */
     public static final String RESOURCE_STATIC = "/static/**";
@@ -106,6 +109,7 @@ public final class Constants {
     /** Hyper references */
     public static final String FROM_BROWSE_TO_INDEX_WITH_TYPE = ENDPOINT_BROWSE + "?type=";
     public static final String FROM_LOGIN_TO_LOGIN_WITH_ERROR = ENDPOINT_LOGIN + "?error=true";
+    public static final String REDIRECT_TO_INDEX = "redirect:" + ENDPOINT_INDEX;
 
     /** Metadata */
     @Target(FIELD) @Retention(SOURCE) public @interface ImplicitAutowire {}
@@ -139,6 +143,8 @@ public final class Constants {
     @TestOnly @Deprecated public static void debug(String a) { debug(a, EMPTY); }
     @TestOnly @Deprecated public static void debug(String a, Object... b)
     { System.err.println(a + '\t' + Arrays.toString(b)); }
+
+    public static boolean isAuthenticated(HttpServletRequest a) { return a.getRemoteUser() != null; }
 
     /** Functions end */
 
