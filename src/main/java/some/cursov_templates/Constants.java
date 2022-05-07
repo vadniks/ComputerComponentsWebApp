@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 
 import static java.lang.annotation.ElementType.FIELD;
@@ -64,6 +65,7 @@ public final class Constants {
     public static final String GET_COMPONENT = "/cmp";
     public static final String POST_SELECT = "/slc";
     public static final String POST_CLEAR = "/clr";
+    public static final String POST_LOGOUT = "/lgo";
 
     /** Pages */
     public static final String PAGE_INDEX = "index";
@@ -102,7 +104,8 @@ public final class Constants {
     public static final String UNSELECTED_DESCRIPTION = "Not Selected";
 
     /** Hyper references */
-    public static final String FROM_BROWSE_TO_INDEX_WITH_TYPE = "/brw?type=";
+    public static final String FROM_BROWSE_TO_INDEX_WITH_TYPE = ENDPOINT_BROWSE + "?type=";
+    public static final String FROM_LOGIN_TO_LOGIN_WITH_ERROR = ENDPOINT_LOGIN + "?error=true";
 
     /** Metadata */
     @Target(FIELD) @Retention(SOURCE) public @interface ImplicitAutowire {}
@@ -133,8 +136,9 @@ public final class Constants {
       assert b > 0;
       return a.substring(0, b); }
 
-    @TestOnly @Deprecated public static void debug(String a, Object b)
-    { System.err.println(a + '\t' + b); }
+    @TestOnly @Deprecated public static void debug(String a) { debug(a, EMPTY); }
+    @TestOnly @Deprecated public static void debug(String a, Object... b)
+    { System.err.println(a + '\t' + Arrays.toString(b)); }
 
     /** Functions end */
 

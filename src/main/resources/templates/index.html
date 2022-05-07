@@ -23,7 +23,8 @@
             </div>
             <div id="menu">
                 <div id="menuLf">
-                    <button id="menuBtAbt" onclick="window.location.replace('/abt')">About</button>
+                    <button id="menuBtAbt" th:if="${user == null}" onclick="window.location.replace('/abt')">About</button>
+<!--                    <button id="menuBtAbt" th:if="${user != null}" onclick="window.location.replace('/abt')">About</button>-->
                 </div>
                 <div id="menuRg">
                     <button id="menuBtLog" th:if="${user == null}" onclick="window.location.replace('/lgn')">Log In</button>
@@ -35,7 +36,7 @@
                                 if (rq.readyState === 4 && rq.status === 200)
                                     window.location.replace('/')
                             }
-                            rq.open('POST', '/logout')
+                            rq.open('POST', '/lgo')
                             rq.send(null)
                         }
                     </script>
