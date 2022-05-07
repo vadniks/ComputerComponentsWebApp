@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html lang="en">
+<!--suppress HtmlFormInputWithoutLabel -->
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Log In</title>
     <link rel="stylesheet" href="../../static/css/login.css"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" type="image/svg" href="../../static/res/pc_icon3.svg">
-    <script type="module" src="../../static/js/login.js"></script>
 </head>
 <body>
     <div id="template">
@@ -31,13 +31,19 @@
             <div id="cntHdr">
                 <span>Login Panel</span>
             </div>
-            <input id="lgn" placeholder="Login" type="email">
-            <input id="pas" placeholder="Password" type="password">
-            <div id="bts">
-                <button id="sbmt" type="submit">Authorize</button>
-                <button id="clr" type="reset">Clear</button>
+            <form th:action="@{/lgn}" method="post">
+                <input id="lgn" placeholder="Login" type="text" name="name" required>
+                <input id="pas" placeholder="Password" type="password" name="password" required>
+                <div id="bts">
+                    <button id="sbmt" type="submit">Authorize</button>
+                    <button id="clr" type="reset">Clear</button>
+                </div>
+            </form>
+            <div id="cntFtr" th:style="${param.error} ? 'background-color: red'">
+                <span th:if="${param.error}" class="spFtr">Wrong username or password</span>
+                <span th:if="${param.logout}" class="spFtr">You've been logged out</span>
+                <span th:unless="${param.error} or ${param.logout}" class="spFtr" style="visibility: hidden">STUB</span>
             </div>
-            <div id="cntFtr"></div>
         </div>
         <div id="footer">
             <span>Copyright &#169; 2022 | All Rights Reserved.</span>

@@ -41,7 +41,7 @@ public class User implements Serializable, UserDetails {
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return Collections.singletonList(
-            new SimpleGrantedAuthority("%s%d".formatted(USER_ROLE, role.ROLE)));
+            new SimpleGrantedAuthority(role.mkRole()));
     }
 
     @NonNull
@@ -69,6 +69,8 @@ public class User implements Serializable, UserDetails {
         ADMIN (1);
 
         public final Integer ROLE;
+
+        public String mkRole() { return "%s%d".formatted(USER_ROLE, ROLE); }
     }
 
     @Override

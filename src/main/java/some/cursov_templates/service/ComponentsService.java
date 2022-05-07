@@ -8,8 +8,10 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.context.annotation.Scope;
 import org.springframework.core.io.Resource;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import some.cursov_templates.entity.PcComponent;
+import some.cursov_templates.entity.User;
 import some.cursov_templates.repo.ComponentsRepo;
 
 import javax.servlet.http.HttpServletRequest;
@@ -18,6 +20,7 @@ import java.util.*;
 import static some.cursov_templates.Constants.*;
 import static some.cursov_templates.entity.PcComponent.Type.AMOUNT;
 import some.cursov_templates.entity.PcComponent.Type;
+import some.cursov_templates.repo.UsersRepo;
 
 @Scope(ConfigurableBeanFactory.SCOPE_SINGLETON)
 @RequiredArgsConstructor
@@ -121,6 +124,19 @@ public class ComponentsService {
             "Asus GeForce GTX 1650",
             750,
             "asus_1650_gpu"));
+    }
+
+    @TestOnly
+    @Deprecated
+    private final UsersRepo usersRepo;
+
+    @TestOnly
+    @Deprecated
+    void test2() {
+        usersRepo.save(new User(
+            "admin",
+            User.Role.ADMIN,
+            new BCryptPasswordEncoder().encode("admin")));
     }
 
     public StringPairMap getComponent(Integer id) {

@@ -61,9 +61,9 @@ public final class Constants {
     public static final String ENDPOINT_REGISTER = "/rgs";
     public static final String ENDPOINT_ADMIN = "/adm";
     public static final String ENDPOINT_ABOUT = "/abt";
-    public static final String ENDPOINT_COMPONENT = "/cmp";
-    public static final String ENDPOINT_SELECT = "/slc";
-    public static final String ENDPOINT_CLEAR = "/clr";
+    public static final String GET_COMPONENT = "/cmp";
+    public static final String POST_SELECT = "/slc";
+    public static final String POST_CLEAR = "/clr";
 
     /** Pages */
     public static final String PAGE_INDEX = "index";
@@ -130,7 +130,7 @@ public final class Constants {
 
     public static String rmDollar(String a)
     { val b = a.indexOf(DOLLAR);
-      if (b <= 0) throw new IllegalStateException();
+      assert b > 0;
       return a.substring(0, b); }
 
     @TestOnly @Deprecated public static void debug(String a, Object b)

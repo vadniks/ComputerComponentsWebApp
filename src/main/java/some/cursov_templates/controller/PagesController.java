@@ -1,7 +1,6 @@
 package some.cursov_templates.controller;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -30,12 +29,6 @@ public class PagesController {
         model.addAttribute(ATTRIBUTE_TYPE, PcComponent.Type.valueOf(type).REAL_NAME);
         model.addAttribute(ATTRIBUTE_ITEMS, componentsService.getComponentsByType(type));
         return PAGE_BROWSE;
-    }
-
-    @ResponseBody
-    @GetMapping(value = ENDPOINT_COMPONENT, produces = MediaType.APPLICATION_JSON_VALUE)
-    public StringPairMap component(@RequestParam String id) {
-        return componentsService.getComponent(Integer.parseInt(id));
     }
 
     @GetMapping(ENDPOINT_LOGIN)

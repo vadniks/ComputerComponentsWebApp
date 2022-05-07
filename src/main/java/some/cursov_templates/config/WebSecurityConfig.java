@@ -6,8 +6,16 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.web.authentication.AuthenticationFailureHandler;
+import some.cursov_templates.entity.User;
+
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 
 import static some.cursov_templates.Constants.*;
 
@@ -22,7 +30,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
             .csrf()
-                .ignoringAntMatchers(ENDPOINT_SELECT, ENDPOINT_CLEAR)
+                .ignoringAntMatchers(POST_SELECT, POST_CLEAR)
                 .and()
             .authorizeRequests()
                 .antMatchers(
@@ -32,13 +40,19 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                     ENDPOINT_ABOUT,
                     RESOURCE_STATIC,
                     RESOURCE_BACK_END,
-                    ENDPOINT_COMPONENT,
-                    ENDPOINT_SELECT,
-                    ENDPOINT_CLEAR).permitAll()
+                    GET_COMPONENT,
+                    POST_SELECT,
+                    POST_CLEAR).permitAll()
+                .antMatchers(ENDPOINT_ADMIN).hasRole(User.Role.ADMIN.mkRole())
                 .anyRequest().authenticated()
                 .and()
             .formLogin()
-                .loginPage(ENDPOINT_LOGIN).permitAll()
+                .usernameParameter(ENTITY_NAME)
+                .passwordParameter(USER_PASSWORD)
+                .loginPage(ENDPOINT_LOGIN)
+                .failureUrl(ENDPOINT_LOGIN + "?error=true")
+                .successForwardUrl(ENDPOINT_INDEX)
+                .permitAll()
                 .and()
             .logout()
                 .permitAll();
