@@ -24,7 +24,7 @@
             <div id="menu">
                 <div id="menuLf">
                     <button id="menuBtAbt" th:if="${user == null}" onclick="window.location.replace('/abt')">About</button>
-<!--                    <button id="menuBtAbt" th:if="${user != null}" onclick="window.location.replace('/abt')">About</button>-->
+                    <button id="menuBtAbt" th:if="${#httpServletRequest.isUserInRole('role1')}" onclick="window.location.replace('/abt')">About</button>
                 </div>
                 <div id="menuRg">
                     <button id="menuBtLog" th:if="${user == null}" onclick="window.location.replace('/lgn')">Log In</button>
