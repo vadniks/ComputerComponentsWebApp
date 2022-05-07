@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Administrate</title>
@@ -14,10 +14,8 @@
             <div id="logo">
                 <img id="logoPic" src="../../static/res/pc_icon3.svg">
                 <span id="logoNm">PC CONFIGURATOR</span>
-                <span id="logoSubNm">Since 2021</span>
-                <span id="slgn">
-                    Welcome, Administrator!
-                </span>
+                <span id="logoSubNm">Since 2022</span>
+                <span id="slgn">Welcome [[${#httpServletRequest.remoteUser}]]!</span>
             </div>
             <div id="menu">
                 <div id="menuLf">
@@ -38,8 +36,8 @@
                 </div>
             </div>
             <div id="dbs">
-                <div id="dbVw">
-                    <div id="dbLs">
+                <div id="dbVw" th:each="db: ${dbs}">
+                    <div id="dbLs" th:each="row: ${db}">
                         <div id="dbItm">
                             <div id="dbCts">
                                 <button id="dbCtUp">Update</button>
@@ -65,7 +63,7 @@
             <div id="cntFtr"></div>
         </div>
         <div id="footer">
-            <span>Copyright &#169; 2021 | All Rights Reserved.</span>
+            <span>Copyright &#169; 2022 | All Rights Reserved.</span>
         </div>
     </div>
 
