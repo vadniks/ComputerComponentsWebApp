@@ -84,6 +84,7 @@ public final class Constants {
     /** Attributes */
     public static final String ATTRIBUTE_ITEMS = "items";
     public static final String ATTRIBUTE_ON_CLICK = "on_click";
+    public static final String ATTRIBUTE_TYPE = "type";
 
     /** Sessions */
     public static final String SESSION_CHOSEN_ITEMS = "chosen_items";

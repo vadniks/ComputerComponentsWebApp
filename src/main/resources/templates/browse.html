@@ -32,7 +32,7 @@
         </div>
         <div id="content">
             <div id="cntHdr">
-                <span>PC Components Selection</span>
+                <span>PC Components <span th:text="${type}"></span> Selection</span>
             </div>
             <div id="cmpSlc">
                 <div id="cmpSlcLst" th:if="${not #lists.isEmpty(items)}" th:each="item: ${items}">

@@ -5,6 +5,7 @@ import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import some.cursov_templates.entity.PcComponent;
 import some.cursov_templates.service.ComponentsService;
 
 import javax.servlet.http.HttpServletRequest;
@@ -25,6 +26,7 @@ public class PagesController {
 
     @GetMapping(ENDPOINT_BROWSE)
     public String browse(Model model, @RequestParam String type) {
+        model.addAttribute(ATTRIBUTE_TYPE, PcComponent.Type.valueOf(type).REAL_NAME);
         model.addAttribute(ATTRIBUTE_ITEMS, componentsService.getComponentsByType(type));
         return PAGE_BROWSE;
     }
