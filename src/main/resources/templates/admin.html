@@ -47,7 +47,7 @@
                 </div>
             </div>
             <div class="dbs">
-                <div class="dbLs">
+                <div class="dbLs" th:each="component: ${components}">
                     <div class="dbItm dbItmHdr">
                         <div class="dbCts">
                             <button class="dbCtUp">Update</button>
@@ -68,16 +68,16 @@
                             <button class="dbCtDl">Delete</button>
                         </div>
                         <div class="dbRw1 dbRw">
-                            <span class="dbItm1Id">id</span>
-                            <span class="dbItm1Tp">type</span>
-                            <span class="dbItm1Nm">name</span>
-                            <span class="dbItm1Ds">descr</span>
-                            <span class="dbItm1Cs">cost</span>
-                            <span class="dbItm1Im">img</span>
+                            <span class="dbItm1Id" th:text="${component['id']}">id</span>
+                            <span class="dbItm1Tp" th:text="${component['type']}">type</span>
+                            <span class="dbItm1Nm" th:text="${component['name']}">name</span>
+                            <span class="dbItm1Ds" th:text="${component['description']}">descr</span>
+                            <span class="dbItm1Cs" th:text="${component['cost']}">cost</span>
+                            <span class="dbItm1Im" th:text="${component['image']}">img</span>
                         </div>
                     </div>
                 </div>
-                <div class="dbLs">
+                <div class="dbLs" th:each="user: ${users}">
                     <div class="dbItm dbItmHdr">
                         <div class="dbCts">
                             <button class="dbCtUp">Update</button>
@@ -85,7 +85,8 @@
                         </div>
                         <div class="dbRw2 dbRw">
                             <span class="dbItm2Id">id</span>
-                            <span class="dbItm2Lg">lgn</span>
+                            <span class="dbItm2Lg">name</span>
+                            <span class="dbItm2Rl">role</span>
                             <span class="dbItm2Ps">pas</span>
                         </div>
                     </div>
@@ -95,9 +96,10 @@
                             <button class="dbCtDl">Delete</button>
                         </div>
                         <div class="dbRw2 dbRw">
-                            <span class="dbItm2Id">id</span>
-                            <span class="dbItm2Lg">lgn</span>
-                            <span class="dbItm2Ps">pas</span>
+                            <span class="dbItm2Id" th:text="${user['id']}">id</span>
+                            <span class="dbItm2Lg" th:text="${user['name']}">name</span>
+                            <span class="dbItm2Rl" th:text="${user['role']}">role</span>
+                            <span class="dbItm2Ps" th:text="${user['password']}">pas</span>
                         </div>
                     </div>
                 </div>

@@ -14,7 +14,7 @@ import org.springframework.security.config.core.GrantedAuthorityDefaults;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
-import some.cursov_templates.service.UserService;
+import some.cursov_templates.service.UsersService;
 
 import static some.cursov_templates.Constants.*;
 import static some.cursov_templates.entity.User.Role.*;
@@ -24,7 +24,7 @@ import static some.cursov_templates.entity.User.Role.*;
 @Configuration
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @ImplicitAutowire
-    private final UserService userDetailsService;
+    private final UsersService userDetailsService;
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {

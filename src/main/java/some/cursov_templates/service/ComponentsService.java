@@ -20,7 +20,6 @@ import java.util.*;
 import static some.cursov_templates.Constants.*;
 import static some.cursov_templates.entity.PcComponent.Type.AMOUNT;
 import some.cursov_templates.entity.PcComponent.Type;
-import some.cursov_templates.repo.UsersRepo;
 
 @Scope(ConfigurableBeanFactory.SCOPE_SINGLETON)
 @RequiredArgsConstructor
@@ -126,19 +125,6 @@ public class ComponentsService {
             "asus_1650_gpu"));
     }
 
-    @TestOnly
-    @Deprecated
-    private final UsersRepo usersRepo;
-
-    @TestOnly
-    @Deprecated
-    void test2() {
-        usersRepo.save(new User(
-            "admin",
-            User.Role.ADMIN,
-            new BCryptPasswordEncoder().encode("admin")));
-    }
-
     public StringPairMap getComponent(Integer id) {
         val _component = componentsRepo.findById(id);
         if (_component.isEmpty()) return null;
@@ -162,5 +148,9 @@ public class ComponentsService {
                 cost += toInt(rmDollar(i.get(COMPONENT_COST)));
 
         return TOTAL_COST + toStr(cost) + DOLLAR;
+    }
+
+    public List<PcComponent> getAllComponents() {
+        return componentsRepo.findAll();
     }
 }

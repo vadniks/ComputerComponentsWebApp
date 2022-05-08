@@ -7,6 +7,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import some.cursov_templates.entity.PcComponent;
 import some.cursov_templates.service.ComponentsService;
+import some.cursov_templates.service.UsersService;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -17,6 +18,8 @@ import static some.cursov_templates.Constants.*;
 public class PagesController {
     @ImplicitAutowire
     private final ComponentsService componentsService;
+    @ImplicitAutowire
+    private final UsersService userService;
 
     @SneakyThrows
     @GetMapping(ENDPOINT_INDEX)
@@ -44,7 +47,9 @@ public class PagesController {
     }
 
     @GetMapping(ENDPOINT_ADMIN)
-    public String admin() {
+    public String admin(Model model) {
+        model.addAttribute(ATTRIBUTE_COMPONENTS, componentsService.getAllComponents());
+        model.addAttribute(ATTRIBUTE_USERS, userService.getAllUsers());
         return PAGE_ADMIN;
     }
 

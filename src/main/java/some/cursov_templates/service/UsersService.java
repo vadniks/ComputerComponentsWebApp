@@ -8,14 +8,17 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+import some.cursov_templates.entity.User;
 import some.cursov_templates.repo.UsersRepo;
+
+import java.util.List;
 
 import static some.cursov_templates.Constants.*;
 
 @Scope(ConfigurableBeanFactory.SCOPE_SINGLETON)
 @RequiredArgsConstructor
 @Service
-public class UserService implements UserDetailsService {
+public class UsersService implements UserDetailsService {
     @ImplicitAutowire
     private final UsersRepo repo;
 
@@ -24,5 +27,9 @@ public class UserService implements UserDetailsService {
         val a = repo.getByName(username);
         if (a == null) throw new UsernameNotFoundException(EMPTY);
         return a;
+    }
+
+    public List<User> getAllUsers() {
+        return repo.findAll();
     }
 }
