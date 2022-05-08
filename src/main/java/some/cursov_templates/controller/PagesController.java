@@ -19,7 +19,7 @@ public class PagesController {
     @ImplicitAutowire
     private final ComponentsService componentsService;
     @ImplicitAutowire
-    private final UsersService userService;
+    private final UsersService usersService;
 
     @SneakyThrows
     @GetMapping(ENDPOINT_INDEX)
@@ -49,7 +49,7 @@ public class PagesController {
     @GetMapping(ENDPOINT_ADMIN)
     public String admin(Model model) {
         model.addAttribute(ATTRIBUTE_COMPONENTS, componentsService.getAllComponents());
-        model.addAttribute(ATTRIBUTE_USERS, userService.getAllUsers());
+        model.addAttribute(ATTRIBUTE_USERS, usersService.getAllUsers());
         return PAGE_ADMIN;
     }
 

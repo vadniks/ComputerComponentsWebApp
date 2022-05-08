@@ -13,7 +13,7 @@ import static some.cursov_templates.Constants.TABLE_COMPONENTS;
 @RequiredArgsConstructor
 @Table(name = TABLE_COMPONENTS)
 @Entity
-public final class PcComponent implements Serializable {
+public class PcComponent implements Serializable {
 
     @Nullable
     @Id

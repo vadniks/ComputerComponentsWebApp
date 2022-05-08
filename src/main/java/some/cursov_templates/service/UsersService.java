@@ -32,4 +32,12 @@ public class UsersService implements UserDetailsService {
     public List<User> getAllUsers() {
         return repo.findAll();
     }
+
+    public User getUser(Integer id) {
+        return repo.getById(id);
+    }
+
+    public void removeUser(Integer id) {
+        repo.deleteById(id);;
+    }
 }

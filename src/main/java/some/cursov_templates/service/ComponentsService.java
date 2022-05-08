@@ -8,10 +8,8 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.context.annotation.Scope;
 import org.springframework.core.io.Resource;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import some.cursov_templates.entity.PcComponent;
-import some.cursov_templates.entity.User;
 import some.cursov_templates.repo.ComponentsRepo;
 
 import javax.servlet.http.HttpServletRequest;
@@ -26,7 +24,7 @@ import some.cursov_templates.entity.PcComponent.Type;
 @Service
 public class ComponentsService {
     @ImplicitAutowire
-    private final ComponentsRepo componentsRepo;
+    private final ComponentsRepo repo;
     @Value("classpath:static")
     private Resource resDir;
 
@@ -42,7 +40,7 @@ public class ComponentsService {
 
 
         val id = Integer.parseInt(_id);
-        val component = componentsRepo.getById(id);
+        val component = repo.getById(id);
         val t = findByType(selections, component.type);
 
         selections.add((t == null ? new StringPairMap() : t)
@@ -95,7 +93,7 @@ public class ComponentsService {
     }
 
     public Items getComponentsByType(String type) {
-        val components = componentsRepo
+        val components = repo
             .getAllByType(Type.valueOf(type).TYPE);
         val items = new Items(components.size());
 
@@ -117,7 +115,7 @@ public class ComponentsService {
     @TestOnly
     @Deprecated
     void test() {
-        componentsRepo.save(new PcComponent(
+        repo.save(new PcComponent(
             "Asus GeForce GTX 1650",
             Type.GPU,
             "Asus GeForce GTX 1650",
@@ -126,7 +124,7 @@ public class ComponentsService {
     }
 
     public StringPairMap getComponent(Integer id) {
-        val _component = componentsRepo.findById(id);
+        val _component = repo.findById(id);
         if (_component.isEmpty()) return null;
         val component = _component.get();
 
@@ -151,6 +149,10 @@ public class ComponentsService {
     }
 
     public List<PcComponent> getAllComponents() {
-        return componentsRepo.findAll();
+        return repo.findAll();
+    }
+
+    public void removeComponent(Integer id) {
+        repo.deleteById(id);
     }
 }

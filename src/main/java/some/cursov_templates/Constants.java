@@ -68,6 +68,9 @@ public final class Constants {
     public static final String POST_CLEAR = "/clr";
     public static final String POST_LOGOUT = "/lgo";
     public static final String ENDPOINT_ERROR = "/error";
+    public static final String GET_USER = "/usr";
+    public static final String POST_REMOVE_COMPONENT = "/rmc";
+    public static final String POST_REMOVE_USER = "/rmu";
 
     /** Pages */
     public static final String PAGE_INDEX = "index";

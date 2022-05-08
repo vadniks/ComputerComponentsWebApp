@@ -7,7 +7,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import some.cursov_templates.entity.User;
 import some.cursov_templates.service.ComponentsService;
+import some.cursov_templates.service.UsersService;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -19,6 +21,8 @@ import static some.cursov_templates.Constants.STATUS_OK;
 public class RestController {
     @ImplicitAutowire
     private final ComponentsService componentsService;
+    @ImplicitAutowire
+    private final UsersService usersService;
 
     @ResponseBody
     @GetMapping(value = GET_COMPONENT, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -38,6 +42,23 @@ public class RestController {
     @PostMapping(POST_CLEAR)
     public EmptyResponse clear(HttpServletRequest request) {
         componentsService.setSelection(request, null);
+        return STATUS_OK;
+    }
+
+    @GetMapping(value = GET_USER, produces = MediaType.APPLICATION_JSON_VALUE)
+    public User user(@RequestParam String id) {
+        return usersService.getUser(toInt(id));
+    }
+
+    @PostMapping(POST_REMOVE_COMPONENT)
+    public EmptyResponse removeComponent(@RequestParam String id) {
+        componentsService.removeComponent(toInt(id));
+        return STATUS_OK;
+    }
+
+    @PostMapping(POST_REMOVE_USER)
+    public EmptyResponse removeUser(@RequestParam String id) {
+        usersService.removeUser(toInt(id));
         return STATUS_OK;
     }
 }

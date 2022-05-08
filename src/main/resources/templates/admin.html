@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<!--suppress HtmlFormInputWithoutLabel -->
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
@@ -50,8 +51,7 @@
                 <div class="dbLs" th:each="component: ${components}">
                     <div class="dbItm dbItmHdr">
                         <div class="dbCts">
-                            <button class="dbCtUp">Update</button>
-                            <button class="dbCtDl">Delete</button>
+                            <button class="dbCtUp">Table</button>
                         </div>
                         <div class="dbRw1 dbRw">
                             <span class="dbItm1Id">id</span>
@@ -62,13 +62,21 @@
                             <span class="dbItm1Im">img</span>
                         </div>
                     </div>
-                    <div class="dbItm">
+                    <div class="dbItm" th:with="cid = ${component['id']}">
                         <div class="dbCts">
-                            <button class="dbCtUp">Update</button>
-                            <button class="dbCtDl">Delete</button>
+                            <button
+                                class="dbCtUp"
+                                th:onclick="onUpdateClick([[${cid}]], false)">
+                                    Update
+                            </button>
+                            <button
+                                class="dbCtDl"
+                                th:onclick="onDeleteClick([[${cid}]], false)">
+                                    Delete
+                            </button>
                         </div>
                         <div class="dbRw1 dbRw">
-                            <span class="dbItm1Id" th:text="${component['id']}">id</span>
+                            <span class="dbItm1Id" th:text="${cid}">id</span>
                             <span class="dbItm1Tp" th:text="${component['type']}">type</span>
                             <span class="dbItm1Nm" th:text="${component['name']}">name</span>
                             <span class="dbItm1Ds" th:text="${component['description']}">descr</span>
@@ -80,8 +88,7 @@
                 <div class="dbLs" th:each="user: ${users}">
                     <div class="dbItm dbItmHdr">
                         <div class="dbCts">
-                            <button class="dbCtUp">Update</button>
-                            <button class="dbCtDl">Delete</button>
+                            <button class="dbCtUp">Table</button>
                         </div>
                         <div class="dbRw2 dbRw">
                             <span class="dbItm2Id">id</span>
@@ -90,13 +97,21 @@
                             <span class="dbItm2Ps">pas</span>
                         </div>
                     </div>
-                    <div class="dbItm">
+                    <div class="dbItm" th:with="uid = ${user['id']}">
                         <div class="dbCts">
-                            <button class="dbCtUp">Update</button>
-                            <button class="dbCtDl">Delete</button>
+                            <button
+                                class="dbCtUp"
+                                th:onclick="onUpdateClick([[${uid}]], true)">
+                                    Update
+                            </button>
+                            <button
+                                class="dbCtDl"
+                                th:onclick="onDeleteClick([[${uid}]], true)">
+                                    Delete
+                            </button>
                         </div>
                         <div class="dbRw2 dbRw">
-                            <span class="dbItm2Id" th:text="${user['id']}">id</span>
+                            <span class="dbItm2Id" th:text="${uid}">id</span>
                             <span class="dbItm2Lg" th:text="${user['name']}">name</span>
                             <span class="dbItm2Rl" th:text="${user['role']}">role</span>
                             <span class="dbItm2Ps" th:text="${user['password']}">pas</span>
@@ -104,6 +119,65 @@
                     </div>
                 </div>
             </div>
+            <script>
+                const act1 = elem('act1'),
+                    act2 = elem('act2'),
+                    ovrl = elem('overlay'),
+                    flx = 'flex',
+                    nn = 'none',
+                    nt = 'initial',
+                    gt = 'GET',
+                    pt = 'POST',
+                    flds1 = act1.querySelectorAll('input, textarea'),
+                    flds2 = act2.querySelectorAll('input, textarea')
+
+                var act1Sh = false, act2Sh = false
+
+                // noinspection JSUnusedGlobalSymbols
+                function onUpdateClick(id, isUsr) { request(
+                    gt, `/${!isUsr ? 'cmp' : 'usr'}?id=${id}`, jsn =>
+                {
+                    if (!isUsr) {
+                        act1Sh = !act1Sh
+                        act1.style.display = act1Sh ? flx : nn
+                        ovrl.style.display = act1Sh ? nt : nn
+
+                        flds1[0].value = jsn.id
+                        flds1[1].value = jsn.type
+                        flds1[2].value = jsn.name
+                        flds1[3].value = jsn.description
+                        flds1[4].value = jsn.cost
+                        flds1[5].value = jsn.image
+                    } else {
+                        act2Sh = !act2Sh
+                        act2.style.display = act2Sh ? flx : nn
+                        ovrl.style.display = act2Sh ? nt : nn
+
+                        flds2[0].value = jsn.id
+                        flds2[1].value = jsn.name
+                        flds2[2].value = jsn.role
+                        flds2[3].value = jsn.password
+                    }
+                }) }
+
+                // noinspection JSUnusedGlobalSymbols
+                function onDeleteClick(id, isUsr) { request(
+                        pt, `/rm${!isUsr ? 'c' : 'u'}?id=${id}`, () =>
+                    window.location.replace('/')
+                ) }
+
+                function request(method, path, callback) {
+                    let rq = new XMLHttpRequest()
+                    rq.onreadystatechange = () => {
+                        if (rq.readyState === 4 && rq.status === 200)
+                            callback(method === gt ? JSON.parse(rq.response) : undefined)
+                    }
+                    rq.open(method, path)
+                    rq.send(null)
+                }
+
+                function elem(id) { return document.getElementById(id) }
+            </script>
             <div id="cntFtr"></div>
         </div>
         <div id="footer">
@@ -111,16 +185,36 @@
         </div>
     </div>
 
-    <div id="act">
-        <div id="actHdr">
-            <span id="actNm">Action</span>
-            <button id="actExt">Exit</button>
+    <div id="act1" class="act">
+        <div class="actHdr">
+            <span class="actNm">Action</span>
+            <button class="actExt">Exit</button>
         </div>
-        <div id="actMn">
-            <input id="actMnInp"/>
+        <div class="actMn">
+            <input class="actMnInp" placeholder="Id"/>          <!--0-->
+            <input class="actMnInp" placeholder="Type"/>        <!--1-->
+            <input class="actMnInp" placeholder="Name"/>        <!--2-->
+            <input class="actMnInp" placeholder="Description"/> <!--3-->
+            <input class="actMnInp" placeholder="Cost"/>        <!--4-->
+            <input class="actMnInp" placeholder="Image"/>       <!--5-->
         </div>
-        <div id="actFtr">
-            <button id="actFtBt">Action</button>
+        <div class="actFtr">
+            <button class="actFtBt">Action</button>
+        </div>
+    </div>
+    <div id="act2" class="act">
+        <div class="actHdr">
+            <span class="actNm">Action</span>
+            <button class="actExt">Exit</button>
+        </div>
+        <div class="actMn">
+            <input class="actMnInp" placeholder="Id"/>       <!--0-->
+            <input class="actMnInp" placeholder="Name"/>     <!--1-->
+            <input class="actMnInp" placeholder="Role"/>     <!--2-->
+            <input class="actMnInp" placeholder="Password"/> <!--3-->
+        </div>
+        <div class="actFtr">
+            <button class="actFtBt">Action</button>
         </div>
     </div>
 
