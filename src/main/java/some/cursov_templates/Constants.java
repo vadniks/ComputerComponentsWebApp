@@ -27,6 +27,8 @@ public final class Constants {
     public static final char DOLLAR = '$';
     public static final char ROOT = '/';
     public static final String TOTAL_COST = "Total cost: ";
+    public static final String ROLE_USER = "role0";
+    public static final String ROLE_ADMIN = "role1";
 
     /** Database */
     public static final String DB_NAME = "db";
@@ -71,6 +73,11 @@ public final class Constants {
     public static final String GET_USER = "/usr";
     public static final String POST_REMOVE_COMPONENT = "/rmc";
     public static final String POST_REMOVE_USER = "/rmu";
+    public static final String POST_UPDATE_COMPONENT = "/upc";
+    public static final String POST_UPDATE_USER = "/upu";
+    public static final String POST_INSERT_COMPONENT = "/upc";
+    public static final String POST_INSERT_USER = "/upu";
+    public static final String HAS_ROLE_ADMIN = "hasRole(" + ROLE_ADMIN + ')';
 
     /** Pages */
     public static final String PAGE_INDEX = "index";

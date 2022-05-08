@@ -131,7 +131,7 @@
                     flds1 = act1.querySelectorAll('input, textarea'),
                     flds2 = act2.querySelectorAll('input, textarea')
 
-                var act1Sh = false, act2Sh = false
+                let act1Sh = false, act2Sh = false, curId = -1
 
                 // noinspection JSUnusedGlobalSymbols
                 function onUpdateClick(id, isUsr) { request(
@@ -158,19 +158,26 @@
                         flds2[2].value = jsn.role
                         flds2[3].value = jsn.password
                     }
+                    curId = parseInt(jsn.id)
                 }) }
+
+                function act(isUsr) {
+                    if (curId < === -1) {
+                        request(pt, )
+                    }
+                }
 
                 // noinspection JSUnusedGlobalSymbols
                 function onDeleteClick(id, isUsr) { request(
                         pt, `/rm${!isUsr ? 'c' : 'u'}?id=${id}`, () =>
-                    window.location.replace('/')
+                    window.location.reload()
                 ) }
 
                 function request(method, path, callback) {
                     let rq = new XMLHttpRequest()
                     rq.onreadystatechange = () => {
                         if (rq.readyState === 4 && rq.status === 200)
-                            callback(method === gt ? JSON.parse(rq.response) : undefined)
+                            method === gt ? callback(JSON.parse(rq.response)) : callback()
                     }
                     rq.open(method, path)
                     rq.send(null)
@@ -199,7 +206,7 @@
             <input class="actMnInp" placeholder="Image"/>       <!--5-->
         </div>
         <div class="actFtr">
-            <button class="actFtBt">Action</button>
+            <button class="actFtBt" onclick="act(false)">Action</button>
         </div>
     </div>
     <div id="act2" class="act">
@@ -214,7 +221,7 @@
             <input class="actMnInp" placeholder="Password"/> <!--3-->
         </div>
         <div class="actFtr">
-            <button class="actFtBt">Action</button>
+            <button class="actFtBt" onclick="act(true)">Action</button>
         </div>
     </div>
 

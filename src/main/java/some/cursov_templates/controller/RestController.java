@@ -2,6 +2,7 @@ package some.cursov_templates.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -45,20 +46,25 @@ public class RestController {
         return STATUS_OK;
     }
 
+    @PreAuthorize(HAS_ROLE_ADMIN)
     @GetMapping(value = GET_USER, produces = MediaType.APPLICATION_JSON_VALUE)
     public User user(@RequestParam String id) {
         return usersService.getUser(toInt(id));
     }
 
+    @PreAuthorize(HAS_ROLE_ADMIN)
     @PostMapping(POST_REMOVE_COMPONENT)
     public EmptyResponse removeComponent(@RequestParam String id) {
         componentsService.removeComponent(toInt(id));
         return STATUS_OK;
     }
 
+    @PreAuthorize(HAS_ROLE_ADMIN)
     @PostMapping(POST_REMOVE_USER)
     public EmptyResponse removeUser(@RequestParam String id) {
         usersService.removeUser(toInt(id));
         return STATUS_OK;
     }
+
+
 }
