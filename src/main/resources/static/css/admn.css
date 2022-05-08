@@ -14,9 +14,21 @@
     display: flex;
     flex-direction: row;
 }
-#dbs {
+.dbs {
     display: flex;
     flex-direction: column;
+    justify-content: space-between;
+}
+#dbCtSw {
+    color: rgb(26, 255, 255);
+    background-color: darkslategrey;
+}
+#dbCtSw:hover {
+    cursor: pointer;
+    background-color: seagreen;
+}
+#dbCtSw:active {
+    background-color: lawngreen;
 }
 #dbVw {
     display: flex;
@@ -25,23 +37,47 @@
     margin: 5px;
     border: 1px solid grey;
 }
-#dbCts {
+.dbCts {
     display: flex;
     flex-direction: column;
     background-color: rgb(0, 14, 20);
 }
-#dbCts button {
-    width: 10vh;
+.dbCts button {
+    width: 12vh;
     font-size: medium;
     text-overflow: ellipsis;
     overflow-x: hidden;
+    visibility: hidden;
 }
-#dbLs {
+.dbItm:hover button {
+    visibility: initial;
+}
+.dbItmHdr {
+    background-image: linear-gradient(
+        to left,
+        rgb(32, 35, 36),
+        rgb(51, 58, 58),
+        rgb(61, 69, 69),
+        rgb(51, 58, 58),
+        rgb(32, 35, 36));
+}
+.dbItmHdr button {
+    color: rgb(26, 255, 255);
+    background-color: rgb(32, 35, 36);
+    visibility: initial;
+    pointer-events: none;
+}
+.dbItmHdr .dbCts > button:nth-child(2) {
+    display: none;
+}
+.dbLs {
     display: flex;
     flex-direction: column;
-    width: 100%;
+    width: 99%;
+    margin: 0.5%;
+    border: 1px solid grey;
 }
-#dbItm {
+.dbItm {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -56,24 +92,24 @@
     margin: 5px;
     word-wrap: anywhere;
 }
-#dbItm1Id { width: 3%; }
-#dbItm1Tp { width: 5%; }
-#dbItm1Nm {
+.dbItm1Id { width: 3%; }
+.dbItm1Tp { width: 5%; }
+.dbItm1Nm {
     width: 35%;
     text-justify: inter-word;
     text-align: justify;
 }
-#dbItm1Ds {
+.dbItm1Ds {
     width: 45%;
     text-justify: inter-word;
     text-align: justify;
 }
-#dbItm1Cs { width: 6%; }
-#dbItm1Im { width: 6%; }
-#dbItm2Id { width: 33%; }
-#dbItm2Lg { width: 33%; }
-#dbItm2Ps { width: 33%; }
-#dbItm > span {
+.dbItm1Cs { width: 6%; }
+.dbItm1Im { width: 6%; }
+.dbItm2Id { width: 33%; }
+.dbItm2Lg { width: 33%; }
+.dbItm2Ps { width: 33%; }
+.dbItm > span {
     margin: 5px;
     overflow-wrap: anywhere;
     text-align: justify;
@@ -82,6 +118,7 @@
 #cntFtr {
     background-color: rgb(0, 14, 20);
     width: 100%;
+    height: 56px;
 }
 #act {
     display: none;
@@ -129,23 +166,23 @@
     .dbItmFrs > .dbRw {
         display: none;
     }
-    #dbRw1 > span {
+    .dbRw1 > span {
         width: auto;
     }
-    #dbRw2 > span {
+    .dbRw2 > span {
         width: auto;
     }
-    #dbCts {
+    .dbCts {
         width: 10%;
     }
-    #dbCts > button {
+    .dbCts > button {
         width: auto;
         font-size: smaller;
     }
     .dbRw {
         width: 90%;
     }
-    #dbItm {
+    .dbItm {
         font-size: smaller;
     }
     #cntHdr {

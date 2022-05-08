@@ -19,10 +19,21 @@
             </div>
             <div id="menu">
                 <div id="menuLf">
-                    <button id="menuBtVr">Home</button>
+                    <button id="menuBtVr" onclick="window.location.replace('/')">Home</button>
                 </div>
                 <div id="menuRg">
-                    <button id="menuBtLog">Log Out</button>
+                    <button id="menuBtLog" onclick="logOut()">Log Out</button>
+                    <script>
+                        function logOut() {
+                            let rq = new XMLHttpRequest()
+                            rq.onreadystatechange = () => {
+                                if (rq.readyState === 4 && rq.status === 200)
+                                    window.location.replace('/')
+                            }
+                            rq.open('POST', '/lgo')
+                            rq.send(null)
+                        }
+                    </script>
                 </div>
             </div>
         </div>
@@ -30,32 +41,63 @@
             <div id="cntHdr">
                 <span>Database Administration</span>
                 <div id="cntHdrBts">
-                    <button id="dbCtSw"></button>
+                    <button id="dbCtSw">Table</button>
                     <button id="dbCtSl">Select</button>
                     <button id="dbCtDd">Insert</button>
                 </div>
             </div>
-            <div id="dbs">
-                <div id="dbVw" th:each="db: ${dbs}">
-                    <div id="dbLs" th:each="row: ${db}">
-                        <div id="dbItm">
-                            <div id="dbCts">
-                                <button id="dbCtUp">Update</button>
-                                <button id="dbCtDl">Delete</button>
-                            </div>
-                            <div id="dbRw1" class="dbRw">
-                                <span id="dbItm1Id">id</span>
-                                <span id="dbItm1Tp">type</span>
-                                <span id="dbItm1Nm">name</span>
-                                <span id="dbItm1Ds">descr</span>
-                                <span id="dbItm1Cs">cost</span>
-                                <span id="dbItm1Im">img</span>
-                            </div>
-                            <div id="dbRw2" class="dbRw">
-                                <span id="dbItm2Id">id</span>
-                                <span id="dbItm2Lg">lgn</span>
-                                <span id="dbItm2Ps">pas</span>
-                            </div>
+            <div class="dbs">
+                <div class="dbLs">
+                    <div class="dbItm dbItmHdr">
+                        <div class="dbCts">
+                            <button class="dbCtUp">Update</button>
+                            <button class="dbCtDl">Delete</button>
+                        </div>
+                        <div class="dbRw1 dbRw">
+                            <span class="dbItm1Id">id</span>
+                            <span class="dbItm1Tp">type</span>
+                            <span class="dbItm1Nm">name</span>
+                            <span class="dbItm1Ds">descr</span>
+                            <span class="dbItm1Cs">cost</span>
+                            <span class="dbItm1Im">img</span>
+                        </div>
+                    </div>
+                    <div class="dbItm">
+                        <div class="dbCts">
+                            <button class="dbCtUp">Update</button>
+                            <button class="dbCtDl">Delete</button>
+                        </div>
+                        <div class="dbRw1 dbRw">
+                            <span class="dbItm1Id">id</span>
+                            <span class="dbItm1Tp">type</span>
+                            <span class="dbItm1Nm">name</span>
+                            <span class="dbItm1Ds">descr</span>
+                            <span class="dbItm1Cs">cost</span>
+                            <span class="dbItm1Im">img</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="dbLs">
+                    <div class="dbItm dbItmHdr">
+                        <div class="dbCts">
+                            <button class="dbCtUp">Update</button>
+                            <button class="dbCtDl">Delete</button>
+                        </div>
+                        <div class="dbRw2 dbRw">
+                            <span class="dbItm2Id">id</span>
+                            <span class="dbItm2Lg">lgn</span>
+                            <span class="dbItm2Ps">pas</span>
+                        </div>
+                    </div>
+                    <div class="dbItm">
+                        <div class="dbCts">
+                            <button class="dbCtUp">Update</button>
+                            <button class="dbCtDl">Delete</button>
+                        </div>
+                        <div class="dbRw2 dbRw">
+                            <span class="dbItm2Id">id</span>
+                            <span class="dbItm2Lg">lgn</span>
+                            <span class="dbItm2Ps">pas</span>
                         </div>
                     </div>
                 </div>

@@ -35,7 +35,7 @@ public class PagesController {
 
     @GetMapping(ENDPOINT_LOGIN)
     public String login(HttpServletRequest request) {
-        return isAuthenticated(request) ? PAGE_LOGIN : REDIRECT_TO_INDEX;
+        return !isAuthenticated(request) ? PAGE_LOGIN : REDIRECT_TO_INDEX;
     }
 
     @GetMapping(ENDPOINT_REGISTER)
