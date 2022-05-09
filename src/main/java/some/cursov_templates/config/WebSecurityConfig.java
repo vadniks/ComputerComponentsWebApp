@@ -54,8 +54,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                     GET_COMPONENT,
                     POST_REMOVE,
                     POST_INSERT_OR_UPDATE_COMPONENT,
-                    POST_INSERT_OR_UPDATE_USER,
-                    GET_SELECT).permitAll()
+                    POST_INSERT_OR_UPDATE_USER).permitAll()
                 .antMatchers(POST_LOGOUT).hasRole(USER.mkRole())
                 .antMatchers(ENDPOINT_ADMIN, POST_LOGOUT).hasRole(ADMIN.mkRole())
                 .anyRequest().authenticated()

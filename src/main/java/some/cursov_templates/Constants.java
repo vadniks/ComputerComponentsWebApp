@@ -79,7 +79,6 @@ public final class Constants {
     public static final String POST_INSERT_OR_UPDATE_COMPONENT = "/iouc";
     public static final String POST_INSERT_OR_UPDATE_USER = "/iouu";
     public static final String HAS_ROLE_ADMIN = "hasRole(" + ROLE_ADMIN + ')';
-    public static final String GET_SELECT = "/gslc";
 
     /** Pages */
     public static final String PAGE_INDEX = "index";
@@ -126,7 +125,6 @@ public final class Constants {
     public static final String REDIRECT = "redirect:";
     public static final String REDIRECT_TO_INDEX = REDIRECT + ENDPOINT_INDEX;
     public static final String REDIRECT_TO_ERROR = REDIRECT + ENDPOINT_ERROR;
-    public static final String REDIRECT_TO_ADMIN = REDIRECT + ENDPOINT_ADMIN;
 
     /** Metadata */
     @Target(FIELD) @Retention(SOURCE) public @interface ImplicitAutowire {}

@@ -48,13 +48,24 @@ public class PagesController {
     }
 
     @GetMapping(ENDPOINT_ADMIN)
-    public String admin(Model model) {
-        if (!model.containsAttribute(ATTRIBUTE_COMPONENTS))
+    public String admin(
+        Model model,
+        @RequestParam(required = false) Boolean entity,
+        @RequestParam(required = false) String byWhich,
+        @RequestParam(required = false) String selection
+    ) {
+        if (entity == null) {
             model.addAttribute(ATTRIBUTE_COMPONENTS, componentsService.getAllComponents());
-
-        if (!model.containsAttribute(ATTRIBUTE_USERS))
             model.addAttribute(ATTRIBUTE_USERS, usersService.getAllUsers());
+            return PAGE_ADMIN;
+        }
 
+        if (entity)
+            model.addAttribute(ATTRIBUTE_COMPONENTS,
+                componentsService.selectComponents(byWhich, selection));
+        else
+            model.addAttribute(ATTRIBUTE_USERS,
+                usersService.selectUsers(byWhich, selection));
         return PAGE_ADMIN;
     }
 
@@ -66,22 +77,5 @@ public class PagesController {
     @GetMapping(ENDPOINT_ERROR)
     public String error() {
         return PAGE_ERROR;
-    }
-
-    @PreAuthorize(HAS_ROLE_ADMIN)
-    @GetMapping(value = GET_SELECT)
-    public String select(
-        Model model,
-        @RequestParam boolean entity,
-        @RequestParam String byWhich,
-        @RequestParam String selection
-    ) {
-        if (entity)
-            model.addAttribute(ATTRIBUTE_COMPONENTS,
-                componentsService.selectComponents(byWhich, selection));
-        else
-            model.addAttribute(ATTRIBUTE_USERS,
-                usersService.selectUsers(byWhich, selection));
-        return REDIRECT_TO_ADMIN;
     }
 }
