@@ -171,9 +171,21 @@
             pt = 'POST',
             flds1 = act1.querySelectorAll('input, textarea'),
             flds2 = act2.querySelectorAll('input, textarea'),
-            swt = elem('dbCtSw')
+            swt = elem('dbCtSw'),
+            act1Nm = act1.querySelector('.actNm'),
+            act2Nm = act2.querySelector('.actNm'),
+            act1FtBt = act1.querySelector('.actFtBt'),
+            act2FtBt = act2.querySelector('.actFtBt')
 
         let act1Sh = false, act2Sh = false, curId = -1, swtch = false, mode = 0
+
+        function actNm(isUsr, nm) { if (!isUsr) {
+            act1Nm.textContent = nm
+            act1FtBt.textContent = nm
+        } else {
+            act2Nm.textContent = nm
+            act2FtBt.textContent = nm
+        } }
 
         function orc(isUsr) { if (!isUsr) {
             act1Sh = !act1Sh
@@ -191,10 +203,31 @@
             swt.textContent = !swtch ? 'components' : 'users'
         }
 
+        function clr(isUsr) {
+            if (!isUsr) {
+                flds1[0].value = ''
+                flds1[1].value = ''
+                flds1[2].value = ''
+                flds1[3].value = ''
+                flds1[4].value = ''
+                flds1[5].value = ''
+            } else {
+                flds2[0].value = ''
+                flds2[1].value = ''
+                flds2[2].value = ''
+                flds2[3].value = ''
+            }
+        }
+
+        function idDsb(dsb) { (!swtch ? flds1[0] : flds2[0]).disabled = dsb }
+
         function onSelectClick() {
             if (act1Sh || act2Sh) return
 
             orc(swtch)
+            actNm(swtch, 'Select')
+            clr(swtch)
+            idDsb(false)
             mode = 0
         }
 
@@ -202,26 +235,27 @@
             if (act1Sh || act2Sh) return
 
             orc(swtch)
-            mode = 1;
-            (!swtch ? flds1[0] : flds2[0]).disabled = true
+            actNm(swtch, 'Insert')
+            clr(swtch)
+            idDsb(true)
+            mode = 1
         }
 
         // noinspection JSUnusedGlobalSymbols
         function onUpdateClick(id, isUsr) { if (act1Sh || act2Sh) return; request(
             gt, `/${!isUsr ? 'cmp' : 'usr'}?id=${id}`, jsn =>
         {
+            orc(isUsr)
+            actNm(swtch, 'Update')
+            idDsb(false)
             if (!isUsr) {
-                orc(!isUsr)
-
                 flds1[0].value = jsn.id
                 flds1[1].value = jsn.type
                 flds1[2].value = jsn.name
                 flds1[3].value = jsn.description
-                flds1[4].value = jsn.cost
+                flds1[4].value = jsn.cost.substring(0, jsn.cost.length - 1)
                 flds1[5].value = jsn.image
             } else {
-                orc(!isUsr)
-
                 flds2[0].value = jsn.id
                 flds2[1].value = jsn.name
                 flds2[2].value = jsn.role
@@ -246,8 +280,31 @@
                 role: flds2[2].value,
                 password: flds2[3].value
             }
-            alert(JSON.stringify(jsn))
-            request(pt, `/iou${!isUsr ? 'c' : 'u'}`, rld, JSON.stringify(jsn))
+            if (!b)
+                request(pt, `/iou${!isUsr ? 'c' : 'u'}`, rld, JSON.stringify(jsn))
+            else {
+                let bwh, slc
+                const fld = (wh, nx) => {
+                    slc = wh[nx].textContent
+                    return a.length > 0
+                }
+
+                if (!isUsr) switch (true) {
+                    case fld(flds1, 0): bwh = 'id'; break
+                    case fld(flds1, 1): bwh = 'type'; break
+                    case fld(flds1, 2): bwh = 'name'; break
+                    case fld(flds1, 3): bwh = 'description'; break
+                    case fld(flds1, 4): bwh = 'cost'; break
+                    case fld(flds1, 5): bwh = 'image'; break
+                } else switch (true) {
+                    case fld(flds2, 0): bwh = 'id'; break
+                    case fld(flds2, 1): bwh = 'name'; break
+                    case fld(flds2, 2): bwh = 'role'; break
+                    case fld(flds2, 3): bwh = 'password'; break
+                }
+
+                request(gt, `/gslc?entity=${!isUsr}&byWhich=${bwh}&selection=${slc}`, rld)
+            }
         }
 
         // noinspection JSUnusedGlobalSymbols
@@ -260,9 +317,8 @@
             rq.onreadystatechange = () => {
                 if (rq.readyState === 4 && rq.status === 200)
                     method === gt ? callback(JSON.parse(rq.response)) : callback()
-            }
-            rq.onerror = () => {
-                alert("An error occurred: " + rq.status)
+                else if (rq.status != 200)
+                    alert("An error occurred: " + rq.status)
             }
             rq.open(method, path)
             if (payload != null) rq.setRequestHeader('Content-Type', 'application/json')
