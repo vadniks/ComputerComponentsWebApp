@@ -75,7 +75,7 @@ public class RestController {
     }
 
     @PreAuthorize(HAS_ROLE_ADMIN)
-    @PostMapping(GET_SELECT)
+    @GetMapping(value = GET_SELECT, produces = MediaType.APPLICATION_JSON_VALUE)
     public List<? extends Serializable> select(
         @RequestParam boolean entity,
         @RequestParam String byWhich,

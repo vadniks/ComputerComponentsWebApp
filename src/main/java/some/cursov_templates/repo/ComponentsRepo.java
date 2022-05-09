@@ -25,7 +25,7 @@ public interface ComponentsRepo extends JpaRepository<PcComponent, Integer> {
     Integer getTypeById(Integer id);
 
     @Query(value =
-            "select * from " + TABLE_COMPONENTS + " where ?1 = ?2",
+            "select * from " + TABLE_COMPONENTS + " where id = ?1",
         nativeQuery = true)
-    <T> List<PcComponent> getAllBy(String byWhich, T selection);
+    <T> List<PcComponent> getAllBy(T selection);
 }

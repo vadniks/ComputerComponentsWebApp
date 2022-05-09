@@ -285,8 +285,10 @@
             else {
                 let bwh, slc
                 const fld = (wh, nx) => {
-                    slc = wh[nx].textContent
-                    return a.length > 0
+                    const a = wh[nx].value, b = a.length > 0
+                    console.log(a, b)
+                    if (b) slc = a
+                    return b
                 }
 
                 if (!isUsr) switch (true) {
@@ -315,9 +317,11 @@
         function request(method, path, callback, payload = null) {
             let rq = new XMLHttpRequest()
             rq.onreadystatechange = () => {
-                if (rq.readyState === 4 && rq.status === 200)
+                if (rq.readyState !== 4) return
+
+                if (rq.status === 200)
                     method === gt ? callback(JSON.parse(rq.response)) : callback()
-                else if (rq.status != 200)
+                else if (rq.status !== 200)
                     alert("An error occurred: " + rq.status)
             }
             rq.open(method, path)

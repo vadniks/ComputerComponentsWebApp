@@ -161,11 +161,12 @@ public class ComponentsService {
     }
 
     public List<PcComponent> selectComponents(String byWhich, String selection) {
-        return repo.getAllBy(byWhich, switch (byWhich) {
+        debug("rdvgdrv", byWhich, selection, switch (byWhich) {
             case ENTITY_ID, COMPONENT_COST -> toInt(selection);
             case COMPONENT_TYPE -> Type.valueOf(selection).TYPE;
             case ENTITY_NAME, COMPONENT_DESCRIPTION, COMPONENT_IMAGE -> selection;
             default -> throw new IllegalArgumentException();
         });
+        return repo.getAllBy(toInt(selection));
     }
 }
