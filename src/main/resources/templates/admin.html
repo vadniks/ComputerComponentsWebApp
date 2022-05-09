@@ -305,7 +305,7 @@
                     case fld(flds2, 3): bwh = 'password'; break
                 }
 
-                request(gt, `/gslc?entity=${!isUsr}&byWhich=${bwh}&selection=${slc}`, rld)
+                window.location.replace(`/gslc?entity=${!isUsr}&byWhich=${bwh}&selection=${slc}`)
             }
         }
 

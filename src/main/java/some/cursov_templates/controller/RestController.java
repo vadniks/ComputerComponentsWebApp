@@ -73,16 +73,4 @@ public class RestController {
         usersService.saveUser(user);
         return STATUS_OK;
     }
-
-    @PreAuthorize(HAS_ROLE_ADMIN)
-    @GetMapping(value = GET_SELECT, produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<? extends Serializable> select(
-        @RequestParam boolean entity,
-        @RequestParam String byWhich,
-        @RequestParam String selection
-    ) {
-        return entity ?
-            componentsService.selectComponents(byWhich, selection) :
-            usersService.selectUsers(byWhich, selection);
-    }
 }

@@ -126,6 +126,7 @@ public final class Constants {
     public static final String REDIRECT = "redirect:";
     public static final String REDIRECT_TO_INDEX = REDIRECT + ENDPOINT_INDEX;
     public static final String REDIRECT_TO_ERROR = REDIRECT + ENDPOINT_ERROR;
+    public static final String REDIRECT_TO_ADMIN = REDIRECT + ENDPOINT_ADMIN;
 
     /** Metadata */
     @Target(FIELD) @Retention(SOURCE) public @interface ImplicitAutowire {}

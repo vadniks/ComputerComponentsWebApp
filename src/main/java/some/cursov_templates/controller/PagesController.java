@@ -2,6 +2,7 @@ package some.cursov_templates.controller;
 
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -48,8 +49,12 @@ public class PagesController {
 
     @GetMapping(ENDPOINT_ADMIN)
     public String admin(Model model) {
-        model.addAttribute(ATTRIBUTE_COMPONENTS, componentsService.getAllComponents());
-        model.addAttribute(ATTRIBUTE_USERS, usersService.getAllUsers());
+        if (!model.containsAttribute(ATTRIBUTE_COMPONENTS))
+            model.addAttribute(ATTRIBUTE_COMPONENTS, componentsService.getAllComponents());
+
+        if (!model.containsAttribute(ATTRIBUTE_USERS))
+            model.addAttribute(ATTRIBUTE_USERS, usersService.getAllUsers());
+
         return PAGE_ADMIN;
     }
 
@@ -61,5 +66,22 @@ public class PagesController {
     @GetMapping(ENDPOINT_ERROR)
     public String error() {
         return PAGE_ERROR;
+    }
+
+    @PreAuthorize(HAS_ROLE_ADMIN)
+    @GetMapping(value = GET_SELECT)
+    public String select(
+        Model model,
+        @RequestParam boolean entity,
+        @RequestParam String byWhich,
+        @RequestParam String selection
+    ) {
+        if (entity)
+            model.addAttribute(ATTRIBUTE_COMPONENTS,
+                componentsService.selectComponents(byWhich, selection));
+        else
+            model.addAttribute(ATTRIBUTE_USERS,
+                usersService.selectUsers(byWhich, selection));
+        return REDIRECT_TO_ADMIN;
     }
 }
