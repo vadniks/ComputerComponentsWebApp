@@ -61,14 +61,16 @@ public class RestController {
     }
 
     @PreAuthorize(HAS_ROLE_ADMIN)
-    @PostMapping(POST_INSERT_OR_UPDATE)
-    public EmptyResponse insertOrUpdate(
-        @RequestBody(required = false) @Nullable PcComponent component,
-        @RequestBody(required = false) @Nullable User user
-    ) {
-        if (component == null && user == null) throw new IllegalArgumentException();
-        else if (component != null) componentsService.saveComponent(component);
-        else usersService.saveUser(user);
+    @PostMapping(value = POST_INSERT_OR_UPDATE_COMPONENT, consumes = MediaType.APPLICATION_JSON_VALUE)
+    public EmptyResponse insertOrUpdate(@RequestBody(required = false) PcComponent component) {
+        componentsService.saveComponent(component);
+        return STATUS_OK;
+    }
+
+    @PreAuthorize(HAS_ROLE_ADMIN)
+    @PostMapping(value = POST_INSERT_OR_UPDATE_USER, consumes = MediaType.APPLICATION_JSON_VALUE)
+    public EmptyResponse insertOrUpdate(@RequestBody(required = false) User user) {
+        usersService.saveUser(user);
         return STATUS_OK;
     }
 

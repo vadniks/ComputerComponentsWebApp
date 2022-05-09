@@ -34,7 +34,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                     POST_SELECT,
                     POST_CLEAR,
                     ENDPOINT_LOGIN,
-                    POST_LOGOUT)
+                    POST_LOGOUT,
+                    POST_REMOVE,
+                    POST_INSERT_OR_UPDATE_COMPONENT,
+                    POST_INSERT_OR_UPDATE_USER)
                 .and()
             .authorizeRequests()
                 .antMatchers(
@@ -50,7 +53,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                     ENDPOINT_ERROR,
                     GET_COMPONENT,
                     POST_REMOVE,
-                    POST_INSERT_OR_UPDATE).permitAll()
+                    POST_INSERT_OR_UPDATE_COMPONENT,
+                    POST_INSERT_OR_UPDATE_USER,
+                    GET_SELECT).permitAll()
                 .antMatchers(POST_LOGOUT).hasRole(USER.mkRole())
                 .antMatchers(ENDPOINT_ADMIN, POST_LOGOUT).hasRole(ADMIN.mkRole())
                 .anyRequest().authenticated()

@@ -76,7 +76,8 @@ public final class Constants {
     public static final String ENDPOINT_ERROR = "/error";
     public static final String GET_USER = "/usr";
     public static final String POST_REMOVE = "/rmv";
-    public static final String POST_INSERT_OR_UPDATE = "/iou";
+    public static final String POST_INSERT_OR_UPDATE_COMPONENT = "/iouc";
+    public static final String POST_INSERT_OR_UPDATE_USER = "/iouu";
     public static final String HAS_ROLE_ADMIN = "hasRole(" + ROLE_ADMIN + ')';
     public static final String GET_SELECT = "/gslc";
 

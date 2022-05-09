@@ -76,4 +76,10 @@ public class PcComponent implements Serializable {
         a.id = id;
         return a;
     }
+
+    @Override
+    public String toString() {
+        return "PcComponent(%d %s %s %s %d %s)"
+            .formatted(id, name, type, description, cost, image);
+    }
 }

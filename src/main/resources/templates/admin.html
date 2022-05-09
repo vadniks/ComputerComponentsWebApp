@@ -246,7 +246,8 @@
                 role: flds2[2].value,
                 password: flds2[3].value
             }
-            request(pt, '/iou', rld, JSON.stringify(jsn))
+            alert(JSON.stringify(jsn))
+            request(pt, `/iou${!isUsr ? 'c' : 'u'}`, rld, JSON.stringify(jsn))
         }
 
         // noinspection JSUnusedGlobalSymbols
@@ -260,7 +261,11 @@
                 if (rq.readyState === 4 && rq.status === 200)
                     method === gt ? callback(JSON.parse(rq.response)) : callback()
             }
+            rq.onerror = () => {
+                alert("An error occurred: " + rq.status)
+            }
             rq.open(method, path)
+            if (payload != null) rq.setRequestHeader('Content-Type', 'application/json')
             rq.send(payload)
         }
 

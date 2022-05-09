@@ -10,6 +10,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
+import java.io.Serial;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.Collections;
@@ -23,6 +24,8 @@ import static some.cursov_templates.Constants.TABLE_USERS;
 @Table(name = TABLE_USERS)
 @Entity
 public class User implements Serializable, UserDetails {
+    @Serial
+    private static final long serialVersionUID = 4822085747731748307L;
 
     @Nullable
     @Id
@@ -94,5 +97,10 @@ public class User implements Serializable, UserDetails {
         val a = new User(name, role, password);
         a.id = id;
         return a;
+    }
+
+    @Override
+    public String toString() {
+        return "User(%d %s %s %s)".formatted(id, name, role, password);
     }
 }
