@@ -40,4 +40,8 @@ public class UsersService implements UserDetailsService {
     public void removeUser(Integer id) {
         repo.deleteById(id);;
     }
+
+    public void saveUser(User user) {
+        repo.save(user);
+    }
 }

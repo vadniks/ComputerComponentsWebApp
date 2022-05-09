@@ -71,12 +71,8 @@ public final class Constants {
     public static final String POST_LOGOUT = "/lgo";
     public static final String ENDPOINT_ERROR = "/error";
     public static final String GET_USER = "/usr";
-    public static final String POST_REMOVE_COMPONENT = "/rmc";
-    public static final String POST_REMOVE_USER = "/rmu";
-    public static final String POST_UPDATE_COMPONENT = "/upc";
-    public static final String POST_UPDATE_USER = "/upu";
-    public static final String POST_INSERT_COMPONENT = "/upc";
-    public static final String POST_INSERT_USER = "/upu";
+    public static final String POST_REMOVE = "/rmv";
+    public static final String POST_INSERT_OR_UPDATE = "/iou";
     public static final String HAS_ROLE_ADMIN = "hasRole(" + ROLE_ADMIN + ')';
 
     /** Pages */

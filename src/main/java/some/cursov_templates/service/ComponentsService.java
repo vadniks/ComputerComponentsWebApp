@@ -155,4 +155,8 @@ public class ComponentsService {
     public void removeComponent(Integer id) {
         repo.deleteById(id);
     }
+
+    public void saveComponent(PcComponent component) {
+        repo.save(component);
+    }
 }

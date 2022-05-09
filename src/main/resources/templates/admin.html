@@ -162,28 +162,40 @@
                 }) }
 
                 function act(isUsr) {
-                    if (curId < === -1) {
-                        request(pt, )
+                    const a = curId === -1
+                    const jsn = !isUsr ? {
+                        id: !a ? parseInt(flds1[0].value) : null,
+                        type: flds1[1].value,
+                        name: flds1[2].value,
+                        description: flds1[3].value,
+                        cost: flds1[4].value,
+                        image: flds1[5].value
+                    } : {
+                        id: !a ? parseInt(flds2[0].value) : null,
+                        name: flds2[1].value,
+                        role: flds2[2].value,
+                        password: flds2[3].value
                     }
+                    request(pt, '/iou', rld, JSON.stringify(jsn))
                 }
 
                 // noinspection JSUnusedGlobalSymbols
                 function onDeleteClick(id, isUsr) { request(
-                        pt, `/rm${!isUsr ? 'c' : 'u'}?id=${id}`, () =>
-                    window.location.reload()
+                    pt, `/rmv?entity=${!isUsr}&id=${id}`, rld
                 ) }
 
-                function request(method, path, callback) {
+                function request(method, path, callback, payload = null) {
                     let rq = new XMLHttpRequest()
                     rq.onreadystatechange = () => {
                         if (rq.readyState === 4 && rq.status === 200)
                             method === gt ? callback(JSON.parse(rq.response)) : callback()
                     }
                     rq.open(method, path)
-                    rq.send(null)
+                    rq.send(payload)
                 }
 
                 function elem(id) { return document.getElementById(id) }
+                function rld() { window.location.reload() }
             </script>
             <div id="cntFtr"></div>
         </div>
