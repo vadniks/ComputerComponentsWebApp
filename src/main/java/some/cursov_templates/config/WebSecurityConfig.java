@@ -33,14 +33,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http
             .csrf()
                 .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
-                .ignoringAntMatchers(
-                    POST_SELECT,
-                    POST_CLEAR,
-                    ENDPOINT_LOGIN/*,
-                    POST_LOGOUT,
-                    POST_REMOVE,
-                    POST_INSERT_OR_UPDATE_COMPONENT,
-                    POST_INSERT_OR_UPDATE_USER*/)
                 .and()
             .authorizeRequests()
                 .antMatchers(

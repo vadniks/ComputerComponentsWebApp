@@ -7,6 +7,9 @@
     <link rel="stylesheet" href="../css/admn.css"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" type="image/svg" href="../../static/res/pc_icon3.svg">
+    <meta name="_csrf" th:content="${_csrf.token}"/>
+    <meta name="_csrf_parameter" th:content="${_csrf.parameterName}"/>
+    <meta name="_csrf_header" th:content="${_csrf.headerName}"/>
 </head>
 <body>
     <div id="template">
@@ -24,6 +27,9 @@
                 <div id="menuRg">
                     <button id="menuBtLog" onclick="logOut()">Log Out</button>
                     <script>
+                        const mts = document.getElementsByTagName('meta'),
+                            csrfTkn = mts[2].content, csrfPrm = mts[3].content, csrfHdr = mts[4].content
+
                         function logOut() {
                             let rq = new XMLHttpRequest()
                             rq.onreadystatechange = () => {
@@ -31,6 +37,7 @@
                                     window.location.replace('/')
                             }
                             rq.open('POST', '/lgo')
+                            rq.setRequestHeader(csrfHdr, csrfTkn)
                             rq.send(null)
                         }
                     </script>
@@ -326,6 +333,7 @@
             }
             rq.open(method, path)
             if (payload != null) rq.setRequestHeader('Content-Type', 'application/json')
+            if (method === pt) rq.setRequestHeader(csrfHdr, csrfTkn)
             rq.send(payload)
         }
 
