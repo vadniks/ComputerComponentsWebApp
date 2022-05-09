@@ -331,6 +331,33 @@
 
         function elem(id) { return document.getElementById(id) }
         function rld() { window.location.reload() }
+
+        ///////////////////////////////////////////////////////////////////////////////////
+
+        let ht
+
+        window.onload = () => { setTimeout(() => {
+            document.getElementById('cntFtr').style.height =
+                '' + document.getElementById('cntHdr').clientHeight + 'px'
+
+            const cntHdr = document.getElementById('cntHdr')
+            const _dbs = document.querySelector('.dbs')
+            ht = cntHdr.clientHeight
+            const cnt = document.getElementById('content')
+
+            window.addEventListener('scroll', () => {
+                if (window.pageYOffset > cnt.offsetTop) {
+                    cntHdr.style.position = 'fixed'
+                    cntHdr.style.top = '0'
+                    cntHdr.style.width = window.innerWidth > 950 ? '90%' : '98%'
+                    _dbs.style.marginTop = ht + 'px'
+                } else {
+                    cntHdr.style.position = 'relative'
+                    _dbs.style.marginTop = '0'
+                    cntHdr.style.width = '100%'
+                }
+            })
+        }, 0) }
     </script>
 </body>
 </html>
