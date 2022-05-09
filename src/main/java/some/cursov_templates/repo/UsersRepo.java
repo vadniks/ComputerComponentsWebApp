@@ -6,8 +6,6 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 import some.cursov_templates.entity.User;
 
-import java.util.List;
-
 import static some.cursov_templates.Constants.*;
 
 @Repository
@@ -18,9 +16,4 @@ public interface UsersRepo extends JpaRepository<User, Integer> {
         nativeQuery = true)
     @Nullable
     User getByName(String name);
-
-    @Query(value =
-            "select * from " + TABLE_USERS + " where ?1 = ?2",
-        nativeQuery = true)
-    <T> List<User> getAllBy(String byWhich, T selection);
 }
