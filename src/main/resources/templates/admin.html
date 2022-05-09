@@ -41,7 +41,7 @@
             <div id="cntHdr">
                 <span>Database Administration</span>
                 <div id="cntHdrBts">
-                    <button id="dbCtSw" onclick="onSwitchClick()">Table</button>
+                    <button id="dbCtSw" onclick="onSwitchClick()">components</button>
                     <button id="dbCtSl" onclick="onSelectClick()">Select</button>
                     <button id="dbCtDd" onclick="onInsertClick()">Insert</button>
                 </div>
@@ -128,7 +128,7 @@
     <div id="act1" class="act">
         <div class="actHdr">
             <span class="actNm">Action</span>
-            <button class="actExt" onclick="cls(false)">Exit</button>
+            <button class="actExt" onclick="orc(false)">Exit</button>
         </div>
         <div class="actMn">
             <input class="actMnInp" placeholder="Id"/>          <!--0-->
@@ -145,7 +145,7 @@
     <div id="act2" class="act">
         <div class="actHdr">
             <span class="actNm">Action</span>
-            <button class="actExt" onclick="cls(true)">Exit</button>
+            <button class="actExt" onclick="orc(true)">Exit</button>
         </div>
         <div class="actMn">
             <input class="actMnInp" placeholder="Id"/>       <!--0-->
@@ -175,7 +175,7 @@
 
         let act1Sh = false, act2Sh = false, curId = -1, swtch = false, mode = 0
 
-        function cls(isUsr) { if (isUsr) {
+        function orc(isUsr) { if (!isUsr) {
             act1Sh = !act1Sh
             act1.style.display = act1Sh ? flx : nn
             ovrl.style.display = act1Sh ? nt : nn
@@ -192,50 +192,47 @@
         }
 
         function onSelectClick() {
-            act1Sh = !act1Sh
-            act1.style.display = act1Sh ? flx : nn
-            ovrl.style.display = act1Sh ? nt : nn
+            if (act1Sh || act2Sh) return
+
+            orc(swtch)
             mode = 0
         }
 
         function onInsertClick() {
-            act1Sh = !act1Sh
-            act1.style.display = act1Sh ? flx : nn
-            ovrl.style.display = act1Sh ? nt : nn
-            mode = 1
+            if (act1Sh || act2Sh) return
+
+            orc(swtch)
+            mode = 1;
+            (!swtch ? flds1[0] : flds2[0]).disabled = true
         }
 
         // noinspection JSUnusedGlobalSymbols
-        function onUpdateClick(id, isUsr) { request(
+        function onUpdateClick(id, isUsr) { if (act1Sh || act2Sh) return; request(
             gt, `/${!isUsr ? 'cmp' : 'usr'}?id=${id}`, jsn =>
-            {
-                if (!isUsr) {
-                    act1Sh = !act1Sh
-                    act1.style.display = act1Sh ? flx : nn
-                    ovrl.style.display = act1Sh ? nt : nn
+        {
+            if (!isUsr) {
+                orc(!isUsr)
 
-                    flds1[0].value = jsn.id
-                    flds1[1].value = jsn.type
-                    flds1[2].value = jsn.name
-                    flds1[3].value = jsn.description
-                    flds1[4].value = jsn.cost
-                    flds1[5].value = jsn.image
-                } else {
-                    act2Sh = !act2Sh
-                    act2.style.display = act2Sh ? flx : nn
-                    ovrl.style.display = act2Sh ? nt : nn
+                flds1[0].value = jsn.id
+                flds1[1].value = jsn.type
+                flds1[2].value = jsn.name
+                flds1[3].value = jsn.description
+                flds1[4].value = jsn.cost
+                flds1[5].value = jsn.image
+            } else {
+                orc(!isUsr)
 
-                    flds2[0].value = jsn.id
-                    flds2[1].value = jsn.name
-                    flds2[2].value = jsn.role
-                    flds2[3].value = jsn.password
-                }
-                curId = parseInt(jsn.id)
-                mode = 2
-            }) }
+                flds2[0].value = jsn.id
+                flds2[1].value = jsn.name
+                flds2[2].value = jsn.role
+                flds2[3].value = jsn.password
+            }
+            curId = parseInt(jsn.id)
+            mode = 2
+        }) }
 
         function act(isUsr) {
-            const a = curId === -1
+            const a = curId === -1, b = mode === 0
             const jsn = !isUsr ? {
                 id: !a ? parseInt(flds1[0].value) : null,
                 type: flds1[1].value,
