@@ -2,6 +2,8 @@ package some.cursov_templates.service;
 
 import lombok.RequiredArgsConstructor;
 import lombok.val;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 import org.jetbrains.annotations.Nullable;
 import org.jetbrains.annotations.TestOnly;
 import org.springframework.beans.factory.annotation.Value;
@@ -12,6 +14,8 @@ import org.springframework.stereotype.Service;
 import some.cursov_templates.entity.PcComponent;
 import some.cursov_templates.repo.ComponentsRepo;
 
+import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
 import javax.servlet.http.HttpServletRequest;
 import java.util.*;
 
@@ -27,6 +31,9 @@ public class ComponentsService {
     private final ComponentsRepo repo;
     @Value("classpath:static")
     private Resource resDir;
+    @ImplicitAutowire
+    private final SessionFactory sessionFactory;
+    private Session session;
 
     public void setSelection(HttpServletRequest request, @Nullable String _id) {
         val session = request.getSession();
@@ -160,13 +167,45 @@ public class ComponentsService {
         repo.save(component);
     }
 
+    @SuppressWarnings("unchecked")
     public List<PcComponent> selectComponents(String byWhich, String selection) {
-        debug("rdvgdrv", byWhich, selection, switch (byWhich) {
+        val parameter = switch (byWhich) {
             case ENTITY_ID, COMPONENT_COST -> toInt(selection);
             case COMPONENT_TYPE -> Type.valueOf(selection).TYPE;
             case ENTITY_NAME, COMPONENT_DESCRIPTION, COMPONENT_IMAGE -> selection;
             default -> throw new IllegalArgumentException();
-        });
-        return repo.getAllBy(toInt(selection));
+        };
+
+        debug("sghk", byWhich, selection, parameter, parameter.getClass(), "select * from %s where %s = ?1"
+            .formatted(TABLE_COMPONENTS, byWhich));
+
+        val builder = session.getCriteriaBuilder();
+        val query = builder
+            .createQuery(PcComponent.class);
+        val root = query.from(PcComponent.class);
+        query
+            .select(root)
+            .where(builder.equal(root.get(byWhich), parameter));
+        val results = session.createQuery(query).getResultList();
+
+//        val results = session
+//            .createSQLQuery("select * from %s where %s = ?1"
+//                .formatted(TABLE_COMPONENTS, byWhich))
+//            .setParameter(1, parameter)
+//            .getResultList();
+
+        debug("dfhvgb", results.get(0).getClass(), (PcComponent) results.get(0), results);
+
+        return (List<PcComponent>) results;
+    }
+
+    @PostConstruct
+    public void postConstruct() {
+        session = sessionFactory.openSession();
+    }
+
+    @PreDestroy
+    public void preDestroy() {
+        session.close();
     }
 }
