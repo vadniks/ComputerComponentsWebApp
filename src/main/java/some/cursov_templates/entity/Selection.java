@@ -10,6 +10,7 @@ import java.util.List;
 
 import static some.cursov_templates.Constants.TABLE_SELECTIONS;
 
+@Deprecated(forRemoval = true)
 @NoArgsConstructor
 @RequiredArgsConstructor
 @Table(name = TABLE_SELECTIONS)

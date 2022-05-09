@@ -47,6 +47,7 @@ public class PagesController {
         return !isAuthenticated(request) ? PAGE_REGISTER : REDIRECT_TO_ERROR;
     }
 
+    @PreAuthorize(HAS_ROLE_ADMIN)
     @GetMapping(ENDPOINT_ADMIN)
     public String admin(
         Model model,

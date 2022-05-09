@@ -4,12 +4,15 @@ import lombok.RequiredArgsConstructor;
 import lombok.val;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.jetbrains.annotations.TestOnly;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.context.annotation.Scope;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import some.cursov_templates.entity.User;
 import some.cursov_templates.repo.UsersRepo;
 
@@ -21,6 +24,7 @@ import static some.cursov_templates.Constants.*;
 import static some.cursov_templates.entity.User.Role;
 
 @Scope(ConfigurableBeanFactory.SCOPE_SINGLETON)
+@Transactional
 @RequiredArgsConstructor
 @Service
 public class UsersService implements UserDetailsService {
@@ -51,6 +55,15 @@ public class UsersService implements UserDetailsService {
 
     public void saveUser(User user) {
         repo.save(user);
+    }
+
+    @Deprecated
+    @TestOnly
+    public void test() {
+        repo.save(new User(
+            "admin",
+            Role.ADMIN,
+            new BCryptPasswordEncoder().encode("admin")));
     }
 
     public List<User> selectUsers(String byWhich, String selection) {

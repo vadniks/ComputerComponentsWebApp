@@ -14,8 +14,8 @@ public class CursovTemplatesApplication {
         val app = new SpringApplication(CursovTemplatesApplication.class);
 
         val props = new Properties();
-        props.setProperty("spring.jpa.generate-ddl", "true");
-        props.setProperty("spring.jpa.hibernate.ddl-auto", "update");
+//        props.setProperty("spring.jpa.generate-ddl", "true");
+//        props.setProperty("spring.jpa.hibernate.ddl-auto", "update");
         props.setProperty("spring.session.jdbc.initialize-schema", "always");
         props.setProperty("debug", "true");
         app.setDefaultProperties(props);

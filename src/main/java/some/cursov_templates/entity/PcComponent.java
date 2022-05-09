@@ -9,6 +9,8 @@ import java.util.Objects;
 
 import static some.cursov_templates.Constants.TABLE_COMPONENTS;
 
+@Getter
+@Setter
 @NoArgsConstructor
 @RequiredArgsConstructor
 @Table(name = TABLE_COMPONENTS)
@@ -18,22 +20,22 @@ public class PcComponent implements Serializable {
     @Nullable
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    public Integer id = null;
+    private Integer id = null;
 
     @NonNull
-    public String name;
+    private String name;
 
     @NonNull
-    public Type type;
+    private Type type;
 
     @NonNull
-    public String description;
+    private String description;
 
     @NonNull
-    public Integer cost;
+    private Integer cost;
 
     @NonNull
-    public String image;
+    private String image;
 
     @RequiredArgsConstructor
     public enum Type {

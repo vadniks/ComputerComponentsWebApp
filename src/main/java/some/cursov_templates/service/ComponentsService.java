@@ -11,6 +11,7 @@ import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.context.annotation.Scope;
 import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import some.cursov_templates.entity.PcComponent;
 import some.cursov_templates.repo.ComponentsRepo;
 
@@ -24,6 +25,7 @@ import static some.cursov_templates.entity.PcComponent.Type.AMOUNT;
 import some.cursov_templates.entity.PcComponent.Type;
 
 @Scope(ConfigurableBeanFactory.SCOPE_SINGLETON)
+@Transactional
 @RequiredArgsConstructor
 @Service
 public class ComponentsService {
@@ -33,7 +35,7 @@ public class ComponentsService {
     private Resource resDir;
     @ImplicitAutowire
     private final SessionFactory sessionFactory;
-    private Session session;
+    private Session session = null;
 
     public void setSelection(HttpServletRequest request, @Nullable String _id) {
         val session = request.getSession();
@@ -48,15 +50,15 @@ public class ComponentsService {
 
         val id = Integer.parseInt(_id);
         val component = repo.getById(id);
-        val t = findByType(selections, component.type);
+        val t = findByType(selections, component.getType());
 
         selections.add((t == null ? new StringPairMap() : t)
-            .set(ATTRIBUTE_ON_CLICK, FROM_BROWSE_TO_INDEX_WITH_TYPE + component.type.name())
-            .set(COMPONENT_IMAGE, getPathForImage(component.image))
-            .set(ENTITY_NAME, component.name)
-            .set(COMPONENT_TYPE, component.type.REAL_NAME)
-            .set(COMPONENT_COST, component.cost.toString() + DOLLAR)
-            .set(COMPONENT_DESCRIPTION, component.description));
+            .set(ATTRIBUTE_ON_CLICK, FROM_BROWSE_TO_INDEX_WITH_TYPE + component.getType().name())
+            .set(COMPONENT_IMAGE, getPathForImage(component.getImage()))
+            .set(ENTITY_NAME, component.getName())
+            .set(COMPONENT_TYPE, component.getType().REAL_NAME)
+            .set(COMPONENT_COST, component.getCost().toString() + DOLLAR)
+            .set(COMPONENT_DESCRIPTION, component.getDescription()));
 
         session.setAttribute(SESSION_CHOSEN_ITEMS, selections);
     }
@@ -106,10 +108,10 @@ public class ComponentsService {
 
         for (val component : components)
             items.add(new StringPairMap()
-                .set(ENTITY_ID, Objects.requireNonNull(component.id).toString())
-                .set(COMPONENT_IMAGE, getPathForImage(component.image))
-                .set(ENTITY_NAME, component.name)
-                .set(COMPONENT_COST, component.cost.toString() + DOLLAR));
+                .set(ENTITY_ID, Objects.requireNonNull(component.getId()).toString())
+                .set(COMPONENT_IMAGE, getPathForImage(component.getImage()))
+                .set(ENTITY_NAME, component.getName())
+                .set(COMPONENT_COST, component.getCost().toString() + DOLLAR));
 
         return items;
     }
@@ -121,7 +123,7 @@ public class ComponentsService {
 
     @TestOnly
     @Deprecated
-    void test() {
+    public void test() {
         repo.save(new PcComponent(
             "Asus GeForce GTX 1650",
             Type.GPU,
@@ -136,12 +138,12 @@ public class ComponentsService {
         val component = _component.get();
 
         return new StringPairMap()
-            .set(ENTITY_ID, Objects.requireNonNull(component.id).toString())
-            .set(ENTITY_NAME, component.name)
-            .set(COMPONENT_TYPE, component.type.name())
-            .set(COMPONENT_DESCRIPTION, component.description)
-            .set(COMPONENT_COST, component.cost.toString() + DOLLAR)
-            .set(COMPONENT_IMAGE, component.image);
+            .set(ENTITY_ID, Objects.requireNonNull(component.getId()).toString())
+            .set(ENTITY_NAME, component.getName())
+            .set(COMPONENT_TYPE, component.getType().name())
+            .set(COMPONENT_DESCRIPTION, component.getDescription())
+            .set(COMPONENT_COST, component.getCost().toString() + DOLLAR)
+            .set(COMPONENT_IMAGE, component.getImage());
     }
 
     public String getTotalCost(HttpServletRequest request) {

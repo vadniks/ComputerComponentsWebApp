@@ -1,6 +1,5 @@
 package some.cursov_templates.repo;
 
-import org.jetbrains.annotations.Nullable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
@@ -17,10 +16,4 @@ public interface ComponentsRepo extends JpaRepository<PcComponent, Integer> {
             "select * from " + TABLE_COMPONENTS + " where " + COMPONENT_TYPE + " = ?1",
         nativeQuery = true)
     List<PcComponent> getAllByType(Integer type);
-
-    @Nullable
-    @Query(value =
-            "select " + COMPONENT_TYPE + " from " + TABLE_COMPONENTS + " where " + ENTITY_ID + " = ?1",
-        nativeQuery = true)
-    Integer getTypeById(Integer id);
 }

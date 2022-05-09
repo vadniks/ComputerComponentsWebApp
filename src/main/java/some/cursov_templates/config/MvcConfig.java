@@ -17,6 +17,7 @@ public class MvcConfig implements WebMvcConfigurer {
         registry.addViewController(ENDPOINT_LOGIN);
         registry.addViewController(ENDPOINT_REGISTER);
         registry.addViewController(ENDPOINT_ADMIN);
+        registry.addViewController(ENDPOINT_ABOUT);
     }
 
     @Override

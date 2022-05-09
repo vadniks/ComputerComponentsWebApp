@@ -1,45 +1,40 @@
 package some.cursov_templates.entity;
 
-import lombok.NoArgsConstructor;
-import lombok.NonNull;
-import lombok.RequiredArgsConstructor;
-import lombok.val;
+import lombok.*;
 import org.jetbrains.annotations.Nullable;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
-import java.io.Serial;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Objects;
 
-import static some.cursov_templates.Constants.USER_ROLE;
-import static some.cursov_templates.Constants.TABLE_USERS;
+import static some.cursov_templates.Constants.*;
 
+@Getter
+@Setter
 @NoArgsConstructor
 @RequiredArgsConstructor
 @Table(name = TABLE_USERS)
 @Entity
 public class User implements Serializable, UserDetails {
-    @Serial
-    private static final long serialVersionUID = 4822085747731748307L;
 
     @Nullable
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    public Integer id = null;
+    private Integer id = null;
 
     @NonNull
-    public String  name;
+    private String  name;
 
     @NonNull
-    public Role role;
+    private Role role;
 
     @NonNull
-    public String password; // hash
+    private String password; // hash
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

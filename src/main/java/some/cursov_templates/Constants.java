@@ -35,7 +35,7 @@ public final class Constants {
     public static final String ROLE_ADMIN = "role1";
 
     /** Database */
-    public static final String DB_NAME = "db";
+    public static final String DB_NAME = "postgres";
     public static final String JDBC_URL = "jdbc:postgresql://localhost:5432/" + DB_NAME;
     public static final String DRIVER_NAME = "org.postgresql.Driver";
     public static final String DB_USERNAME = "postgres";

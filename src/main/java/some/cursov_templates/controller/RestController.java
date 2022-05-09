@@ -2,8 +2,6 @@ package some.cursov_templates.controller;
 
 import lombok.RequiredArgsConstructor;
 import lombok.val;
-import org.jetbrains.annotations.Nullable;
-import org.springframework.http.MediaType;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -14,10 +12,8 @@ import some.cursov_templates.service.UsersService;
 
 import javax.servlet.http.HttpServletRequest;
 
-import java.io.Serializable;
-import java.util.List;
-
 import static some.cursov_templates.Constants.*;
+import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
 @RequiredArgsConstructor
 @Controller
@@ -28,7 +24,7 @@ public class RestController {
     private final UsersService usersService;
 
     @ResponseBody
-    @GetMapping(value = GET_COMPONENT, produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = GET_COMPONENT, produces = APPLICATION_JSON_VALUE)
     public StringPairMap component(@RequestParam String id) {
         return componentsService.getComponent(Integer.parseInt(id));
     }
@@ -46,7 +42,7 @@ public class RestController {
     }
 
     @PreAuthorize(HAS_ROLE_ADMIN)
-    @GetMapping(value = GET_USER, produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = GET_USER, produces = APPLICATION_JSON_VALUE)
     public User user(@RequestParam String id) {
         return usersService.getUser(toInt(id));
     }
@@ -61,14 +57,14 @@ public class RestController {
     }
 
     @PreAuthorize(HAS_ROLE_ADMIN)
-    @PostMapping(value = POST_INSERT_OR_UPDATE_COMPONENT, consumes = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(value = POST_INSERT_OR_UPDATE_COMPONENT, consumes = APPLICATION_JSON_VALUE)
     public EmptyResponse insertOrUpdate(@RequestBody(required = false) PcComponent component) {
         componentsService.saveComponent(component);
         return STATUS_OK;
     }
 
     @PreAuthorize(HAS_ROLE_ADMIN)
-    @PostMapping(value = POST_INSERT_OR_UPDATE_USER, consumes = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(value = POST_INSERT_OR_UPDATE_USER, consumes = APPLICATION_JSON_VALUE)
     public EmptyResponse insertOrUpdate(@RequestBody(required = false) User user) {
         usersService.saveUser(user);
         return STATUS_OK;
