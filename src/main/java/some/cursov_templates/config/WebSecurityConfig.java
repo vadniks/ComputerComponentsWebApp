@@ -13,6 +13,8 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.config.core.GrantedAuthorityDefaults;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
+import org.springframework.security.web.csrf.HttpSessionCsrfTokenRepository;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import some.cursov_templates.service.UsersService;
 
@@ -30,14 +32,15 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
             .csrf()
+                .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
                 .ignoringAntMatchers(
                     POST_SELECT,
                     POST_CLEAR,
-                    ENDPOINT_LOGIN,
+                    ENDPOINT_LOGIN/*,
                     POST_LOGOUT,
                     POST_REMOVE,
                     POST_INSERT_OR_UPDATE_COMPONENT,
-                    POST_INSERT_OR_UPDATE_USER)
+                    POST_INSERT_OR_UPDATE_USER*/)
                 .and()
             .authorizeRequests()
                 .antMatchers(

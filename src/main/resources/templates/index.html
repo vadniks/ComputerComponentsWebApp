@@ -7,6 +7,9 @@
     <link rel="stylesheet" href="../../static/css/index.css"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" type="image/svg" href="../../static/res/pc_icon3.svg">
+    <meta name="_csrf" th:content="${_csrf.token}"/>
+    <meta name="_csrf_parameter" th:content="${_csrf.parameterName}"/>
+    <meta name="_csrf_header" th:content="${_csrf.headerName}"/>
 </head>
 <body>
     <div id="template">
@@ -51,12 +54,20 @@
                     </button>
                     <script th:if="${user != null}">
                         function logOut() {
+                            const mts = document.getElementsByTagName('meta'),
+                                csrfTkn = mts[2].content, csrfPrm = mts[3].content, csrfHdr = mts[4].content
+
+                            for (let i of mts) console.log(i.name, i.content)
+
                             let rq = new XMLHttpRequest()
                             rq.onreadystatechange = () => {
                                 if (rq.readyState === 4 && rq.status === 200)
                                     window.location.replace('/')
                             }
+                            console.log(csrfPrm, csrfTkn, mts.length)
+                            // rq.open('POST', `/lgo?${csrfPrm}=${csrfTkn}`)
                             rq.open('POST', '/lgo')
+                            rq.setRequestHeader(csrfHdr, csrfTkn)
                             rq.send(null)
                         }
                     </script>
