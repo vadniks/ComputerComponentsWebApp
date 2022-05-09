@@ -43,7 +43,7 @@
     background-color: rgb(0, 14, 20);
 }
 .dbCts button {
-    width: 12vh;
+    width: 20vh;
     font-size: medium;
     text-overflow: ellipsis;
     overflow-x: hidden;

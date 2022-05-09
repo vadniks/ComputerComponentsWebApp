@@ -47,10 +47,10 @@
                 </div>
             </div>
             <div class="dbs">
-                <div class="dbLs" th:each="component: ${components}">
+                <div class="dbLs">
                     <div class="dbItm dbItmHdr">
                         <div class="dbCts">
-                            <button class="dbCtUp">Table</button>
+                            <button class="dbCtUp">components</button>
                         </div>
                         <div class="dbRw1 dbRw">
                             <span class="dbItm1Id">id</span>
@@ -61,7 +61,7 @@
                             <span class="dbItm1Im">img</span>
                         </div>
                     </div>
-                    <div class="dbItm" th:with="cid = ${component['id']}">
+                    <div class="dbItm" th:each="component: ${components}" th:with="cid = ${component['id']}">
                         <div class="dbCts">
                             <button
                                 class="dbCtUp"
@@ -84,10 +84,10 @@
                         </div>
                     </div>
                 </div>
-                <div class="dbLs" th:each="user: ${users}">
+                <div class="dbLs">
                     <div class="dbItm dbItmHdr">
                         <div class="dbCts">
-                            <button class="dbCtUp">Table</button>
+                            <button class="dbCtUp">users</button>
                         </div>
                         <div class="dbRw2 dbRw">
                             <span class="dbItm2Id">id</span>
@@ -96,7 +96,7 @@
                             <span class="dbItm2Ps">pas</span>
                         </div>
                     </div>
-                    <div class="dbItm" th:with="uid = ${user['id']}">
+                    <div class="dbItm" th:each="user: ${users}" th:with="uid = ${user['id']}">
                         <div class="dbCts">
                             <button
                                 class="dbCtUp"
