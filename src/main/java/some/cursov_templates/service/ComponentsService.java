@@ -167,7 +167,6 @@ public class ComponentsService {
         repo.save(component);
     }
 
-    @SuppressWarnings("unchecked")
     public List<PcComponent> selectComponents(String byWhich, String selection) {
         val parameter = switch (byWhich) {
             case ENTITY_ID, COMPONENT_COST -> toInt(selection);
@@ -176,27 +175,15 @@ public class ComponentsService {
             default -> throw new IllegalArgumentException();
         };
 
-        debug("sghk", byWhich, selection, parameter, parameter.getClass(), "select * from %s where %s = ?1"
-            .formatted(TABLE_COMPONENTS, byWhich));
-
         val builder = session.getCriteriaBuilder();
-        val query = builder
-            .createQuery(PcComponent.class);
+        val query = builder.createQuery(PcComponent.class);
         val root = query.from(PcComponent.class);
+
         query
             .select(root)
             .where(builder.equal(root.get(byWhich), parameter));
-        val results = session.createQuery(query).getResultList();
 
-//        val results = session
-//            .createSQLQuery("select * from %s where %s = ?1"
-//                .formatted(TABLE_COMPONENTS, byWhich))
-//            .setParameter(1, parameter)
-//            .getResultList();
-
-        debug("dfhvgb", results.get(0).getClass(), (PcComponent) results.get(0), results);
-
-        return (List<PcComponent>) results;
+        return session.createQuery(query).getResultList();
     }
 
     @PostConstruct
