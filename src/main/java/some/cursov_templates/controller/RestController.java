@@ -14,6 +14,9 @@ import some.cursov_templates.service.UsersService;
 
 import javax.servlet.http.HttpServletRequest;
 
+import java.io.Serializable;
+import java.util.List;
+
 import static some.cursov_templates.Constants.*;
 
 @RequiredArgsConstructor
@@ -67,5 +70,17 @@ public class RestController {
         else if (component != null) componentsService.saveComponent(component);
         else usersService.saveUser(user);
         return STATUS_OK;
+    }
+
+    @PreAuthorize(HAS_ROLE_ADMIN)
+    @PostMapping(GET_SELECT)
+    public List<? extends Serializable> select(
+        @RequestParam boolean entity,
+        @RequestParam String byWhich,
+        @RequestParam String selection
+    ) {
+        return entity ?
+            componentsService.selectComponents(byWhich, selection) :
+            usersService.selectUsers(byWhich, selection);
     }
 }

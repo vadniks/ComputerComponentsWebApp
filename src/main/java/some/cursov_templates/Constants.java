@@ -1,10 +1,13 @@
 package some.cursov_templates;
 
+import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import lombok.val;
 import org.jetbrains.annotations.TestOnly;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import some.cursov_templates.entity.PcComponent;
+import some.cursov_templates.entity.User;
 
 import javax.servlet.http.HttpServletRequest;
 import java.lang.annotation.Retention;
@@ -12,6 +15,7 @@ import java.lang.annotation.Target;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 
 import static java.lang.annotation.ElementType.FIELD;
 import static java.lang.annotation.ElementType.TYPE;
@@ -66,7 +70,7 @@ public final class Constants {
     public static final String ENDPOINT_ADMIN = "/adm";
     public static final String ENDPOINT_ABOUT = "/abt";
     public static final String GET_COMPONENT = "/cmp";
-    public static final String POST_SELECT = "/slc";
+    public static final String POST_SELECT = "/slc"; //TODO: rename to choose
     public static final String POST_CLEAR = "/clr";
     public static final String POST_LOGOUT = "/lgo";
     public static final String ENDPOINT_ERROR = "/error";
@@ -74,6 +78,7 @@ public final class Constants {
     public static final String POST_REMOVE = "/rmv";
     public static final String POST_INSERT_OR_UPDATE = "/iou";
     public static final String HAS_ROLE_ADMIN = "hasRole(" + ROLE_ADMIN + ')';
+    public static final String GET_SELECT = "/gslc";
 
     /** Pages */
     public static final String PAGE_INDEX = "index";
@@ -125,7 +130,7 @@ public final class Constants {
     @Target(FIELD) @Retention(SOURCE) public @interface ImplicitAutowire {}
     @Target(TYPE) @Retention(SOURCE) public @interface TypeAlias {}
 
-    /** Aliases (emulating type aliases) begin */
+    /** Classes begin */
 
     @TypeAlias public static class StringPairMap extends HashMap<String, String>
     { public StringPairMap() { super(); }
@@ -136,6 +141,12 @@ public final class Constants {
 
     @TypeAlias public static class EmptyResponse extends ResponseEntity<Void>
     { public EmptyResponse(HttpStatus status) { super(status); } }
+
+    @RequiredArgsConstructor
+    public static class Pair<A, B> { public final A a; public final B b; }
+
+    @TypeAlias public static class ComponentsAndUsers extends Pair<List<PcComponent>, List<User>>
+    { public ComponentsAndUsers(List<PcComponent> a, List<User> b) { super(a, b); } }
 
     /** Aliases end */
 

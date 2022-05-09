@@ -14,6 +14,7 @@ import some.cursov_templates.repo.UsersRepo;
 import java.util.List;
 
 import static some.cursov_templates.Constants.*;
+import static some.cursov_templates.entity.User.Role;
 
 @Scope(ConfigurableBeanFactory.SCOPE_SINGLETON)
 @RequiredArgsConstructor
@@ -43,5 +44,14 @@ public class UsersService implements UserDetailsService {
 
     public void saveUser(User user) {
         repo.save(user);
+    }
+
+    public List<User> selectUsers(String byWhich, String selection) {
+        return repo.getAllBy(byWhich, switch (byWhich) {
+            case ENTITY_ID -> toInt(selection);
+            case USER_ROLE -> Role.valueOf(selection).ROLE;
+            case ENTITY_NAME, USER_PASSWORD -> selection;
+            default -> throw new IllegalArgumentException();
+        });
     }
 }

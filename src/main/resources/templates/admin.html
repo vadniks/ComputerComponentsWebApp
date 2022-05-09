@@ -7,7 +7,6 @@
     <link rel="stylesheet" href="../css/admn.css"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" type="image/svg" href="../../static/res/pc_icon3.svg">
-    <script type="module" src="../js/admn.js"></script>
 </head>
 <body>
     <div id="template">
@@ -42,9 +41,9 @@
             <div id="cntHdr">
                 <span>Database Administration</span>
                 <div id="cntHdrBts">
-                    <button id="dbCtSw">Table</button>
-                    <button id="dbCtSl">Select</button>
-                    <button id="dbCtDd">Insert</button>
+                    <button id="dbCtSw" onclick="onSwitchClick()">Table</button>
+                    <button id="dbCtSl" onclick="onSelectClick()">Select</button>
+                    <button id="dbCtDd" onclick="onInsertClick()">Insert</button>
                 </div>
             </div>
             <div class="dbs">
@@ -119,84 +118,6 @@
                     </div>
                 </div>
             </div>
-            <script>
-                const act1 = elem('act1'),
-                    act2 = elem('act2'),
-                    ovrl = elem('overlay'),
-                    flx = 'flex',
-                    nn = 'none',
-                    nt = 'initial',
-                    gt = 'GET',
-                    pt = 'POST',
-                    flds1 = act1.querySelectorAll('input, textarea'),
-                    flds2 = act2.querySelectorAll('input, textarea')
-
-                let act1Sh = false, act2Sh = false, curId = -1
-
-                // noinspection JSUnusedGlobalSymbols
-                function onUpdateClick(id, isUsr) { request(
-                    gt, `/${!isUsr ? 'cmp' : 'usr'}?id=${id}`, jsn =>
-                {
-                    if (!isUsr) {
-                        act1Sh = !act1Sh
-                        act1.style.display = act1Sh ? flx : nn
-                        ovrl.style.display = act1Sh ? nt : nn
-
-                        flds1[0].value = jsn.id
-                        flds1[1].value = jsn.type
-                        flds1[2].value = jsn.name
-                        flds1[3].value = jsn.description
-                        flds1[4].value = jsn.cost
-                        flds1[5].value = jsn.image
-                    } else {
-                        act2Sh = !act2Sh
-                        act2.style.display = act2Sh ? flx : nn
-                        ovrl.style.display = act2Sh ? nt : nn
-
-                        flds2[0].value = jsn.id
-                        flds2[1].value = jsn.name
-                        flds2[2].value = jsn.role
-                        flds2[3].value = jsn.password
-                    }
-                    curId = parseInt(jsn.id)
-                }) }
-
-                function act(isUsr) {
-                    const a = curId === -1
-                    const jsn = !isUsr ? {
-                        id: !a ? parseInt(flds1[0].value) : null,
-                        type: flds1[1].value,
-                        name: flds1[2].value,
-                        description: flds1[3].value,
-                        cost: flds1[4].value,
-                        image: flds1[5].value
-                    } : {
-                        id: !a ? parseInt(flds2[0].value) : null,
-                        name: flds2[1].value,
-                        role: flds2[2].value,
-                        password: flds2[3].value
-                    }
-                    request(pt, '/iou', rld, JSON.stringify(jsn))
-                }
-
-                // noinspection JSUnusedGlobalSymbols
-                function onDeleteClick(id, isUsr) { request(
-                    pt, `/rmv?entity=${!isUsr}&id=${id}`, rld
-                ) }
-
-                function request(method, path, callback, payload = null) {
-                    let rq = new XMLHttpRequest()
-                    rq.onreadystatechange = () => {
-                        if (rq.readyState === 4 && rq.status === 200)
-                            method === gt ? callback(JSON.parse(rq.response)) : callback()
-                    }
-                    rq.open(method, path)
-                    rq.send(payload)
-                }
-
-                function elem(id) { return document.getElementById(id) }
-                function rld() { window.location.reload() }
-            </script>
             <div id="cntFtr"></div>
         </div>
         <div id="footer">
@@ -207,7 +128,7 @@
     <div id="act1" class="act">
         <div class="actHdr">
             <span class="actNm">Action</span>
-            <button class="actExt">Exit</button>
+            <button class="actExt" onclick="cls(false)">Exit</button>
         </div>
         <div class="actMn">
             <input class="actMnInp" placeholder="Id"/>          <!--0-->
@@ -224,7 +145,7 @@
     <div id="act2" class="act">
         <div class="actHdr">
             <span class="actNm">Action</span>
-            <button class="actExt">Exit</button>
+            <button class="actExt" onclick="cls(true)">Exit</button>
         </div>
         <div class="actMn">
             <input class="actMnInp" placeholder="Id"/>       <!--0-->
@@ -238,5 +159,116 @@
     </div>
 
     <div id="overlay"></div>
+
+    <script>
+        const act1 = elem('act1'),
+            act2 = elem('act2'),
+            ovrl = elem('overlay'),
+            flx = 'flex',
+            nn = 'none',
+            nt = 'initial',
+            gt = 'GET',
+            pt = 'POST',
+            flds1 = act1.querySelectorAll('input, textarea'),
+            flds2 = act2.querySelectorAll('input, textarea'),
+            swt = elem('dbCtSw')
+
+        let act1Sh = false, act2Sh = false, curId = -1, swtch = false, mode = 0
+
+        function cls(isUsr) { if (isUsr) {
+            act1Sh = !act1Sh
+            act1.style.display = act1Sh ? flx : nn
+            ovrl.style.display = act1Sh ? nt : nn
+        } else {
+            act2Sh = !act2Sh
+            act2.style.display = act2Sh ? flx : nn
+            ovrl.style.display = act2Sh ? nt : nn
+        } }
+
+        function onSwitchClick() {
+            swtch = !swtch
+            swt.style.backgroundColor = !swtch ? 'darkslategrey' : 'gray'
+            swt.textContent = !swtch ? 'components' : 'users'
+        }
+
+        function onSelectClick() {
+            act1Sh = !act1Sh
+            act1.style.display = act1Sh ? flx : nn
+            ovrl.style.display = act1Sh ? nt : nn
+            mode = 0
+        }
+
+        function onInsertClick() {
+            act1Sh = !act1Sh
+            act1.style.display = act1Sh ? flx : nn
+            ovrl.style.display = act1Sh ? nt : nn
+            mode = 1
+        }
+
+        // noinspection JSUnusedGlobalSymbols
+        function onUpdateClick(id, isUsr) { request(
+            gt, `/${!isUsr ? 'cmp' : 'usr'}?id=${id}`, jsn =>
+            {
+                if (!isUsr) {
+                    act1Sh = !act1Sh
+                    act1.style.display = act1Sh ? flx : nn
+                    ovrl.style.display = act1Sh ? nt : nn
+
+                    flds1[0].value = jsn.id
+                    flds1[1].value = jsn.type
+                    flds1[2].value = jsn.name
+                    flds1[3].value = jsn.description
+                    flds1[4].value = jsn.cost
+                    flds1[5].value = jsn.image
+                } else {
+                    act2Sh = !act2Sh
+                    act2.style.display = act2Sh ? flx : nn
+                    ovrl.style.display = act2Sh ? nt : nn
+
+                    flds2[0].value = jsn.id
+                    flds2[1].value = jsn.name
+                    flds2[2].value = jsn.role
+                    flds2[3].value = jsn.password
+                }
+                curId = parseInt(jsn.id)
+                mode = 2
+            }) }
+
+        function act(isUsr) {
+            const a = curId === -1
+            const jsn = !isUsr ? {
+                id: !a ? parseInt(flds1[0].value) : null,
+                type: flds1[1].value,
+                name: flds1[2].value,
+                description: flds1[3].value,
+                cost: flds1[4].value,
+                image: flds1[5].value
+            } : {
+                id: !a ? parseInt(flds2[0].value) : null,
+                name: flds2[1].value,
+                role: flds2[2].value,
+                password: flds2[3].value
+            }
+            request(pt, '/iou', rld, JSON.stringify(jsn))
+        }
+
+        // noinspection JSUnusedGlobalSymbols
+        function onDeleteClick(id, isUsr) { request(
+            pt, `/rmv?entity=${!isUsr}&id=${id}`, rld
+        ) }
+
+        function request(method, path, callback, payload = null) {
+            let rq = new XMLHttpRequest()
+            rq.onreadystatechange = () => {
+                if (rq.readyState === 4 && rq.status === 200)
+                    method === gt ? callback(JSON.parse(rq.response)) : callback()
+            }
+            rq.open(method, path)
+            rq.send(payload)
+        }
+
+        function elem(id) { return document.getElementById(id) }
+        function rld() { window.location.reload() }
+    </script>
 </body>
 </html>
