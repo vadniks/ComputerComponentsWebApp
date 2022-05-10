@@ -6,10 +6,8 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.jetbrains.annotations.Nullable;
 import org.jetbrains.annotations.TestOnly;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.context.annotation.Scope;
-import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import some.cursov_templates.entity.PcComponent;
@@ -31,8 +29,6 @@ import some.cursov_templates.entity.PcComponent.Type;
 public class ComponentsService {
     @ImplicitAutowire
     private final ComponentsRepo repo;
-    @Value("classpath:static")
-    private Resource resDir;
     @ImplicitAutowire
     private final SessionFactory sessionFactory;
     private Session session = null;
