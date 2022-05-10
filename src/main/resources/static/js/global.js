@@ -27,3 +27,4 @@ export function request(method, path, callback, csrfHdr, csrfTkn, payload = null
 }
 
 export function redir(whr) { window.location.replace(whr) }
+window.redir = redir

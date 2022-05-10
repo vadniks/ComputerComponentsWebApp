@@ -10,6 +10,7 @@
     <meta name="_csrf" th:content="${_csrf.token}"/>
     <meta name="_csrf_parameter" th:content="${_csrf.parameterName}"/>
     <meta name="_csrf_header" th:content="${_csrf.headerName}"/>
+    <script type="module" src="../static/js/index.js"></script>
 </head>
 <body>
     <div id="template">
@@ -29,13 +30,13 @@
                     <button
                         id="menuBtAbt"
                         th:if="${user == null or #httpServletRequest.isUserInRole('role0')}"
-                        onclick="window.location.replace('/abt')">
+                        onclick="redir('/abt')">
                             About
                     </button>
                     <button
                         id="menuBtAbt"
                         th:if="${#httpServletRequest.isUserInRole('role1')}"
-                        onclick="window.location.replace('/adm')">
+                        onclick="redir('/adm')">
                             Administrate
                     </button>
                 </div>
@@ -43,7 +44,7 @@
                     <button
                         id="menuBtLog"
                         th:if="${user == null}"
-                        onclick="window.location.replace('/lgn')">
+                        onclick="redir('/lgn')">
                             Log In
                     </button>
                     <button
@@ -52,10 +53,6 @@
                         onclick="logOut()">
                             Log Out
                     </button>
-                    <script type="module" th:if="${user != null}">
-                        import * as I from '../static/js/index.js'
-                        window.logOut = I.logOut
-                    </script>
                 </div>
             </div>
         </div>
@@ -79,10 +76,6 @@
             <div id="cntFtr">
                 <span id="componentCst" th:text="${total}"></span>
                 <button id="clrOvrw" onclick="onClear()">Clear Selection</button>
-                <script type="module">
-                    import * as I from '../static/js/index.js'
-                    window.onClear = I.onClear
-                </script>
             </div>
         </div>
         <div id="footer">

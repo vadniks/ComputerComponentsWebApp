@@ -12,5 +12,5 @@ function rqs(whr) { G.request(
     csrfTkn
 ) }
 
-export function logOut() { rqs(G.lgo) }
-export function onClear() { rqs(G.clr) }
+window.logOut = function logOut() { rqs(G.lgo) }
+window.onClear = function onClear() { rqs(G.clr) }
