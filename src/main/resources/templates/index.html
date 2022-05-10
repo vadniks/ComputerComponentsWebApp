@@ -52,20 +52,9 @@
                         onclick="logOut()">
                             Log Out
                     </button>
-                    <script th:if="${user != null}">
-                        const mts = document.getElementsByTagName('meta'),
-                            csrfTkn = mts[2].content, csrfPrm = mts[3].content, csrfHdr = mts[4].content
-
-                        function logOut() {
-                            let rq = new XMLHttpRequest()
-                            rq.onreadystatechange = () => {
-                                if (rq.readyState === 4 && rq.status === 200)
-                                    window.location.replace('/')
-                            }
-                            rq.open('POST', '/lgo')
-                            rq.setRequestHeader(csrfHdr, csrfTkn)
-                            rq.send(null)
-                        }
+                    <script type="module" th:if="${user != null}">
+                        import * as I from '../static/js/index.js'
+                        function logOut() { I.logOut() }
                     </script>
                 </div>
             </div>
@@ -90,17 +79,9 @@
             <div id="cntFtr">
                 <span id="componentCst" th:text="${total}"></span>
                 <button id="clrOvrw" onclick="onClear()">Clear Selection</button>
-                <script>
-                    function onClear() {
-                        let rq = new XMLHttpRequest()
-                        rq.onreadystatechange = () => {
-                            if (rq.readyState === 4 && rq.status === 200)
-                                window.location.replace('/')
-                        }
-                        rq.open('POST', '/clr')
-                        rq.setRequestHeader(csrfHdr, csrfTkn)
-                        rq.send(null)
-                    }
+                <script type="module">
+                    import * as I from '../static/js/index.js'
+                    function onClear() { I.onClear() }
                 </script>
             </div>
         </div>
