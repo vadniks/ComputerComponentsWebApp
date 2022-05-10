@@ -13,7 +13,6 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 import some.cursov_templates.entity.User;
 import some.cursov_templates.repo.UsersRepo;
 
@@ -25,7 +24,6 @@ import static some.cursov_templates.Constants.*;
 import static some.cursov_templates.entity.User.Role;
 
 @Scope(ConfigurableBeanFactory.SCOPE_SINGLETON)
-@Transactional
 @RequiredArgsConstructor
 @Service
 public class UsersService implements UserDetailsService {

@@ -9,7 +9,6 @@ import org.jetbrains.annotations.TestOnly;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 import some.cursov_templates.entity.PcComponent;
 import some.cursov_templates.repo.ComponentsRepo;
 
@@ -23,7 +22,6 @@ import static some.cursov_templates.entity.PcComponent.Type.AMOUNT;
 import some.cursov_templates.entity.PcComponent.Type;
 
 @Scope(ConfigurableBeanFactory.SCOPE_SINGLETON)
-@Transactional
 @RequiredArgsConstructor
 @Service
 public class ComponentsService {
