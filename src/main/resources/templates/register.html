@@ -8,7 +8,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" type="image/svg" href="../../static/res/pc_icon3.svg">
     <meta name="_csrf" th:content="${_csrf.token}"/>
-    <meta name="_csrf_parameter" th:content="${_csrf.parameterName}"/>
     <meta name="_csrf_header" th:content="${_csrf.headerName}"/>
     <script type="module" src="../static/js/register.js"></script>
 </head>
@@ -26,8 +25,8 @@
             </div>
             <div id="menu">
                 <div id="menuLf">
-                    <button id="menuBtVr" onclick="window.location.replace('/')">Home</button>
-                    <button id="menuBtAbt" onclick="window.location.replace('/abt')">About</button>
+                    <button id="menuBtVr" onclick="redir('/')">Home</button>
+                    <button id="menuBtAbt" onclick="redir('/abt')">About</button>
                 </div>
             </div>
         </div>

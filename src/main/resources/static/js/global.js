@@ -1,4 +1,8 @@
 
+export const mts = document.getElementsByTagName('meta'),
+    csrfTkn = mts[2].content,
+    csrfHdr = mts[3].content
+
 export const
     gt = 'GET',
     ps = 'POST',
@@ -10,7 +14,7 @@ export const
     abt = '/abt',
     rgs = '/rgs'
 
-export function request(method, path, callback, csrfHdr, csrfTkn, payload = null, onError = null) {
+export function request(method, path, callback, payload = null, onError = null) {
     let rq = new XMLHttpRequest()
     rq.onreadystatechange = () => {
         if (rq.readyState !== 4) return

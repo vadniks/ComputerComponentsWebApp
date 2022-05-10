@@ -8,8 +8,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" type="image/svg" href="../../static/res/pc_icon3.svg">
     <meta name="_csrf" th:content="${_csrf.token}"/>
-    <meta name="_csrf_parameter" th:content="${_csrf.parameterName}"/>
     <meta name="_csrf_header" th:content="${_csrf.headerName}"/>
+    <script type="module" src="../static/js/browse.js"></script>
 </head>
 <body>
     <div id="template">
@@ -25,11 +25,11 @@
             </div>
             <div id="menu">
                 <div id="menuLf">
-                    <button id="menuBtVr" onclick="window.location.replace('/')">Home</button>
-                    <button id="menuBtAbt" onclick="window.location.replace('/abt')">About</button>
+                    <button id="menuBtVr" onclick="redir('/')">Home</button>
+                    <button id="menuBtAbt" onclick="redir('/abt')">About</button>
                 </div>
                 <div id="menuRg">
-                    <button id="menuBtLog" onclick="window.location.replace('/lgn')">Log In</button>
+                    <button id="menuBtLog" onclick="redir('/lgn')">Log In</button>
                 </div>
             </div>
         </div>
@@ -79,54 +79,5 @@
     </div>
 
     <div id="overlay"></div>
-
-    <script>
-        const mts = document.getElementsByTagName('meta'),
-            csrfTkn = mts[2].content, csrfPrm = mts[3].content, csrfHdr = mts[4].content
-
-        let chosenId = -1
-        const cmVw = document.getElementById('cmpVw'),
-            ovrl = document.getElementById('overlay'),
-            cmpVwExt = document.getElementById('cmpVwExt'),
-            cmpVwFtBt = document.getElementById('cmpVwFtBt')
-
-        cmpVwFtBt.addEventListener('click', () => {
-            let rq = new XMLHttpRequest()
-            rq.onreadystatechange = () => {
-                if (rq.readyState === 4 && rq.status === 200)
-                    window.location.replace('/')
-            }
-            console.log(chosenId)
-            rq.open('POST', `/slc?id=${chosenId}`, true)
-            rq.setRequestHeader(csrfHdr, csrfTkn)
-            rq.send(null)
-        })
-
-        function openOrCloseDialog(a) {
-            cmVw.style.display = a ? 'flex' : 'none'
-            ovrl.style.display = a ? 'initial' : 'none'
-        }
-
-        // noinspection JSUnusedGlobalSymbols
-        function onItemClick(_id) {
-            const id = parseInt(_id)
-            let rq = new XMLHttpRequest()
-
-            chosenId = id
-            cmpVwExt.addEventListener('click', () => openOrCloseDialog(false))
-
-            rq.onreadystatechange = () => {
-                if (rq.readyState === 4 && rq.status === 200) {
-                    openOrCloseDialog(true)
-
-                    let jsn = JSON.parse(rq.response)
-                    cmVw.querySelector('#cmpVwNm').textContent = jsn.name
-                    cmVw.querySelector('#cmpVwDsc').textContent = jsn.description
-                }
-            }
-            rq.open('GET', `/cmp?id=${id}`, true)
-            rq.send(null)
-        }
-    </script>
 </body>
 </html>

@@ -8,8 +8,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" type="image/svg" href="../../static/res/pc_icon3.svg">
     <meta name="_csrf" th:content="${_csrf.token}"/>
-    <meta name="_csrf_parameter" th:content="${_csrf.parameterName}"/>
     <meta name="_csrf_header" th:content="${_csrf.headerName}"/>
+    <script type="module" src="../static/js/global.js"></script>
 </head>
 <body>
     <div id="template">
@@ -25,8 +25,8 @@
             </div>
             <div id="menu">
                 <div id="menuLf">
-                    <button id="menuBtVr" onclick="window.location.replace('/')">Home</button>
-                    <button id="menuBtAbt" onclick="window.location.replace('/abt')">About</button>
+                    <button id="menuBtVr" onclick="redir('/')">Home</button>
+                    <button id="menuBtAbt" onclick="redir('/abt')">About</button>
                 </div>
             </div>
         </div>
@@ -41,7 +41,7 @@
                 <div id="bts">
                     <button id="sbmt" type="submit">Authorize</button>
                     <button id="clr" type="reset">Clear</button>
-                    <button id="rgs" type="button" onclick="window.location.replace('/rgs')">Register</button>
+                    <button id="rgs" type="button" onclick="redir('/rgs')">Register</button>
                 </div>
             </form>
             <div id="cntFtr" th:style="${param.error} ? 'background-color: red'">
