@@ -58,6 +58,8 @@ public class UsersService implements UserDetailsService {
     }
 
     public void saveUser(User user) {
+        if (user.getId() == null)
+            user.setPassword(passwordEncoder.encode(user.getPassword()));
         repo.save(user);
     }
 

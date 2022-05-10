@@ -57,7 +57,7 @@ function clr(isUsr) {
     }
 }
 
-function idDsb(dsb) { (!swtch ? flds1[0] : flds2[0]).disabled = dsb }
+function idDsb(dsb, isUsr) { (!isUsr ? flds1[0] : flds2[0]).disabled = dsb }
 
 window.onSelectClick = function onSelectClick() {
     if (act1Sh || act2Sh) return
@@ -65,7 +65,7 @@ window.onSelectClick = function onSelectClick() {
     orc(swtch)
     actNm(swtch, 'Select')
     clr(swtch)
-    idDsb(false)
+    idDsb(false, swtch)
     mode = 0
 }
 
@@ -75,7 +75,7 @@ window.onInsertClick = function onInsertClick() {
     orc(swtch)
     actNm(swtch, 'Insert')
     clr(swtch)
-    idDsb(true)
+    idDsb(true, swtch)
     mode = 1
 }
 
@@ -85,7 +85,7 @@ window.onUpdateClick = function onUpdateClick(id, isUsr) {
     {
         orc(isUsr)
         actNm(isUsr, 'Update')
-        idDsb(false)
+        idDsb(true, isUsr)
         if (!isUsr) {
             flds1[0].value = jsn.id
             flds1[1].value = jsn.type
