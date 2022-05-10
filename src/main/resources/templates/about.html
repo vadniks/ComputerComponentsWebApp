@@ -6,6 +6,8 @@
     <link rel="stylesheet" href="../../static/css/about.css"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" type="image/svg" href="../../static/res/pc_icon3.svg">
+    <meta name="_csrf" th:content="${_csrf.token}"/>
+    <meta name="_csrf_header" th:content="${_csrf.headerName}"/>
     <script type="module" src="../static/js/global.js"></script>
 </head>
 <body>

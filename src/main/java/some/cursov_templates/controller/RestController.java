@@ -5,7 +5,6 @@ import lombok.val;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
-import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.*;
 import some.cursov_templates.entity.PcComponent;
 import some.cursov_templates.entity.User;
@@ -30,7 +29,7 @@ public class RestController {
     @ResponseBody
     @GetMapping(value = GET_COMPONENT, produces = APPLICATION_JSON_VALUE)
     public StringPairMap component(@RequestParam String id) {
-        return componentsService.getComponent(Integer.parseInt(id));
+        return componentsService.getComponent(toInt(id));
     }
 
     @PostMapping(POST_SELECT)
@@ -46,6 +45,7 @@ public class RestController {
     }
 
     @PreAuthorize(HAS_ROLE_ADMIN)
+    @ResponseBody
     @GetMapping(value = GET_USER, produces = APPLICATION_JSON_VALUE)
     public User user(@RequestParam String id) {
         return usersService.getUser(toInt(id));

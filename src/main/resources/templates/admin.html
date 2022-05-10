@@ -8,8 +8,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" type="image/svg" href="../../static/res/pc_icon3.svg">
     <meta name="_csrf" th:content="${_csrf.token}"/>
-    <meta name="_csrf_parameter" th:content="${_csrf.parameterName}"/>
     <meta name="_csrf_header" th:content="${_csrf.headerName}"/>
+    <script type="module" src="../static/js/admin.js"></script>
 </head>
 <body>
     <div id="template">
@@ -22,26 +22,9 @@
             </div>
             <div id="menu">
                 <div id="menuLf">
-                    <button id="menuBtVr" onclick="window.location.replace('/')">Home</button>
+                    <button id="menuBtVr" onclick="redir('/')">Home</button>
                 </div>
-                <div id="menuRg">
-                    <button id="menuBtLog" onclick="logOut()">Log Out</button>
-                    <script>
-                        const mts = document.getElementsByTagName('meta'),
-                            csrfTkn = mts[2].content, csrfPrm = mts[3].content, csrfHdr = mts[4].content
-
-                        function logOut() {
-                            let rq = new XMLHttpRequest()
-                            rq.onreadystatechange = () => {
-                                if (rq.readyState === 4 && rq.status === 200)
-                                    window.location.replace('/')
-                            }
-                            rq.open('POST', '/lgo')
-                            rq.setRequestHeader(csrfHdr, csrfTkn)
-                            rq.send(null)
-                        }
-                    </script>
-                </div>
+                <div id="menuRg"></div>
             </div>
         </div>
         <div id="content">
@@ -166,206 +149,5 @@
     </div>
 
     <div id="overlay"></div>
-
-    <script>
-        const act1 = elem('act1'),
-            act2 = elem('act2'),
-            ovrl = elem('overlay'),
-            flx = 'flex',
-            nn = 'none',
-            nt = 'initial',
-            gt = 'GET',
-            pt = 'POST',
-            flds1 = act1.querySelectorAll('input, textarea'),
-            flds2 = act2.querySelectorAll('input, textarea'),
-            swt = elem('dbCtSw'),
-            act1Nm = act1.querySelector('.actNm'),
-            act2Nm = act2.querySelector('.actNm'),
-            act1FtBt = act1.querySelector('.actFtBt'),
-            act2FtBt = act2.querySelector('.actFtBt')
-
-        let act1Sh = false, act2Sh = false, curId = -1, swtch = false, mode = 0
-
-        function actNm(isUsr, nm) { if (!isUsr) {
-            act1Nm.textContent = nm
-            act1FtBt.textContent = nm
-        } else {
-            act2Nm.textContent = nm
-            act2FtBt.textContent = nm
-        } }
-
-        function orc(isUsr) { if (!isUsr) {
-            act1Sh = !act1Sh
-            act1.style.display = act1Sh ? flx : nn
-            ovrl.style.display = act1Sh ? nt : nn
-        } else {
-            act2Sh = !act2Sh
-            act2.style.display = act2Sh ? flx : nn
-            ovrl.style.display = act2Sh ? nt : nn
-        } }
-
-        function onSwitchClick() {
-            swtch = !swtch
-            swt.style.backgroundColor = !swtch ? 'darkslategrey' : 'gray'
-            swt.textContent = !swtch ? 'components' : 'users'
-        }
-
-        function clr(isUsr) {
-            if (!isUsr) {
-                flds1[0].value = ''
-                flds1[1].value = ''
-                flds1[2].value = ''
-                flds1[3].value = ''
-                flds1[4].value = ''
-                flds1[5].value = ''
-            } else {
-                flds2[0].value = ''
-                flds2[1].value = ''
-                flds2[2].value = ''
-                flds2[3].value = ''
-            }
-        }
-
-        function idDsb(dsb) { (!swtch ? flds1[0] : flds2[0]).disabled = dsb }
-
-        function onSelectClick() {
-            if (act1Sh || act2Sh) return
-
-            orc(swtch)
-            actNm(swtch, 'Select')
-            clr(swtch)
-            idDsb(false)
-            mode = 0
-        }
-
-        function onInsertClick() {
-            if (act1Sh || act2Sh) return
-
-            orc(swtch)
-            actNm(swtch, 'Insert')
-            clr(swtch)
-            idDsb(true)
-            mode = 1
-        }
-
-        // noinspection JSUnusedGlobalSymbols
-        function onUpdateClick(id, isUsr) { if (act1Sh || act2Sh) return; request(
-            gt, `/${!isUsr ? 'cmp' : 'usr'}?id=${id}`, jsn =>
-        {
-            orc(isUsr)
-            actNm(swtch, 'Update')
-            idDsb(false)
-            if (!isUsr) {
-                flds1[0].value = jsn.id
-                flds1[1].value = jsn.type
-                flds1[2].value = jsn.name
-                flds1[3].value = jsn.description
-                flds1[4].value = jsn.cost.substring(0, jsn.cost.length - 1)
-                flds1[5].value = jsn.image
-            } else {
-                flds2[0].value = jsn.id
-                flds2[1].value = jsn.name
-                flds2[2].value = jsn.role
-                flds2[3].value = jsn.password
-            }
-            curId = parseInt(jsn.id)
-            mode = 2
-        }) }
-
-        function act(isUsr) {
-            const a = curId === -1, b = mode === 0
-            const jsn = !isUsr ? {
-                id: !a ? parseInt(flds1[0].value) : null,
-                type: flds1[1].value,
-                name: flds1[2].value,
-                description: flds1[3].value,
-                cost: flds1[4].value,
-                image: flds1[5].value
-            } : {
-                id: !a ? parseInt(flds2[0].value) : null,
-                name: flds2[1].value,
-                role: flds2[2].value,
-                password: flds2[3].value
-            }
-            if (!b)
-                request(pt, `/iou${!isUsr ? 'c' : 'u'}`, rld, JSON.stringify(jsn))
-            else {
-                let bwh, slc
-                const fld = (wh, nx) => {
-                    const a = wh[nx].value, b = a.length > 0
-                    console.log(a, b)
-                    if (b) slc = a
-                    return b
-                }
-
-                if (!isUsr) switch (true) {
-                    case fld(flds1, 0): bwh = 'id'; break
-                    case fld(flds1, 1): bwh = 'type'; break
-                    case fld(flds1, 2): bwh = 'name'; break
-                    case fld(flds1, 3): bwh = 'description'; break
-                    case fld(flds1, 4): bwh = 'cost'; break
-                    case fld(flds1, 5): bwh = 'image'; break
-                } else switch (true) {
-                    case fld(flds2, 0): bwh = 'id'; break
-                    case fld(flds2, 1): bwh = 'name'; break
-                    case fld(flds2, 2): bwh = 'role'; break
-                    case fld(flds2, 3): bwh = 'password'; break
-                }
-
-                window.location.replace(`/adm?entity=${!isUsr}&byWhich=${bwh}&selection=${slc}`)
-            }
-        }
-
-        // noinspection JSUnusedGlobalSymbols
-        function onDeleteClick(id, isUsr) { request(
-            pt, `/rmv?entity=${!isUsr}&id=${id}`, rld
-        ) }
-
-        function request(method, path, callback, payload = null) {
-            let rq = new XMLHttpRequest()
-            rq.onreadystatechange = () => {
-                if (rq.readyState !== 4) return
-
-                if (rq.status === 200)
-                    method === gt ? callback(JSON.parse(rq.response)) : callback()
-                else if (rq.status !== 200)
-                    alert("An error occurred: " + rq.status)
-            }
-            rq.open(method, path)
-            if (payload != null) rq.setRequestHeader('Content-Type', 'application/json')
-            if (method === pt) rq.setRequestHeader(csrfHdr, csrfTkn)
-            rq.send(payload)
-        }
-
-        function elem(id) { return document.getElementById(id) }
-        function rld() { window.location.reload() }
-
-        ///////////////////////////////////////////////////////////////////////////////////
-
-        let ht
-
-        window.onload = () => { setTimeout(() => {
-            document.getElementById('cntFtr').style.height =
-                '' + document.getElementById('cntHdr').clientHeight + 'px'
-
-            const cntHdr = document.getElementById('cntHdr')
-            const _dbs = document.querySelector('.dbs')
-            ht = cntHdr.clientHeight
-            const cnt = document.getElementById('content')
-
-            window.addEventListener('scroll', () => {
-                if (window.pageYOffset > cnt.offsetTop) {
-                    cntHdr.style.position = 'fixed'
-                    cntHdr.style.top = '0'
-                    cntHdr.style.width = window.innerWidth > 950 ? '90%' : '98%'
-                    _dbs.style.marginTop = ht + 'px'
-                } else {
-                    cntHdr.style.position = 'relative'
-                    _dbs.style.marginTop = '0'
-                    cntHdr.style.width = '100%'
-                }
-            })
-        }, 0) }
-    </script>
 </body>
 </html>

@@ -48,11 +48,13 @@ public class UsersService implements UserDetailsService {
     }
 
     public User getUser(Integer id) {
-        return repo.getById(id);
+        val a = repo.findById(id);
+        if (a.isEmpty()) return null;
+        return a.get();
     }
 
     public void removeUser(Integer id) {
-        repo.deleteById(id);;
+        repo.deleteById(id);
     }
 
     public void saveUser(User user) {

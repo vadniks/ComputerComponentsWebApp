@@ -45,7 +45,11 @@ public class ComponentsService {
 
 
         val id = Integer.parseInt(_id);
-        val component = repo.getById(id);
+
+        val _component = repo.findById(id);
+        if (_component.isEmpty()) throw new IllegalStateException();
+        val component = _component.get();
+
         val t = findByType(selections, component.getType());
 
         selections.add((t == null ? new StringPairMap() : t)
