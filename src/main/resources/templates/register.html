@@ -10,6 +10,7 @@
     <meta name="_csrf" th:content="${_csrf.token}"/>
     <meta name="_csrf_parameter" th:content="${_csrf.parameterName}"/>
     <meta name="_csrf_header" th:content="${_csrf.headerName}"/>
+    <script type="module" src="../static/js/register.js"></script>
 </head>
 <body>
     <div id="template">
@@ -46,35 +47,6 @@
             <div id="cntFtr">
                 <span class="spFtr" style="visibility: hidden">An error has been occurred</span>
             </div>
-            <script>
-                const cntFtr = document.getElementById('cntFtr'),
-                    spn = cntFtr.querySelector('span'),
-                    frm = document.querySelector('form'),
-                    xhr = new XMLHttpRequest(),
-                    lgn = document.querySelector('#lgn'),
-                    pas = document.querySelector('#pas'),
-                    mts = document.getElementsByTagName('meta'),
-                    csrfTkn = mts[2].content,
-                    csrfHdr = mts[4].content
-
-                frm.addEventListener('submit', e => {
-                    e.preventDefault()
-                    console.log('submit')
-
-                    xhr.onload = e => {
-                        if (xhr.status === 200)
-                            window.location.replace('/')
-                        else {
-                            cntFtr.style.backgroundColor = 'red'
-                            spn.style.visibility = 'visible'
-                        }
-                    }
-                    xhr.open('POST', '/rgs')
-                    xhr.setRequestHeader(csrfHdr, csrfTkn)
-                    xhr.setRequestHeader('Content-Type', 'application/json')
-                    xhr.send(JSON.stringify({name: lgn.value, password: pas.value}))
-                })
-            </script>
         </div>
         <div id="footer">
             <span>Copyright &#169; 2022 | All Rights Reserved.</span>

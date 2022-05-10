@@ -54,7 +54,7 @@
                     </button>
                     <script type="module" th:if="${user != null}">
                         import * as I from '../static/js/index.js'
-                        function logOut() { I.logOut() }
+                        window.logOut = I.logOut
                     </script>
                 </div>
             </div>
@@ -81,7 +81,7 @@
                 <button id="clrOvrw" onclick="onClear()">Clear Selection</button>
                 <script type="module">
                     import * as I from '../static/js/index.js'
-                    function onClear() { I.onClear() }
+                    window.onClear = I.onClear
                 </script>
             </div>
         </div>
