@@ -16,4 +16,10 @@ public interface UsersRepo extends JpaRepository<User, Integer> {
         nativeQuery = true)
     @Nullable
     User getByName(String name);
+
+    @Deprecated
+    @Override
+    default User getById(Integer id) {
+        throw new RuntimeException("Use findById instead");
+    }
 }

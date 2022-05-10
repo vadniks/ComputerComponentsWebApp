@@ -16,4 +16,10 @@ public interface ComponentsRepo extends JpaRepository<PcComponent, Integer> {
             "select * from " + TABLE_COMPONENTS + " where " + COMPONENT_TYPE + " = ?1",
         nativeQuery = true)
     List<PcComponent> getAllByType(Integer type);
+
+    @Deprecated
+    @Override
+    default PcComponent getById(Integer id) {
+        throw new RuntimeException("Use findById instead");
+    }
 }
