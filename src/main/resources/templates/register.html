@@ -3,7 +3,7 @@
 <html lang="en" xmlns:th="https://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Log In</title>
+    <title>Register</title>
     <link rel="stylesheet" href="../../static/css/login.css"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" type="image/svg" href="../../static/res/pc_icon3.svg">
@@ -32,28 +32,49 @@
         </div>
         <div id="content">
             <div id="cntHdr">
-                <span>Login Panel</span>
+                <span>Registration Panel</span>
             </div>
-            <form th:action="@{/lgn}" method="post">
+            <form th:action="@{/rgs}" method="post">
                 <input id="lgn" placeholder="Login" type="text" name="name" required>
                 <input id="pas" placeholder="Password" type="password" name="password" required>
                 <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
                 <div id="bts">
-                    <button id="sbmt" type="submit">Authorize</button>
+                    <button id="sbmt" type="submit">Register</button>
                     <button id="clr" type="reset">Clear</button>
-                    <button id="rgs" type="button" onclick="window.location.replace('/rgs')">Register</button>
                 </div>
             </form>
-            <div id="cntFtr" th:style="${param.error} ? 'background-color: red'">
-                <span th:if="${param.error}" class="spFtr">Wrong username or password</span>
-                <span th:if="${param.logout}" class="spFtr">You've been logged out</span>
-                <span
-                    th:unless="${param.error} or ${param.logout}"
-                    class="spFtr"
-                    style="visibility: hidden">
-                        STUB
-                </span>
+            <div id="cntFtr">
+                <span class="spFtr" style="visibility: hidden">An error has been occurred</span>
             </div>
+            <script>
+                const cntFtr = document.getElementById('cntFtr'),
+                    spn = cntFtr.querySelector('span'),
+                    frm = document.querySelector('form'),
+                    xhr = new XMLHttpRequest(),
+                    lgn = document.querySelector('#lgn'),
+                    pas = document.querySelector('#pas'),
+                    mts = document.getElementsByTagName('meta'),
+                    csrfTkn = mts[2].content,
+                    csrfHdr = mts[4].content
+
+                frm.addEventListener('submit', e => {
+                    e.preventDefault()
+                    console.log('submit')
+
+                    xhr.onload = e => {
+                        if (xhr.status === 200)
+                            window.location.replace('/')
+                        else {
+                            cntFtr.style.backgroundColor = 'red'
+                            spn.style.visibility = 'visible'
+                        }
+                    }
+                    xhr.open('POST', '/rgs')
+                    xhr.setRequestHeader(csrfHdr, csrfTkn)
+                    xhr.setRequestHeader('Content-Type', 'application/json')
+                    xhr.send(JSON.stringify({name: lgn.value, password: pas.value}))
+                })
+            </script>
         </div>
         <div id="footer">
             <span>Copyright &#169; 2022 | All Rights Reserved.</span>

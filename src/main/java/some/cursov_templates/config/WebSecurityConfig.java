@@ -14,7 +14,6 @@ import org.springframework.security.config.core.GrantedAuthorityDefaults;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
-import org.springframework.security.web.csrf.HttpSessionCsrfTokenRepository;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import some.cursov_templates.service.UsersService;
 
@@ -38,7 +37,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(
                     ENDPOINT_INDEX,
                     ENDPOINT_BROWSE,
-                    ENDPOINT_REGISTER,
                     ENDPOINT_ABOUT,
                     RESOURCE_STATIC,
                     RESOURCE_BACK_END,
@@ -46,6 +44,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                     POST_SELECT,
                     POST_CLEAR,
                     ENDPOINT_ERROR).permitAll()
+                .antMatchers(ENDPOINT_LOGIN, ENDPOINT_REGISTER).anonymous()
                 .antMatchers(POST_LOGOUT).hasRole(USER.mkRole())
                 .antMatchers(
                     ENDPOINT_ADMIN,

@@ -37,14 +37,16 @@ public class PagesController {
         return PAGE_BROWSE;
     }
 
+    @PreAuthorize(IS_ANONYMOUS)
     @GetMapping(ENDPOINT_LOGIN)
     public String login(HttpServletRequest request) {
-        return !isAuthenticated(request) ? PAGE_LOGIN : REDIRECT_TO_INDEX;
+        return isNotAuthenticated(request) ? PAGE_LOGIN : REDIRECT_TO_INDEX;
     }
 
+    @PreAuthorize(IS_ANONYMOUS)
     @GetMapping(ENDPOINT_REGISTER)
     public String register(HttpServletRequest request) {
-        return !isAuthenticated(request) ? PAGE_REGISTER : REDIRECT_TO_ERROR;
+        return isNotAuthenticated(request) ? PAGE_REGISTER : REDIRECT_TO_ERROR;
     }
 
     @PreAuthorize(HAS_ROLE_ADMIN)

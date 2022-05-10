@@ -11,6 +11,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import some.cursov_templates.entity.User;
@@ -33,6 +34,7 @@ public class UsersService implements UserDetailsService {
     @ImplicitAutowire
     private final SessionFactory sessionFactory;
     private Session session;
+    private final PasswordEncoder passwordEncoder = new BCryptPasswordEncoder(); // to avoid cycle dependencies
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -63,7 +65,7 @@ public class UsersService implements UserDetailsService {
         repo.save(new User(
             "admin",
             Role.ADMIN,
-            new BCryptPasswordEncoder().encode("admin")));
+            passwordEncoder.encode("admin")));
     }
 
     public List<User> selectUsers(String byWhich, String selection) {
@@ -83,6 +85,20 @@ public class UsersService implements UserDetailsService {
             .where(builder.equal(root.get(byWhich), parameter));
 
         return session.createQuery(query).getResultList();
+    }
+
+    public boolean registerUser(String name, String password) {
+        if (repo.getByName(name) != null ||
+            name.isEmpty() ||
+            password.isEmpty()
+        ) return false;
+
+        repo.save(new User(
+            name,
+            Role.USER,
+            passwordEncoder.encode(password)
+        ));
+        return true;
     }
 
     @PostConstruct

@@ -28,7 +28,7 @@
                 <div id="menuLf">
                     <button
                         id="menuBtAbt"
-                        th:if="${user == null}"
+                        th:if="${user == null or #httpServletRequest.isUserInRole('role0')}"
                         onclick="window.location.replace('/abt')">
                             About
                     </button>
@@ -62,7 +62,6 @@
                                 if (rq.readyState === 4 && rq.status === 200)
                                     window.location.replace('/')
                             }
-                            console.log(csrfPrm, csrfTkn, mts.length)
                             rq.open('POST', '/lgo')
                             rq.setRequestHeader(csrfHdr, csrfTkn)
                             rq.send(null)

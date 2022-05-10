@@ -79,6 +79,7 @@ public final class Constants {
     public static final String POST_INSERT_OR_UPDATE_COMPONENT = "/iouc";
     public static final String POST_INSERT_OR_UPDATE_USER = "/iouu";
     public static final String HAS_ROLE_ADMIN = "hasRole(" + ROLE_ADMIN + ')';
+    public static final String IS_ANONYMOUS = "isAnonymous()";
 
     /** Pages */
     public static final String PAGE_INDEX = "index";
@@ -165,7 +166,7 @@ public final class Constants {
     @TestOnly @Deprecated public static void debug(String a, Object... b)
     { System.err.println(a + '\t' + Arrays.toString(b)); }
 
-    public static boolean isAuthenticated(HttpServletRequest a) { return a.getRemoteUser() != null; }
+    public static boolean isNotAuthenticated(HttpServletRequest a) { return a.getRemoteUser() == null; }
 
     /** Functions end */
 
