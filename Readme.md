@@ -32,7 +32,7 @@ gradlew bootjar
 
 ## Installation
 
-Dillinger requires Docker and docker-compose to run.
+This application requires Docker and docker-compose to run.
 App uses port 8080 and 5432.
 
 Download the [jar file](https://github.com/vadniks/ComputerComponentsWebApp/blob/master/cursov_templates-0.0.1-SNAPSHOT.jar), [Dockerfile](https://github.com/vadniks/ComputerComponentsWebApp/blob/master/Dockerfile) and [docker-compose file](https://github.com/vadniks/ComputerComponentsWebApp/blob/master/docker-compose.yml).
