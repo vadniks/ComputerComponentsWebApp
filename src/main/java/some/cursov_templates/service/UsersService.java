@@ -106,6 +106,10 @@ public class UsersService implements UserDetailsService {
     @PostConstruct
     public void postConstruct() {
         session = sessionFactory.openSession();
+
+        //TODO: debug only
+        if (repo.findAll().isEmpty())
+            test();
     }
 
     @PreDestroy

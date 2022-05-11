@@ -128,6 +128,12 @@ public class ComponentsService {
             "Asus GeForce GTX 1650",
             750,
             "asus_1650_gpu"));
+        repo.save(new PcComponent(
+            "AMD Ryzen 5 5600X",
+            Type.CPU,
+            "AMD Ryzen 5 5600X",
+            700,
+            "amd_r5"));
     }
 
     public StringPairMap getComponent(Integer id) {
@@ -189,6 +195,10 @@ public class ComponentsService {
     @PostConstruct
     public void postConstruct() {
         session = sessionFactory.openSession();
+
+        //TODO: debug only
+        if (repo.findAll().isEmpty())
+            test();
     }
 
     @PreDestroy
