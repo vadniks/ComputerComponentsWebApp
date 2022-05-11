@@ -1,7 +1,7 @@
 # Computer components web-application
 
-This is aweb-application written in Java at the back-end and in pure
-HTML, CSS, JavaScript at the front-end. Application is server-based 
+This is a web-application written in Java at the back-end and in pure
+HTML, CSS, JavaScript at the front-end. Application is server-based, 
 and it uses Spring framework as core.
 
 ## Features
