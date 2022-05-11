@@ -36,7 +36,8 @@ public final class Constants {
 
     /** Database */
     public static final String DB_NAME = "postgres";
-    public static final String JDBC_URL = "jdbc:postgresql://localhost:5432/" + DB_NAME;
+    // TODO: for dockerized start use "jdbc:postgresql://postgres:5432/", for usual (in IDE) use "jdbc:postgresql://localhost:5432/"
+    public static final String JDBC_URL = "jdbc:postgresql://postgres:5432/" + DB_NAME;
     public static final String DRIVER_NAME = "org.postgresql.Driver";
     public static final String DB_USERNAME = "postgres";
     public static final String DB_PASSWORD = DB_USERNAME;

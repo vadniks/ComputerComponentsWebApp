@@ -18,6 +18,10 @@ repositories {
     mavenCentral()
 }
 
+bootJar {
+    destinationDirectory.set(file(rootDir))
+}
+
 dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa:2.6.7'
     implementation 'org.springframework.boot:spring-boot-starter-jdbc:2.6.7'
