@@ -13,6 +13,23 @@ and it uses Spring framework as core.
 - Logging in, out and registration
 - CSRF attacks resistance
 
+## Screenshots
+
+![Main page](screens/a.png "Main page")
+![Browse page](screens/b.png "Browse page")
+![Browse page window](screens/c.png "Browse page window")
+![About page](screens/d.png "About page")
+![Log in page](screens/e.png "Log in page")
+![Registration page displaying an error](screens/f.png "Registration page displaying an error")
+![Administration page](screens/g.png "Administration page")
+![Administration page displaying the update dialog](screens/h.png "Administration page displaying the update dialog")
+
+## Build
+Execute the following command to build & generate the jar file:
+```sh
+gradlew bootjar
+```
+
 ## Installation
 
 Dillinger requires Docker and docker-compose to run.
