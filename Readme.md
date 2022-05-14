@@ -49,7 +49,7 @@ http://localhost:8080
 ```
 in any browser, if the launch fails first time 
 restart the container, this happens because there's no existing
-docker volume of the database, which is created on first launch.
+docker volume of the database, which is created on the first launch.
 To stop the app just send the interruption signal by 
 holding Ctrl and pressing C, execute this command to
 remove its containers:
