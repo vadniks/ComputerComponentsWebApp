@@ -35,6 +35,7 @@ public class TemplatesConfig {
         val engine = new SpringTemplateEngine();
         engine.setTemplateResolver(templateResolver());
         engine.setEnableSpringELCompiler(true);
+        engine.setMessageSource(messageSource());
         return engine;
     }
 
@@ -42,6 +43,7 @@ public class TemplatesConfig {
     public ResourceBundleMessageSource messageSource() {
         val source = new ResourceBundleMessageSource();
         source.setBasename(TEMPLATE_MESSAGES_NAME);
+        source.setDefaultEncoding(UTF_8);
         return source;
     }
 

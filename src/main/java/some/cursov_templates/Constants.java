@@ -33,6 +33,7 @@ public final class Constants {
     public static final String TOTAL_COST = "Total cost: ";
     public static final String ROLE_USER = "role0";
     public static final String ROLE_ADMIN = "role1";
+    public static final String UTF_8 = "UTF_8";
 
     /** Database */
     public static final String DB_NAME = "postgres";
@@ -51,7 +52,6 @@ public final class Constants {
     /** Tables */
     public static final String TABLE_COMPONENTS = "components";
     public static final String TABLE_USERS = "users";
-    public static final String TABLE_SELECTIONS = "selections";
 
     /** Entities */
     public static final String ENTITY_ID = "id";
@@ -104,7 +104,7 @@ public final class Constants {
     /** Templates */
     public static final String TEMPLATE_PREFIX = "classpath:/templates/";
     public static final String TEMPLATE_POSTFIX = ".html";
-    public static final String TEMPLATE_MESSAGES_NAME = "messages";
+    public static final String TEMPLATE_MESSAGES_NAME = "org/springframework/security/messages";
     public static final String COMPONENT_IMAGE_PREFIX = "pc_";
     public static final String COMPONENT_IMAGE_POSTFIX = ".jpg";
 
