@@ -92,17 +92,14 @@ public final class Constants {
     public static final String PAGE_ERROR = "error";
 
     /** Resources */
+    public static final String RESOURCE_STATIC_NAME = "static";
+    public static final String RESOURCE_TEMPLATES_NAME = "templates";
     public static final String RESOURCE_STATIC = "/static/**";
     public static final String RESOURCE_STATIC_LOCATION = "classpath:/static/";
     public static final String RESOURCE_BACK_END = "/res_back/**";
     public static final String RESOURCE_BACK_END_LOCATION = "classpath:/res_back/";
     public static final String RESOURCES_DIR_FROM_HTML = "../../static/res";
     public static final String RESOURCES_BACK_END_DIR_FROM_HTML = "../../res_back";
-    public static final String RESOURCE_TEMPLATES = "/templates/**";
-    public static final String RESOURCE_PROPERTIES = "/application.properties";
-    public static final String RESOURCE_ROOT = "/resources";
-    public static final String RESOURCE_ADMIN_TEMPLATE = "/templates/" + "admin.html";
-    public static final String RESOURCE_ADMIN_JS = "/static/" + "admin.js";
 
     /** Templates */
     public static final String TEMPLATE_PREFIX = "classpath:/templates/";

@@ -8,7 +8,6 @@ import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.core.GrantedAuthorityDefaults;
@@ -17,8 +16,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import some.cursov_templates.service.UsersService;
-
-import java.util.Locale;
 
 import static some.cursov_templates.Constants.*;
 import static some.cursov_templates.entity.User.Role.*;
@@ -37,8 +34,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
                 .and()
             .authorizeRequests()
-                .regexMatchers("^\\/.+\\/.+\\/%s\\..+$".formatted(a)).hasRole(ADMIN.mkRole())
-                .regexMatchers("^\\/.+\\/.+\\/((?!%s).)+\\..+$".formatted(a)).permitAll()
+                .regexMatchers("^\\/((%s\\/.+)|(%s))\\/%s\\..+$"
+                    .formatted(RESOURCE_STATIC_NAME, RESOURCE_TEMPLATES_NAME, a)).hasRole(ADMIN.mkRole())
+                .regexMatchers("^\\/((%s\\/.+)|(%s))\\/((?!%s).)+\\..+$"
+                    .formatted(RESOURCE_STATIC_NAME, RESOURCE_TEMPLATES_NAME, a)).permitAll()
                 .antMatchers(
                     ENDPOINT_INDEX,
                     ENDPOINT_BROWSE,
@@ -55,9 +54,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                     POST_LOGOUT,
                     POST_REMOVE,
                     POST_INSERT_OR_UPDATE_COMPONENT,
-                    POST_INSERT_OR_UPDATE_USER,
-                    RESOURCE_ADMIN_TEMPLATE,
-                    RESOURCE_ADMIN_JS).hasRole(ADMIN.mkRole())
+                    POST_INSERT_OR_UPDATE_USER).hasRole(ADMIN.mkRole())
                 .anyRequest().denyAll()
                 .and()
             .formLogin()
