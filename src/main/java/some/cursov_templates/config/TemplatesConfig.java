@@ -5,7 +5,6 @@ import lombok.val;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.support.ResourceBundleMessageSource;
 import org.thymeleaf.spring5.SpringTemplateEngine;
 import org.thymeleaf.spring5.templateresolver.SpringResourceTemplateResolver;
 import org.thymeleaf.spring5.view.ThymeleafViewResolver;
@@ -35,16 +34,7 @@ public class TemplatesConfig {
         val engine = new SpringTemplateEngine();
         engine.setTemplateResolver(templateResolver());
         engine.setEnableSpringELCompiler(true);
-        engine.setMessageSource(messageSource());
         return engine;
-    }
-
-    @Bean
-    public ResourceBundleMessageSource messageSource() {
-        val source = new ResourceBundleMessageSource();
-        source.setBasename(TEMPLATE_MESSAGES_NAME);
-        source.setDefaultEncoding(UTF_8);
-        return source;
     }
 
     @Bean
