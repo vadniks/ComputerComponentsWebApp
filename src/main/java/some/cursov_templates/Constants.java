@@ -45,6 +45,8 @@ public final class Constants {
     public static final String DB_DIALECT_PROP = "hibernate.dialect";
     public static final String DB_HBM = "update";
     public static final String DB_HBM_PROP =  "hibernate.hbm2ddl.auto";
+    public static final String DB_INIT_SCHEMA_PROP = "spring.session.jdbc.initialize-schema";
+    public static final String DB_INIT_SCHEMA = "always";
 
     /** Tables */
     public static final String TABLE_COMPONENTS = "components";
@@ -58,8 +60,6 @@ public final class Constants {
     public static final String COMPONENT_DESCRIPTION = "description";
     public static final String COMPONENT_COST = "cost";
     public static final String COMPONENT_IMAGE = "image";
-    public static final String SELECTION_BUYER = "buyer";
-    public static final String SELECTION_BOUGHT = "bought";
     public static final String USER_ROLE = "role";
     public static final String USER_PASSWORD = "password";
 
@@ -98,6 +98,11 @@ public final class Constants {
     public static final String RESOURCE_BACK_END_LOCATION = "classpath:/res_back/";
     public static final String RESOURCES_DIR_FROM_HTML = "../../static/res";
     public static final String RESOURCES_BACK_END_DIR_FROM_HTML = "../../res_back";
+    public static final String RESOURCE_TEMPLATES = "/templates/**";
+    public static final String RESOURCE_PROPERTIES = "/application.properties";
+    public static final String RESOURCE_ROOT = "/resources";
+    public static final String RESOURCE_ADMIN_TEMPLATE = "/templates/" + "admin.html";
+    public static final String RESOURCE_ADMIN_JS = "/static/" + "admin.js";
 
     /** Templates */
     public static final String TEMPLATE_PREFIX = "classpath:/templates/";

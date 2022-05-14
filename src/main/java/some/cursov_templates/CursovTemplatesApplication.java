@@ -7,6 +7,8 @@ import org.springframework.boot.autoconfigure.orm.jpa.HibernateJpaAutoConfigurat
 
 import java.util.Properties;
 
+import static some.cursov_templates.Constants.*;
+
 @SpringBootApplication(exclude = HibernateJpaAutoConfiguration.class)
 public class CursovTemplatesApplication {
 
@@ -14,12 +16,19 @@ public class CursovTemplatesApplication {
         val app = new SpringApplication(CursovTemplatesApplication.class);
 
         val props = new Properties();
-//        props.setProperty("spring.jpa.generate-ddl", "true");
-//        props.setProperty("spring.jpa.hibernate.ddl-auto", "update");
-        props.setProperty("spring.session.jdbc.initialize-schema", "always");
-        props.setProperty("debug", "true");
+        props.setProperty(DB_INIT_SCHEMA_PROP, DB_INIT_SCHEMA);
         app.setDefaultProperties(props);
 
         app.run();
+
+        System.out.println("""
+               ####      ##                         ##                  ##
+              ##  ##    ##                         ##                   ##
+              ##     #######     #####   ## ### #######     ####    ######
+               ##      ##      ##   ##  ####      ##      ##   ##  ##  ##
+                ##    ##      ##    ##  ##       ##      ######## ##   ##
+            ##  ##    ##      ##  ###  ##        ##      ##       ##  ##
+             ####      ###     ### ##  ##         ###     ####     #####
+            """.stripIndent());
     }
 }

@@ -47,7 +47,7 @@ after these procedures the application will be available at:
 ```
 http://localhost:8080
 ```
-in any browser.
+in any browser, if the launch fails first time just restart the container.
 To stop the app just send the interruption signal by 
 holding Ctrl and pressing C, execute this command to
 remove its containers:

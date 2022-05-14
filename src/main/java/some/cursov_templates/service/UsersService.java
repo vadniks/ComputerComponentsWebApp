@@ -64,10 +64,16 @@ public class UsersService implements UserDetailsService {
     @Deprecated
     @TestOnly
     public void test() {
+        val a = Role.ADMIN.name().toLowerCase();
+        val b = Role.USER.name().toLowerCase();
         repo.save(new User(
-            "admin",
+            a,
             Role.ADMIN,
-            passwordEncoder.encode("admin")));
+            passwordEncoder.encode(a)));
+        repo.save(new User(
+            b,
+            Role.USER,
+            passwordEncoder.encode(b)));
     }
 
     public List<User> selectUsers(String byWhich, String selection) {
