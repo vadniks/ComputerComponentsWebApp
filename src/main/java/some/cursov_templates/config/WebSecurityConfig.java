@@ -33,16 +33,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         val a = ADMIN.name().toLowerCase();
-        http
-            .csrf()
+        http.csrf()
                 .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
                 .and()
             .authorizeRequests()
-            .regexMatchers("^\\/.+\\/.+\\/%s\\..+$".formatted(a))
-                .hasRole(ADMIN.mkRole())
-            .regexMatchers("^\\/.+\\/.+\\/((?!%s).)+\\..+$".formatted(a))
-                .permitAll()
-            .antMatchers(
+                .regexMatchers("^\\/.+\\/.+\\/%s\\..+$".formatted(a)).hasRole(ADMIN.mkRole())
+                .regexMatchers("^\\/.+\\/.+\\/((?!%s).)+\\..+$".formatted(a)).permitAll()
+                .antMatchers(
                     ENDPOINT_INDEX,
                     ENDPOINT_BROWSE,
                     ENDPOINT_ABOUT,
