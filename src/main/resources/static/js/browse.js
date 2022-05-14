@@ -4,7 +4,8 @@ let chosenId = -1
 const cmVw = document.getElementById('cmpVw'),
     ovrl = document.getElementById('overlay'),
     cmpVwExt = document.getElementById('cmpVwExt'),
-    cmpVwFtBt = document.getElementById('cmpVwFtBt')
+    cmpVwFtBt = document.getElementById('cmpVwFtBt'),
+    cmpVwPic = document.getElementById('cmpVwPic')
 
 cmpVwFtBt.addEventListener('click', () =>
     G.request(G.ps, `/slc?id=${chosenId}`, () => G.redir(G.ndx)))
@@ -25,5 +26,6 @@ window.onItemClick = function onItemClick(_id) {
 
         cmVw.querySelector('#cmpVwNm').textContent = jsn.name
         cmVw.querySelector('#cmpVwDsc').textContent = jsn.description
+        cmpVwPic.src = `../../res_back/${jsn.image}.jpg`
     })
 }

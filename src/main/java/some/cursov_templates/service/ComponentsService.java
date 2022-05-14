@@ -134,6 +134,12 @@ public class ComponentsService {
             "AMD Ryzen 5 5600X",
             700,
             "amd_r5"));
+        repo.save(new PcComponent(
+            "AMD Ryzen 5 3600X",
+            Type.CPU,
+            "AMD Ryzen 5 3600X",
+            700,
+            "amd_r5"));
     }
 
     public StringPairMap getComponent(Integer id) {
