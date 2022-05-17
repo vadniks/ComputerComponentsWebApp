@@ -54,7 +54,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                     POST_LOGOUT,
                     POST_REMOVE,
                     POST_INSERT_OR_UPDATE_COMPONENT,
-                    POST_INSERT_OR_UPDATE_USER).hasRole(ADMIN.mkRole())
+                    POST_INSERT_OR_UPDATE_USER,
+                    GET_USER).hasRole(ADMIN.mkRole())
                 .anyRequest().denyAll()
                 .and()
             .formLogin()
