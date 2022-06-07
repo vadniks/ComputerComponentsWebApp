@@ -4,12 +4,12 @@
 <head>
     <meta charset="UTF-8">
     <title>Submit</title>
-    <link rel="stylesheet" href="../static/css/login.css"/>
+    <link rel="stylesheet" href="../static/css/submit.css"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" type="image/svg" href="../static/res/pc_icon3.svg">
     <meta name="_csrf" th:content="${_csrf.token}"/>
     <meta name="_csrf_header" th:content="${_csrf.headerName}"/>
-    <script type="module" src="../static/js/global.js"></script>
+    <script type="module" src="../static/js/submit.js"></script>
 </head>
 <body>
 <div id="template">
@@ -26,7 +26,6 @@
         <div id="menu">
             <div id="menuLf">
                 <button id="menuBtVr" onclick="redir('/')">Home</button>
-                <button id="menuBtAbt" onclick="redir('/abt')">About</button>
             </div>
         </div>
     </div>
@@ -34,25 +33,20 @@
         <div id="cntHdr">
             <span>Login Panel</span>
         </div>
-        <form th:action="@{/lgn}" method="post">
-            <input id="lgn" placeholder="Login" type="text" name="name" required>
-            <input id="pas" placeholder="Password" type="password" name="password" required>
-            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
-            <div id="bts">
-                <button id="sbmt" type="submit">Authorize</button>
-                <button id="clr" type="reset">Clear</button>
-                <button id="rgs" type="button" onclick="redir('/rgs')">Register</button>
+        <div id="slct" th:each="item: ${items}">
+            <div class="slctItm">
+                <img class="slctItmImg" th:src="${item['image']}">
+                <span class="slctitmNm" th:text="${item['name']}">STUB</span>
+                <span class="slctitmCst" th:text="${item['cost']}">STUB</span>
             </div>
-        </form>
-        <div id="cntFtr" th:style="${param.error} ? 'background-color: red'">
-            <span th:if="${param.error}" class="spFtr">Wrong username or password</span>
-            <span th:if="${param.logout}" class="spFtr">You've been logged out</span>
-            <span
-                th:unless="${param.error} or ${param.logout}"
-                class="spFtr"
-                style="visibility: hidden">
-                        STUB
-                </span>
+        </div>
+        <input id="fnm" placeholder="First name" type="text" name="fnm" required>
+        <input id="lnm" placeholder="Last name" type="text" name="lnm" required>
+        <input id="phn" placeholder="phone number" type="number" name="phn" required>
+        <input id="adr" placeholder="Address" type="text" name="adr" required>
+        <div id="cntFtr">
+            <button id="ttl">Total</button>
+            <button id="ord">Order</button>
         </div>
     </div>
     <div id="footer">
