@@ -52,6 +52,7 @@ public final class Constants {
     /** Tables */
     public static final String TABLE_COMPONENTS = "components";
     public static final String TABLE_USERS = "users";
+    public static final String TABLE_CLIENTS = "clients";
 
     /** Entities */
     public static final String ENTITY_ID = "id";

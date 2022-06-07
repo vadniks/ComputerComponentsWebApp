@@ -8,9 +8,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Objects;
+import java.util.*;
 
 import static some.cursov_templates.Constants.*;
 
@@ -28,13 +26,29 @@ public class User implements Serializable, UserDetails {
     private Integer id = null;
 
     @NonNull
-    private String  name;
+    private String name;
 
     @NonNull
     private Role role;
 
     @NonNull
     private String password; // hash
+
+    @Nullable
+    private String firstName;
+
+    @Nullable
+    private String lastName;
+
+    @Nullable
+    private String phone;
+
+    @Nullable
+    private String address;
+
+    @NonNull
+    @OneToMany
+    private List<PcComponent> selection = new ArrayList<>();
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -74,16 +88,18 @@ public class User implements Serializable, UserDetails {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (!(o instanceof User user)) return false;
 
-        User user = (User) o;
         return Objects.equals(id, user.id) && name.equals(user.name) &&
-            role == user.role && password.equals(user.password);
+            role == user.role && password.equals(user.password) &&
+            Objects.equals(firstName, user.firstName) && Objects.equals(lastName, user.lastName) &&
+            Objects.equals(phone, user.phone) && Objects.equals(address, user.address) &&
+            selection.equals(user.selection);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, role, password);
+        return Objects.hash(id, name, role, password, firstName, lastName, phone, address, selection);
     }
 
     @SuppressWarnings("MethodDoesntCallSuperMethod")
@@ -91,11 +107,17 @@ public class User implements Serializable, UserDetails {
     public Object clone() {
         val a = new User(name, role, password);
         a.id = id;
+        a.firstName = firstName;
+        a.lastName = lastName;
+        a.phone = phone;
+        a.address = address;
+        a.selection.addAll(selection);
         return a;
     }
 
     @Override
     public String toString() {
-        return "User(%d %s %s %s)".formatted(id, name, role, password);
+        return "User(%d %s %s %s %s %s %s %s %d)".formatted(id, name, role, !password.isEmpty(),
+            firstName, lastName, phone, address, selection.size());
     }
 }
