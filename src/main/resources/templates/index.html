@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!--suppress XmlDuplicatedId -->
+<!--suppress XmlDuplicatedId, HtmlFormInputWithoutLabel -->
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
@@ -95,8 +95,9 @@
             <input id="adr" placeholder="Address" type="text" name="adr" required>
         </div>
         <div id="sbtFtr">
-            <button id="sbtTtl">Total</button>
-            <button id="sbtOrd">Order</button>
+            <button id="sbtTtl" class="txbt">Total</button>
+            <button id="sbtErr" class="txbt">An error has been occurred</button>
+            <button id="sbtOrd" onclick="order()">Order</button>
         </div>
     </div>
 

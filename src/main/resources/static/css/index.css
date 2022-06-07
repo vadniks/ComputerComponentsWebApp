@@ -97,7 +97,7 @@ p {
     font-size: large;
 }
 #sbt {
-    /*display: none;*/
+    display: none;
     flex-direction: column;
     position: fixed;
     z-index: 2;
@@ -159,7 +159,7 @@ input {
     flex-direction: row;
     justify-content: space-between;
 }
-#sbtTtl {
+.txbt {
     pointer-events: none;
     color: rgb(26, 255, 255);
     background-color: rgb(32, 35, 36);
