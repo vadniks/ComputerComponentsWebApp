@@ -75,7 +75,12 @@
             <div id="cntFtr">
                 <span id="componentCst" th:text="${total}"></span>
                 <button id="clrOvrw" onclick="onClear()">Clear Selection</button>
-                <button id="sbtOvrw" onclick="opn(true)">Submit</button>
+                <button
+                    id="sbtOvrw"
+                    th:onclick="opn(true,
+                            ${#httpServletRequest.isUserInRole('role0')})">
+                        Submit order
+                </button>
             </div>
         </div>
         <div id="footer">

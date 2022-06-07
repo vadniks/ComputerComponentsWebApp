@@ -15,7 +15,9 @@ const sbt = elm('sbt'), fnm = elm('fnm'), lnm = elm('lnm'),
     phn = elm('phn'), adr = elm('adr'), ttl = elm('sbtTtl'),
     ord = elm('sbtOrd'), ovr = elm('overlay'), clb = elm('clb')
 
-function opn(a) {
+function opn(a, b) {
+    if (!b) { alert('Log in to order'); return }
+
     sbt.style.display = a ? 'flex' : 'none'
     ovr.style.display = a ? 'flex' : 'none'
 }

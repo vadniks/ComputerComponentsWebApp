@@ -63,6 +63,10 @@ public final class Constants {
     public static final String COMPONENT_IMAGE = "image";
     public static final String USER_ROLE = "role";
     public static final String USER_PASSWORD = "password";
+    public static final String USER_FIRST_NAME = "fnm";
+    public static final String USER_LAST_NAME = "lnm";
+    public static final String USER_PHONE = "phn";
+    public static final String USER_ADDRESS = "adr";
 
     /** Endpoints */
     public static final String ENDPOINT_INDEX = EMPTY + ROOT;
@@ -82,6 +86,8 @@ public final class Constants {
     public static final String POST_INSERT_OR_UPDATE_USER = "/iouu";
     public static final String HAS_ROLE_ADMIN = "hasRole(" + ROLE_ADMIN + ')';
     public static final String IS_ANONYMOUS = "isAnonymous()";
+    public static final String POST_ORDER = "/ord";
+    public static final String HAS_ROLE_USER = "hasRole(" + ROLE_USER + ')';
 
     /** Pages */
     public static final String PAGE_INDEX = "index";

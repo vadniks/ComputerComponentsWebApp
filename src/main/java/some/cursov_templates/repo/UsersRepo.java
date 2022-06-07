@@ -17,6 +17,13 @@ public interface UsersRepo extends JpaRepository<User, Integer> {
     @Nullable
     User getByName(String name);
 
+    @Query(value =
+        "select * from " + TABLE_USERS + " where " + USER_FIRST_NAME + " = ?1 and " +
+            USER_LAST_NAME + " = ?2 limit 1",
+        nativeQuery = true)
+    @Nullable
+    User getByFirstAndLastName(String f, String l);
+
     @Deprecated
     @Override
     default User getById(Integer id) {

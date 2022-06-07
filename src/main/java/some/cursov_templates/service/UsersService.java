@@ -18,6 +18,7 @@ import some.cursov_templates.repo.UsersRepo;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 import static some.cursov_templates.Constants.*;
@@ -61,21 +62,6 @@ public class UsersService implements UserDetailsService {
         repo.save(user);
     }
 
-    @Deprecated
-    @TestOnly
-    public void test() {
-        val a = Role.ADMIN.name().toLowerCase();
-        val b = Role.USER.name().toLowerCase();
-        repo.save(new User(
-            a,
-            Role.ADMIN,
-            passwordEncoder.encode(a)));
-        repo.save(new User(
-            b,
-            Role.USER,
-            passwordEncoder.encode(b)));
-    }
-
     public List<User> selectUsers(String byWhich, String selection) {
         val parameter = switch (byWhich) {
             case ENTITY_ID -> toInt(selection);
@@ -109,6 +95,26 @@ public class UsersService implements UserDetailsService {
         return true;
     }
 
+    public boolean order(
+        String firstName,
+        String lastName,
+        String phone,
+        String address,
+        HttpServletRequest request
+    ) {
+        if (repo.getByFirstAndLastName(firstName, lastName) != null) return false;
+        val name = request.getRemoteUser(); if (name == null) return false;
+        val user = repo.getByName(name);     if (user == null) return false;
+
+        user.setFirstName(firstName);
+        user.setLastName(lastName);
+        user.setPhone(phone);
+        user.setAddress(address);
+
+        repo.save(user);
+        return true;
+    }
+
     @PostConstruct
     public void postConstruct() {
         session = sessionFactory.openSession();
@@ -121,5 +127,20 @@ public class UsersService implements UserDetailsService {
     @PreDestroy
     public void preDestroy() {
         session.close();
+    }
+
+    @Deprecated
+    @TestOnly
+    public void test() {
+        val a = Role.ADMIN.name().toLowerCase();
+        val b = Role.USER.name().toLowerCase();
+        repo.save(new User(
+            a,
+            Role.ADMIN,
+            passwordEncoder.encode(a)));
+        repo.save(new User(
+            b,
+            Role.USER,
+            passwordEncoder.encode(b)));
     }
 }

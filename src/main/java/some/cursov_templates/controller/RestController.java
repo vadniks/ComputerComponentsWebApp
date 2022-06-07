@@ -82,4 +82,16 @@ public class RestController {
             map.get(USER_PASSWORD)
         ) ? STATUS_OK : new EmptyResponse(HttpStatus.BAD_REQUEST);
     }
+
+    @PreAuthorize(HAS_ROLE_USER)
+    @PostMapping(value = POST_ORDER, consumes = APPLICATION_JSON_VALUE)
+    public EmptyResponse order(HttpServletRequest request, @RequestBody Map<String, String> map) {
+        return usersService.order(
+            map.get(USER_FIRST_NAME),
+            map.get(USER_LAST_NAME),
+            map.get(USER_PHONE),
+            map.get(USER_ADDRESS),
+            request
+        ) ? STATUS_OK : new EmptyResponse(HttpStatus.BAD_REQUEST);
+    }
 }
