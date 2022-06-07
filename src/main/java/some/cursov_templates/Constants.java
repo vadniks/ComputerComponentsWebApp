@@ -52,7 +52,6 @@ public final class Constants {
     /** Tables */
     public static final String TABLE_COMPONENTS = "components";
     public static final String TABLE_USERS = "users";
-    public static final String TABLE_CLIENTS = "clients";
 
     /** Entities */
     public static final String ENTITY_ID = "id";
@@ -63,10 +62,10 @@ public final class Constants {
     public static final String COMPONENT_IMAGE = "image";
     public static final String USER_ROLE = "role";
     public static final String USER_PASSWORD = "password";
-    public static final String USER_FIRST_NAME = "fnm";
-    public static final String USER_LAST_NAME = "lnm";
-    public static final String USER_PHONE = "phn";
-    public static final String USER_ADDRESS = "adr";
+    public static final String USER_FIRST_NAME = "firstName";
+    public static final String USER_LAST_NAME = "lastName";
+    public static final String USER_PHONE = "phone";
+    public static final String USER_ADDRESS = "address";
 
     /** Endpoints */
     public static final String ENDPOINT_INDEX = EMPTY + ROOT;

@@ -24,10 +24,10 @@ function opn(a) {
 window.opn = opn
 
 function pld() { return JSON.stringify({
-    fnm: fnm.value,
-    lnm: lnm.value,
-    phn: phn.value,
-    adr: adr.value
+    firstName: fnm.value,
+    lastName: lnm.value,
+    phone: phn.value,
+    address: adr.value
 }) }
 
 function clr() {
@@ -45,7 +45,7 @@ function pp(tx, a) {
     ord.classList.add('txbt')
 
     setTimeout(() => {
-        msg.style.visibility = 'visible'
+        msg.style.visibility = 'hidden'
         ord.classList.remove('txbt')
         if (a) opn(false)
     }, 2000)
