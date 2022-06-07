@@ -41,21 +41,22 @@ window.onSwitchClick = function onSwitchClick() {
     swt.textContent = !swtch ? 'components' : 'users'
 }
 
-function clr(isUsr) {
-    if (!isUsr) {
-        flds1[0].value = ''
-        flds1[1].value = ''
-        flds1[2].value = ''
-        flds1[3].value = ''
-        flds1[4].value = ''
-        flds1[5].value = ''
-    } else {
-        flds2[0].value = ''
-        flds2[1].value = ''
-        flds2[2].value = ''
-        flds2[3].value = ''
-    }
-}
+function clr(isUsr) { if (!isUsr) {
+    flds1[0].value = ''
+    flds1[1].value = ''
+    flds1[2].value = ''
+    flds1[3].value = ''
+    flds1[4].value = ''
+    flds1[5].value = ''
+} else {
+    flds2[0].value = ''
+    flds2[1].value = ''
+    flds2[2].value = ''
+    flds2[3].value = ''
+    flds2[4].value = ''
+    flds2[5].value = ''
+    flds2[6].value = ''
+} }
 
 function idDsb(dsb, isUsr) { (!isUsr ? flds1[0] : flds2[0]).disabled = dsb }
 
@@ -97,7 +98,10 @@ window.onUpdateClick = function onUpdateClick(id, isUsr) {
             flds2[0].value = jsn.id
             flds2[1].value = jsn.name
             flds2[2].value = jsn.role
-            flds2[3].value = jsn.password
+            flds2[3].value = jsn.firstName
+            flds2[4].value = jsn.lastName
+            flds2[5].value = jsn.phone
+            flds2[6].value = jsn.address
         }
         curId = parseInt(jsn.id)
         mode = 2
@@ -117,7 +121,10 @@ window.act = function act(isUsr) {
         id: !a ? parseInt(flds2[0].value) : null,
         name: flds2[1].value,
         role: flds2[2].value,
-        password: flds2[3].value
+        firstName: flds2[3].value,
+        lastName: flds2[4].value,
+        phone: flds2[5].value,
+        address: flds2[6].value
     }
     if (!b)
         G.request(G.ps, `/iou${!isUsr ? 'c' : 'u'}`, rld, JSON.stringify(jsn))

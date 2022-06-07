@@ -41,7 +41,6 @@ public class ComponentsService {
         if ((selections = (Items) session.getAttribute(SESSION_CHOSEN_ITEMS)) == null)
             selections = new Items(1);
 
-
         val id = Integer.parseInt(_id);
 
         val _component = repo.findById(id);

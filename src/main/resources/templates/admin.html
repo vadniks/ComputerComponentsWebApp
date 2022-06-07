@@ -83,7 +83,10 @@
                             <span class="dbItm2Id">id</span>
                             <span class="dbItm2Lg">name</span>
                             <span class="dbItm2Rl">role</span>
-                            <span class="dbItm2Ps">pas</span>
+                            <span class="dbItm2Fn">fnm</span>
+                            <span class="dbItm2Ln">lnm</span>
+                            <span class="dbItm2Ph">phn</span>
+                            <span class="dbItm2Ad">adr</span>
                         </div>
                     </div>
                     <div class="dbItm" th:each="user: ${users}" th:with="uid = ${user['id']}">
@@ -103,7 +106,10 @@
                             <span class="dbItm2Id" th:text="${uid}">id</span>
                             <span class="dbItm2Lg" th:text="${user['name']}">name</span>
                             <span class="dbItm2Rl" th:text="${user['role']}">role</span>
-                            <span class="dbItm2Ps" th:text="${user['password']}">pas</span>
+                            <span class="dbItm2Fn" th:text="${user['firstName']}">fnm</span>
+                            <span class="dbItm2Ln" th:text="${user['lastName']}">lnm</span>
+                            <span class="dbItm2Ph" th:text="${user['phone']}">phn</span>
+                            <span class="dbItm2Ad" th:text="${user['address']}">adr</span>
                         </div>
                     </div>
                 </div>
@@ -138,10 +144,13 @@
             <button class="actExt" onclick="orc(true)">Exit</button>
         </div>
         <div class="actMn">
-            <input class="actMnInp" placeholder="Id"/>       <!--0-->
-            <input class="actMnInp" placeholder="Name"/>     <!--1-->
-            <input class="actMnInp" placeholder="Role"/>     <!--2-->
-            <input class="actMnInp" placeholder="Password"/> <!--3-->
+            <input class="actMnInp" placeholder="Id"/>           <!--0-->
+            <input class="actMnInp" placeholder="Name"/>         <!--1-->
+            <input class="actMnInp" placeholder="Role"/>         <!--2-->
+            <input class="actMnInp" placeholder="First name"/>   <!--3-->
+            <input class="actMnInp" placeholder="Last name"/>    <!--4-->
+            <input class="actMnInp" placeholder="Phone number"/> <!--5-->
+            <input class="actMnInp" placeholder="Address"/>      <!--6-->
         </div>
         <div class="actFtr">
             <button class="actFtBt" onclick="act(true)">Action</button>

@@ -14,7 +14,7 @@ function elm(a) { return document.getElementById(a) }
 const sbt = elm('sbt'), fnm = elm('fnm'), lnm = elm('lnm'),
     phn = elm('phn'), adr = elm('adr'), ttl = elm('sbtTtl'),
     ord = elm('sbtOrd'), ovr = elm('overlay'), msg = elm('sbtMsg'),
-    cst = elm('componentCst')
+    cst = elm('componentCst'), abt = elm('menuBtAbt')
 
 function opn(a) {
     sbt.style.display = a ? 'flex' : 'none'
@@ -63,3 +63,5 @@ window.order = () => {
         () => pp('Ordered successfully', true),
         pld(), () => pp('Order failed', true))
 }
+
+

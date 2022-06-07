@@ -103,14 +103,13 @@
 }
 .dbItm1Cs { width: 6%; }
 .dbItm1Im { width: 6%; }
-.dbItm2Id { width: 25%; }
-.dbItm2Lg { width: 25%; }
-.dbItm2Rl { width: 25% }
-.dbItm2Ps {
-    width: 25%;
-    text-justify: inter-word;
-    text-align: justify;
-}
+.dbItm2Id { width: 5%; }
+.dbItm2Lg { width: 10%; }
+.dbItm2Rl { width: 10% }
+.dbItm2Fn { width: 20%; }
+.dbItm2Ln { width: 20%; }
+.dbItm2Ph { width: 15%; }
+.dbItm2Ad { width: 20%; }
 .dbItm > span {
     margin: 5px;
     overflow-wrap: anywhere;

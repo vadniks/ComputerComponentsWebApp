@@ -27,10 +27,16 @@
                 <div id="menuLf">
                     <button
                         id="menuBtAbt"
-                        th:if="${user == null or #httpServletRequest.isUserInRole('role0')}"
+                        th:if="${user == null}"
                         onclick="redir('/abt')">
                             About
                     </button>
+<!--                    <button-->
+<!--                        id="menuBtAbt"-->
+<!--                        th:if="${#httpServletRequest.isUserInRole('role0')}"-->
+<!--                        onclick="rcv()">-->
+<!--                            Recover order-->
+<!--                    </button>-->
                     <button
                         id="menuBtAbt"
                         th:if="${#httpServletRequest.isUserInRole('role1')}"

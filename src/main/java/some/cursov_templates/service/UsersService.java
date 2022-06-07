@@ -13,6 +13,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import some.cursov_templates.entity.PcComponent;
 import some.cursov_templates.entity.User;
 import some.cursov_templates.repo.UsersRepo;
 
@@ -95,6 +96,7 @@ public class UsersService implements UserDetailsService {
         return true;
     }
 
+    @SuppressWarnings("unchecked")
     public boolean order(
         String firstName,
         String lastName,
@@ -110,6 +112,7 @@ public class UsersService implements UserDetailsService {
         user.setLastName(lastName);
         user.setPhone(phone);
         user.setAddress(address);
+        user.setSelection((List<PcComponent>) request.getSession().getAttribute(SESSION_CHOSEN_ITEMS));
 
         repo.save(user);
         return true;
