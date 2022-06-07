@@ -13,13 +13,13 @@ function elm(a) { return document.getElementById(a) }
 
 const sbt = elm('sbt'), fnm = elm('fnm'), lnm = elm('lnm'),
     phn = elm('phn'), adr = elm('adr'), ttl = elm('sbtTtl'),
-    ord = elm('sbtOrd'), ovr = elm('overlay'), clb = elm('clb')
+    ord = elm('sbtOrd'), ovr = elm('overlay'), msg = elm('sbtMsg'),
+    cst = elm('componentCst')
 
-function opn(a, b) {
-    if (!b) { alert('Log in to order'); return }
-
+function opn(a) {
     sbt.style.display = a ? 'flex' : 'none'
     ovr.style.display = a ? 'flex' : 'none'
+    ttl.textContent = cst.textContent
 }
 window.opn = opn
 
@@ -37,15 +37,29 @@ function clr() {
     adr.value = ''
 }
 
-function pp(tx) {
+function pp(tx, a) {
     clr()
-    opn(false)
 
-    clb.textContent = tx
-    clb.style.display = 'initial'
-    setTimeout(() => { clb.style.display = 'none' }, 2000)
+    msg.textContent = tx
+    msg.style.visibility = 'visible'
+    ord.classList.add('txbt')
+
+    setTimeout(() => {
+        msg.style.visibility = 'visible'
+        ord.classList.remove('txbt')
+        if (a) opn(false)
+    }, 2000)
 }
 
-window.order = () => { G.request(G.ps, '/ord',
-    () => pp('Ordered successfully'),
-    pld(), () => pp('Order failed')) }
+window.order = () => {
+    if (fnm.value.length === 0 ||
+        lnm.value.length === 0 ||
+        phn.value.length === 0 ||
+        adr.value.length === 0)
+    { pp('Some fields are empty', false)
+      return }
+
+    G.request(G.ps, '/ord',
+        () => pp('Ordered successfully', true),
+        pld(), () => pp('Order failed', true))
+}

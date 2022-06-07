@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-<!--suppress XmlDuplicatedId, HtmlFormInputWithoutLabel -->
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
@@ -76,9 +75,9 @@
                 <span id="componentCst" th:text="${total}"></span>
                 <button id="clrOvrw" onclick="onClear()">Clear Selection</button>
                 <button
+                    th:class="${#httpServletRequest.remoteUser} == null ? 'txbt'"
                     id="sbtOvrw"
-                    th:onclick="opn(true,
-                            ${#httpServletRequest.isUserInRole('role0')})">
+                    onclick="opn(true)">
                         Submit order
                 </button>
             </div>
@@ -91,7 +90,7 @@
     <div id="sbt">
         <div id="sbtHdr">
             <span id="sbtNm">Submit order</span>
-            <button id="sbtExt">Exit</button>
+            <button id="sbtExt" onclick="opn(false)">Exit</button>
         </div>
         <div id="sbtMn">
             <input id="fnm" placeholder="First name" type="text" name="fnm" required>
@@ -101,12 +100,11 @@
         </div>
         <div id="sbtFtr">
             <button id="sbtTtl" class="txbt">Total</button>
-            <button id="sbtErr" class="txbt">An error has been occurred</button>
+            <button id="sbtMsg" class="txbt">An error has been occurred</button>
             <button id="sbtOrd" onclick="order()">Order</button>
         </div>
     </div>
 
     <div id="overlay"></div>
-    <span id="clb">STUB</span>
 </body>
 </html>
