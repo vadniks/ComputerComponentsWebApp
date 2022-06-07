@@ -48,7 +48,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                     POST_CLEAR,
                     ENDPOINT_ERROR).permitAll()
                 .antMatchers(ENDPOINT_LOGIN, ENDPOINT_REGISTER).anonymous()
-                .antMatchers(POST_LOGOUT).hasRole(USER.mkRole())
+                .antMatchers(POST_LOGOUT, POST_ORDER).hasRole(USER.mkRole())
                 .antMatchers(
                     ENDPOINT_ADMIN,
                     POST_LOGOUT,
