@@ -67,7 +67,11 @@ public class UsersService implements UserDetailsService {
         val parameter = switch (byWhich) {
             case ENTITY_ID -> toInt(selection);
             case USER_ROLE -> Role.valueOf(selection).ROLE;
-            case ENTITY_NAME, USER_PASSWORD -> selection;
+            case ENTITY_NAME,
+                 USER_FIRST_NAME,
+                 USER_LAST_NAME,
+                 USER_PHONE,
+                 USER_ADDRESS -> selection;
             default -> throw new IllegalArgumentException();
         };
 

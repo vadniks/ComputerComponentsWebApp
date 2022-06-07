@@ -147,7 +147,10 @@ window.act = function act(isUsr) {
             case fld(flds2, 0): bwh = 'id'; break
             case fld(flds2, 1): bwh = 'name'; break
             case fld(flds2, 2): bwh = 'role'; break
-            case fld(flds2, 3): bwh = 'password'; break
+            case fld(flds2, 3): bwh = 'firstName'; break
+            case fld(flds2, 4): bwh = 'lastName'; break
+            case fld(flds2, 5): bwh = 'phone'; break
+            case fld(flds2, 6): bwh = 'address'; break
         }
 
         G.redir(`/adm?entity=${!isUsr}&byWhich=${bwh}&selection=${slc}`)
