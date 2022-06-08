@@ -46,9 +46,8 @@ public class User implements Serializable, UserDetails {
     @Nullable
     private String address;
 
-    @NonNull
-    @OneToMany
-    private List<PcComponent> selection = new ArrayList<>();
+    @Nullable
+    private String selections = null;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -90,16 +89,15 @@ public class User implements Serializable, UserDetails {
         if (this == o) return true;
         if (!(o instanceof User user)) return false;
 
-        return Objects.equals(id, user.id) && name.equals(user.name) &&
-            role == user.role && password.equals(user.password) &&
-            Objects.equals(firstName, user.firstName) && Objects.equals(lastName, user.lastName) &&
-            Objects.equals(phone, user.phone) && Objects.equals(address, user.address) &&
-            selection.equals(user.selection);
+        return Objects.equals(id, user.id) && name.equals(user.name) && role == user.role &&
+            password.equals(user.password) && Objects.equals(firstName, user.firstName) &&
+            Objects.equals(lastName, user.lastName) && Objects.equals(phone, user.phone) &&
+            Objects.equals(address, user.address) && Objects.equals(selections, user.selections);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, role, password, firstName, lastName, phone, address, selection);
+        return Objects.hash(id, name, role, password, firstName, lastName, phone, address, selections);
     }
 
     @SuppressWarnings("MethodDoesntCallSuperMethod")
@@ -111,13 +109,13 @@ public class User implements Serializable, UserDetails {
         a.lastName = lastName;
         a.phone = phone;
         a.address = address;
-        a.selection.addAll(selection);
+        a.selections = selections;
         return a;
     }
 
     @Override
     public String toString() {
-        return "User(%d %s %s %s %s %s %s %s %d)".formatted(id, name, role, !password.isEmpty(),
-            firstName, lastName, phone, address, selection.size());
+        return "User(%d %s %s %s %s %s %s %s %s)".formatted(id, name, role, !password.isEmpty(),
+            firstName, lastName, phone, address, selections);
     }
 }

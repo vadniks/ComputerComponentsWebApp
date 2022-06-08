@@ -91,7 +91,8 @@ public class RestController {
             map.get(USER_LAST_NAME),
             map.get(USER_PHONE),
             map.get(USER_ADDRESS),
-            request
+            request,
+            componentsService::extractComponentsIds
         ) ? STATUS_OK : new EmptyResponse(HttpStatus.BAD_REQUEST);
     }
 }

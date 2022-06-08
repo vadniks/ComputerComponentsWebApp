@@ -174,6 +174,16 @@ public class ComponentsService {
         return session.createQuery(query).getResultList();
     }
 
+    public String extractComponentsIds(Items items) {
+        val builder = new StringBuilder();
+        for (val item : items) {
+            val component = repo.getByName(item.get(ENTITY_NAME));
+            assert component != null;
+            builder.append(component).append(',');
+        }
+        return builder.toString();
+    }
+
     @PostConstruct
     public void postConstruct() {
         session = sessionFactory.openSession();

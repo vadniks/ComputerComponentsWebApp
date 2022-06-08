@@ -81,7 +81,7 @@
                 <span id="componentCst" th:text="${total}"></span>
                 <button id="clrOvrw" onclick="onClear()">Clear Selection</button>
                 <button
-                    th:class="${#httpServletRequest.remoteUser} == null ? 'txbt'"
+                    th:class="${#httpServletRequest.remoteUser} == null"
                     id="sbtOvrw"
                     onclick="opn(true)">
                         Submit order

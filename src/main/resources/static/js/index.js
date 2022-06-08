@@ -14,9 +14,18 @@ function elm(a) { return document.getElementById(a) }
 const sbt = elm('sbt'), fnm = elm('fnm'), lnm = elm('lnm'),
     phn = elm('phn'), adr = elm('adr'), ttl = elm('sbtTtl'),
     ord = elm('sbtOrd'), ovr = elm('overlay'), msg = elm('sbtMsg'),
-    cst = elm('componentCst'), abt = elm('menuBtAbt')
+    cst = elm('componentCst'), abt = elm('menuBtAbt'), ovrw = elm('overview')
+
+function chk() {
+    for (const i of ovrw.querySelectorAll('#ovrwItmDsc'))
+        if (i.textContent.toLowerCase() !== 'Not Selected'.toLowerCase())
+            return true
+    return false
+}
 
 function opn(a) {
+    if (!chk()) { alert('Select at least one component'); return }
+
     sbt.style.display = a ? 'flex' : 'none'
     ovr.style.display = a ? 'flex' : 'none'
     ttl.textContent = cst.textContent
@@ -63,5 +72,3 @@ window.order = () => {
         () => pp('Ordered successfully', true),
         pld(), () => pp('Order failed', true))
 }
-
-

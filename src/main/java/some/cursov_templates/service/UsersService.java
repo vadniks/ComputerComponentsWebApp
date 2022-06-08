@@ -13,7 +13,6 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import some.cursov_templates.entity.PcComponent;
 import some.cursov_templates.entity.User;
 import some.cursov_templates.repo.UsersRepo;
 
@@ -21,6 +20,7 @@ import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
+import java.util.function.Function;
 
 import static some.cursov_templates.Constants.*;
 import static some.cursov_templates.entity.User.Role;
@@ -100,13 +100,13 @@ public class UsersService implements UserDetailsService {
         return true;
     }
 
-    @SuppressWarnings("unchecked")
     public boolean order(
         String firstName,
         String lastName,
         String phone,
         String address,
-        HttpServletRequest request
+        HttpServletRequest request,
+        Function<Items, String> componentsIdsExtractor
     ) {
         if (repo.getByFirstAndLastName(firstName, lastName) != null) return false;
         val name = request.getRemoteUser(); if (name == null) return false;
@@ -116,7 +116,8 @@ public class UsersService implements UserDetailsService {
         user.setLastName(lastName);
         user.setPhone(phone);
         user.setAddress(address);
-        user.setSelection((List<PcComponent>) request.getSession().getAttribute(SESSION_CHOSEN_ITEMS));
+        user.setSelections(componentsIdsExtractor.apply(
+            (Items) request.getSession().getAttribute(SESSION_CHOSEN_ITEMS)));
 
         repo.save(user);
         return true;
