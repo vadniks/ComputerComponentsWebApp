@@ -57,6 +57,7 @@ function clr(isUsr) { if (!isUsr) {
     flds2[5].value = ''
     flds2[6].value = ''
     flds2[7].value = ''
+    flds2[8].value = ''
 } }
 
 function idDsb(dsb, isUsr) { (!isUsr ? flds1[0] : flds2[0]).disabled = dsb }
@@ -99,16 +100,19 @@ window.onUpdateClick = function onUpdateClick(id, isUsr) {
             flds2[0].value = jsn.id
             flds2[1].value = jsn.name
             flds2[2].value = jsn.role
-            flds2[3].value = jsn.firstName
-            flds2[4].value = jsn.lastName
-            flds2[5].value = jsn.phone
-            flds2[6].value = jsn.address
-            flds2[7].value = jsn.selections
+            flds2[3].value = jsn.password
+            flds2[4].value = jsn.firstName
+            flds2[5].value = jsn.lastName
+            flds2[6].value = jsn.phone
+            flds2[7].value = jsn.address
+            flds2[8].value = jsn.selections
         }
         curId = parseInt(jsn.id)
         mode = 2
     })
 }
+
+function nie(a) { return a.length === 0 ? null : a }
 
 window.act = function act(isUsr) {
     const a = curId === -1, b = mode === 0
@@ -123,12 +127,12 @@ window.act = function act(isUsr) {
         id: !a ? parseInt(flds2[0].value) : null,
         name: flds2[1].value,
         role: flds2[2].value,
-        password: 'password', //TODO: test user update
-        firstName: flds2[3].value,
-        lastName: flds2[4].value,
-        phone: flds2[5].value,
-        address: flds2[6].value,
-        selections: flds2[7].value
+        password: flds2[3].value,
+        firstName: nie(flds2[4].value),
+        lastName: nie(flds2[5].value),
+        phone: nie(flds2[6].value),
+        address: nie(flds2[7].value),
+        selections: nie(flds2[8].value)
     }
     if (!b)
         G.request(G.ps, `/iou${!isUsr ? 'c' : 'u'}`, rld, JSON.stringify(jsn))
@@ -151,11 +155,12 @@ window.act = function act(isUsr) {
             case fld(flds2, 0): bwh = 'id'; break
             case fld(flds2, 1): bwh = 'name'; break
             case fld(flds2, 2): bwh = 'role'; break
-            case fld(flds2, 3): bwh = 'firstName'; break
-            case fld(flds2, 4): bwh = 'lastName'; break
-            case fld(flds2, 5): bwh = 'phone'; break
-            case fld(flds2, 6): bwh = 'address'; break
-            case fld(flds2, 7): bwh = 'selections'; break
+            case fld(flds2, 3): bwh = 'password'; break
+            case fld(flds2, 4): bwh = 'firstName'; break
+            case fld(flds2, 5): bwh = 'lastName'; break
+            case fld(flds2, 6): bwh = 'phone'; break
+            case fld(flds2, 7): bwh = 'address'; break
+            case fld(flds2, 8): bwh = 'selections'; break
         }
 
         G.redir(`/adm?entity=${!isUsr}&byWhich=${bwh}&selection=${slc}`)
