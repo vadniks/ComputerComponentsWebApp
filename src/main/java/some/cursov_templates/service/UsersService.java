@@ -71,7 +71,8 @@ public class UsersService implements UserDetailsService {
                  USER_FIRST_NAME,
                  USER_LAST_NAME,
                  USER_PHONE,
-                 USER_ADDRESS -> selection;
+                 USER_ADDRESS,
+                 USER_SELECTIONS -> selection;
             default -> throw new IllegalArgumentException();
         };
 

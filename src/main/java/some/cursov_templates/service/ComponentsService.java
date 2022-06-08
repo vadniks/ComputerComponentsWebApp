@@ -179,7 +179,7 @@ public class ComponentsService {
         for (val item : items) {
             val component = repo.getByName(item.get(ENTITY_NAME));
             assert component != null;
-            builder.append(component).append(',');
+            builder.append(component.getId()).append(SELECTIONS_SEPARATOR);
         }
         return builder.toString();
     }

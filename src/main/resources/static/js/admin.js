@@ -56,6 +56,7 @@ function clr(isUsr) { if (!isUsr) {
     flds2[4].value = ''
     flds2[5].value = ''
     flds2[6].value = ''
+    flds2[7].value = ''
 } }
 
 function idDsb(dsb, isUsr) { (!isUsr ? flds1[0] : flds2[0]).disabled = dsb }
@@ -102,6 +103,7 @@ window.onUpdateClick = function onUpdateClick(id, isUsr) {
             flds2[4].value = jsn.lastName
             flds2[5].value = jsn.phone
             flds2[6].value = jsn.address
+            flds2[7].value = jsn.selections
         }
         curId = parseInt(jsn.id)
         mode = 2
@@ -124,7 +126,8 @@ window.act = function act(isUsr) {
         firstName: flds2[3].value,
         lastName: flds2[4].value,
         phone: flds2[5].value,
-        address: flds2[6].value
+        address: flds2[6].value,
+        selections: flds2[7].value
     }
     if (!b)
         G.request(G.ps, `/iou${!isUsr ? 'c' : 'u'}`, rld, JSON.stringify(jsn))
@@ -151,6 +154,7 @@ window.act = function act(isUsr) {
             case fld(flds2, 4): bwh = 'lastName'; break
             case fld(flds2, 5): bwh = 'phone'; break
             case fld(flds2, 6): bwh = 'address'; break
+            case fld(flds2, 7): bwh = 'selections'; break
         }
 
         G.redir(`/adm?entity=${!isUsr}&byWhich=${bwh}&selection=${slc}`)

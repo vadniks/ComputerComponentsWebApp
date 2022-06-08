@@ -43,12 +43,12 @@
                             <button class="dbCtUp">components</button>
                         </div>
                         <div class="dbRw1 dbRw">
-                            <span class="dbItm1Id">id</span>
-                            <span class="dbItm1Tp">type</span>
-                            <span class="dbItm1Nm">name</span>
-                            <span class="dbItm1Ds">descr</span>
-                            <span class="dbItm1Cs">cost</span>
-                            <span class="dbItm1Im">img</span>
+                            <span class="dbItm1Id">Id</span>
+                            <span class="dbItm1Tp">Type</span>
+                            <span class="dbItm1Nm">Name</span>
+                            <span class="dbItm1Ds">Description</span>
+                            <span class="dbItm1Cs">Cost</span>
+                            <span class="dbItm1Im">Image</span>
                         </div>
                     </div>
                     <div class="dbItm" th:each="component: ${components}" th:with="cid = ${component['id']}">
@@ -80,13 +80,14 @@
                             <button class="dbCtUp">users</button>
                         </div>
                         <div class="dbRw2 dbRw">
-                            <span class="dbItm2Id">id</span>
-                            <span class="dbItm2Lg">name</span>
-                            <span class="dbItm2Rl">role</span>
-                            <span class="dbItm2Fn">fnm</span>
-                            <span class="dbItm2Ln">lnm</span>
-                            <span class="dbItm2Ph">phn</span>
-                            <span class="dbItm2Ad">adr</span>
+                            <span class="dbItm2Id">Id</span>
+                            <span class="dbItm2Lg">Name</span>
+                            <span class="dbItm2Rl">Role</span>
+                            <span class="dbItm2Fn">FirstName</span>
+                            <span class="dbItm2Ln">LastName</span>
+                            <span class="dbItm2Ph">Phone</span>
+                            <span class="dbItm2Ad">Address</span>
+                            <span class="dbItm2Sl">Selections</span>
                         </div>
                     </div>
                     <div class="dbItm" th:each="user: ${users}" th:with="uid = ${user['id']}">
@@ -110,6 +111,7 @@
                             <span class="dbItm2Ln" th:text="${user['lastName']}">lnm</span>
                             <span class="dbItm2Ph" th:text="${user['phone']}">phn</span>
                             <span class="dbItm2Ad" th:text="${user['address']}">adr</span>
+                            <span class="dbItm2Sl" th:text="${user['selections']}">slc</span>
                         </div>
                     </div>
                 </div>
@@ -151,6 +153,7 @@
             <input class="actMnInp" placeholder="Last name"/>    <!--4-->
             <input class="actMnInp" placeholder="Phone number"/> <!--5-->
             <input class="actMnInp" placeholder="Address"/>      <!--6-->
+            <input class="actMnInp" placeholder="Selections"/>   <!--7-->
         </div>
         <div class="actFtr">
             <button class="actFtBt" onclick="act(true)">Action</button>

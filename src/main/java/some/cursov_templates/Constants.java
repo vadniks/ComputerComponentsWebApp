@@ -34,6 +34,7 @@ public final class Constants {
     public static final String ROLE_USER = "role0";
     public static final String ROLE_ADMIN = "role1";
     public static final String UTF_8 = "UTF_8";
+    public static final char SELECTIONS_SEPARATOR = ',';
 
     /** Database */
     public static final String DB_NAME = "postgres";
@@ -66,6 +67,7 @@ public final class Constants {
     public static final String USER_LAST_NAME = "lastName";
     public static final String USER_PHONE = "phone";
     public static final String USER_ADDRESS = "address";
+    public static final String USER_SELECTIONS = "selections";
 
     /** Endpoints */
     public static final String ENDPOINT_INDEX = EMPTY + ROOT;
