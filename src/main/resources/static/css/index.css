@@ -43,7 +43,7 @@
     justify-content: space-between;
     width: fit-content;
 }
-#ovrwItmDsc {
+.ovrwItmDsc {
     margin-right: 10px;
     text-align: justify;
     text-justify: inter-word;
@@ -51,7 +51,7 @@
     -ms-overflow-style: none;
     scrollbar-width: none;
 }
-#ovrwItmDsc::-webkit-scrollbar {
+.ovrwItmDsc::-webkit-scrollbar {
     display: none;
 }
 #ovrwItmNm {
@@ -188,7 +188,7 @@ input {
     #ovrwItmTxt {
         width: 92%;
     }
-    #ovrwItmDsc {
+    .ovrwItmDsc {
         height: 0;
     }
     /*#cmpSlc {*/

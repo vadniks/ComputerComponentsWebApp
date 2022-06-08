@@ -14,12 +14,15 @@ function elm(a) { return document.getElementById(a) }
 const sbt = elm('sbt'), fnm = elm('fnm'), lnm = elm('lnm'),
     phn = elm('phn'), adr = elm('adr'), ttl = elm('sbtTtl'),
     ord = elm('sbtOrd'), ovr = elm('overlay'), msg = elm('sbtMsg'),
-    cst = elm('componentCst'), abt = elm('menuBtAbt'), ovrw = elm('overview')
+    cst = elm('componentCst'), abt = elm('menuBtAbt')
 
 function chk() {
-    for (const i of ovrw.querySelectorAll('#ovrwItmDsc'))
+    for (const i of document.getElementsByClassName('ovrwItmDsc')) {
+        console.log(i)
+        console.log(i.textContent)
         if (i.textContent.toLowerCase() !== 'Not Selected'.toLowerCase())
             return true
+    }
     return false
 }
 
@@ -69,7 +72,10 @@ window.order = () => {
       return }
 
     G.request(G.ps, '/ord',
-        () => pp('Ordered successfully', true),
+        () => {
+            pp('Ordered successfully', true)
+            G.redir(G.ndx)
+        },
         pld(), () => pp('Order failed', true))
 }
 

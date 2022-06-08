@@ -123,7 +123,7 @@ window.act = function act(isUsr) {
         id: !a ? parseInt(flds2[0].value) : null,
         name: flds2[1].value,
         role: flds2[2].value,
-        password: 'password',
+        password: 'password', //TODO: test user update
         firstName: flds2[3].value,
         lastName: flds2[4].value,
         phone: flds2[5].value,
