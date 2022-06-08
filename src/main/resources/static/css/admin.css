@@ -85,6 +85,11 @@
     flex-direction: row;
     width: 100%;
 }
+/*.dbRw > span:nth-child(odd) {*/
+    /*background-color: darkslateblue;*/
+    /*border-left: 1px solid slategrey;*/
+    /*border-right: 1px solid slategrey;*/
+/*}*/
 .dbRw span {
     margin: 5px;
     word-wrap: anywhere;
