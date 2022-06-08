@@ -27,6 +27,7 @@ public class PagesController {
     public String index(Model model, HttpServletRequest request) {
         model.addAttribute(ATTRIBUTE_TOTAL, componentsService.getTotalCost(request));
         model.addAttribute(ATTRIBUTE_ITEMS, componentsService.getOverviewItems(request));
+        model.addAttribute(ATTRIBUTE_HAS_ORDERED, usersService.hasOrdered(request));
         return PAGE_INDEX;
     }
 

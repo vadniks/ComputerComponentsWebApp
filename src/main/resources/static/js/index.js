@@ -72,3 +72,6 @@ window.order = () => {
         () => pp('Ordered successfully', true),
         pld(), () => pp('Order failed', true))
 }
+
+window.cnl = () => G.request(G.ps, '/cnl', () => G.redir(G.ndx),
+    null, () => alert('Unable to cancel order'))

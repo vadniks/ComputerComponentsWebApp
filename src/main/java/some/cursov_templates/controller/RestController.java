@@ -2,7 +2,6 @@ package some.cursov_templates.controller;
 
 import lombok.RequiredArgsConstructor;
 import lombok.val;
-import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -80,7 +79,7 @@ public class RestController {
         return usersService.registerUser(
             map.get(ENTITY_NAME),
             map.get(USER_PASSWORD)
-        ) ? STATUS_OK : new EmptyResponse(HttpStatus.BAD_REQUEST);
+        ) ? STATUS_OK : STATUS_NOT_OK;
     }
 
     @PreAuthorize(HAS_ROLE_USER)
@@ -93,6 +92,12 @@ public class RestController {
             map.get(USER_ADDRESS),
             request,
             componentsService::extractComponentsIds
-        ) ? STATUS_OK : new EmptyResponse(HttpStatus.BAD_REQUEST);
+        ) ? STATUS_OK : STATUS_NOT_OK;
+    }
+
+    @PreAuthorize(HAS_ROLE_USER)
+    @PostMapping(POST_CANCEL_ORDER)
+    public EmptyResponse cancelOrder(HttpServletRequest request) {
+        return usersService.cancelOrder(request) ? STATUS_OK : STATUS_NOT_OK;
     }
 }

@@ -3,6 +3,7 @@ package some.cursov_templates;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import lombok.val;
+import org.jetbrains.annotations.Nullable;
 import org.jetbrains.annotations.TestOnly;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -35,6 +36,7 @@ public final class Constants {
     public static final String ROLE_ADMIN = "role1";
     public static final String UTF_8 = "UTF_8";
     public static final char SELECTIONS_SEPARATOR = ',';
+    public static final EmptyResponse STATUS_NOT_OK = new EmptyResponse(HttpStatus.BAD_REQUEST);
 
     /** Database */
     public static final String DB_NAME = "postgres";
@@ -89,6 +91,7 @@ public final class Constants {
     public static final String IS_ANONYMOUS = "isAnonymous()";
     public static final String POST_ORDER = "/ord";
     public static final String HAS_ROLE_USER = "hasRole(" + ROLE_USER + ')';
+    public static final String POST_CANCEL_ORDER = "/cnl";
 
     /** Pages */
     public static final String PAGE_INDEX = "index";
@@ -123,6 +126,7 @@ public final class Constants {
     public static final String ATTRIBUTE_TOTAL = "total";
     public static final String ATTRIBUTE_COMPONENTS = "components";
     public static final String ATTRIBUTE_USERS = "users";
+    public static final String ATTRIBUTE_HAS_ORDERED = "has_ordered";
 
     /** Sessions */
     public static final String SESSION_CHOSEN_ITEMS = "chosen_items";
@@ -167,6 +171,7 @@ public final class Constants {
     public static String toStr(int a) { return Integer.toString(a); }
     public static String toStr(char a) { return Character.toString(a); }
     public static int toInt(String a) { return Integer.parseInt(a); }
+    public static boolean notNullNotEmpty(@Nullable String a) { return a != null && !a.isEmpty(); }
 
     public static String rmDollar(String a)
     { val b = a.indexOf(DOLLAR);

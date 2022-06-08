@@ -124,6 +124,22 @@ public class UsersService implements UserDetailsService {
         return true;
     }
 
+    public boolean hasOrdered(HttpServletRequest request) {
+        val name = request.getRemoteUser(); if (name == null) return false;
+        val user = repo.getByName(name);     if (user == null) return false;
+        return notNullNotEmpty(user.getSelections());
+    }
+
+    public boolean cancelOrder(HttpServletRequest request) {
+        val name = request.getRemoteUser(); if (name == null) return false;
+        val user = repo.getByName(name);     if (user == null) return false;
+
+        user.setSelections(null);
+        repo.save(user);
+
+        return true;
+    }
+
     @PostConstruct
     public void postConstruct() {
         session = sessionFactory.openSession();
