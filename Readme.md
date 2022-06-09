@@ -15,7 +15,7 @@ and it uses Spring framework as core.
 
 ## Screenshots
 
-![Main page](screens/a.png "Main page")
+![Main page with selections](screens/a.png "Main page with selections")
 ![Browse page](screens/b.png "Browse page")
 ![Browse page window](screens/c.png "Browse page window")
 ![About page](screens/d.png "About page")
@@ -23,6 +23,9 @@ and it uses Spring framework as core.
 ![Registration page displaying an error](screens/f.png "Registration page displaying an error")
 ![Administration page](screens/g.png "Administration page")
 ![Administration page displaying the update dialog](screens/h.png "Administration page displaying the update dialog")
+![Main page without selections](screens/i.png "Main page without selections")
+![Submit order window](screens/j.png "Submit order window")
+![User edit window](screens/k.png "User edit window")
 
 ## Build
 Execute the following command to build & generate the jar file:
