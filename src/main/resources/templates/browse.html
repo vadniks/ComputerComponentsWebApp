@@ -36,10 +36,11 @@
         <div id="content">
             <div id="cntHdr">
                 <span>PC Components <span th:text="${type}"></span> Selection</span>
+                <input id="srch" type="text" placeholder="Search">
             </div>
             <div id="cmpSlc">
                 <div id="cmpSlcLst" th:if="${not #lists.isEmpty(items)}" th:each="item: ${items}">
-                    <div id="cmpSlcItm" th:onclick="onItemClick([[${item['id']}]])">
+                    <div class="cmpSlcItm" th:onclick="onItemClick([[${item['id']}]])">
                         <img id="cmpSlcItmImg" th:src="${item['image']}">
                         <span id="cmpSlcItmNm" th:text="${item['name']}">Case</span>
                         <span id="cmpSlcItmCst" th:text="${item['cost']}">Cost</span>

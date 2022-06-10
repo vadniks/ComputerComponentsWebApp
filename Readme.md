@@ -26,6 +26,7 @@ and it uses Spring framework as core.
 ![Main page without selections](screens/i.png "Main page without selections")
 ![Submit order window](screens/j.png "Submit order window")
 ![User edit window](screens/k.png "User edit window")
+![Search in action](screens/l.png "Search in action")
 
 ## Build
 Execute the following command to build & generate the jar file:
